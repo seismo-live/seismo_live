@@ -23,6 +23,12 @@ RUN cd /tmp; git clone https://github.com/krischer/instaseis.git; cd instaseis; 
 # Copy the actual notebooks.
 COPY notebooks/ /home/jovyan/work/
 
+# A bit ugly but unfortunately necessary: https://github.com/docker/docker/issues/6119
+USER root
+RUN chown -R jovyan:users /home/jovyan/work
+
+USER jovyan
+
 # Download the instaseis database.
-RUN mkdir -P /home/jovyan/work/Instaseis/data/database
+RUN mkdir -p /home/jovyan/work/Instaseis/data/database
 RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis/data/database
