@@ -1,0 +1,2 @@
+# Ignore the database to not upload it to git.
+Instaseis/data/database
