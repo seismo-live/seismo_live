@@ -1,2 +1,7 @@
 # Ignore the database to not upload it to git.
 notebooks/Instaseis/data/database
+
+# Data out files from the instaseis notebook
+notebooks/Instaseis/data_out/*.mseed
+
+*.ipynb_checkpoints
