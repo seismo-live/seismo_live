@@ -32,3 +32,6 @@ USER jovyan
 # Download the instaseis database.
 RUN mkdir -p /home/jovyan/work/Instaseis/data/database
 RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis/data/database
+
+# Set a default backend for matplotlib!
+RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && printf "\nbackend: agg\n" >> ~/.config/matplotlib/matplotlibrc
