@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDSNStationXML xmlns="http://www.fdsn.org/xml/station/1" schemaVersion="1.0">
+  <Source>SeisComP3</Source>
+  <Sender>INGV</Sender>
+  <Created>2015-05-13T23:31:45</Created>
+  <Network code="SI" startDate="1980-01-01T00:00:00" restrictedStatus="open">
+    <Description>Sudtirol</Description>
+    <Station code="LUSI" startDate="2012-11-02T11:31:05" restrictedStatus="open">
+      <Latitude>45.9595</Latitude>
+      <Longitude>10.9436</Longitude>
+      <Elevation>860</Elevation>
+      <Site>
+        <Name>Lusi</Name>
+      </Site>
+      <CreationDate>2012-11-02T11:31:05</CreationDate>
+      <Channel code="HHE" startDate="2012-11-02T11:31:05" restrictedStatus="open" locationCode="">
+        <Latitude>45.9595</Latitude>
+        <Longitude>10.9436</Longitude>
+        <Elevation>860</Elevation>
+        <Depth>0</Depth>
+        <Azimuth>90</Azimuth>
+        <Dip>0</Dip>
+        <SampleRate>100</SampleRate>
+        <SampleRateRatio>
+          <NumberSamples>100</NumberSamples>
+          <NumberSeconds>1</NumberSeconds>
+        </SampleRateRatio>
+        <StorageFormat>Steim2</StorageFormat>
+        <ClockDrift>0</ClockDrift>
+        <Sensor resourceId="Sensor#20130927094148.13772.7">
+          <Type>STS-2-120S</Type>
+          <Description>STS-2-120S</Description>
+          <Model>STS-2-120S</Model>
+        </Sensor>
+        <DataLogger resourceId="Datalogger#20130927094148.13728.5">
+          <Description>LUSI.2012.307.H</Description>
+        </DataLogger>
+        <Response>
+          <InstrumentSensitivity>
+            <Value>629145000</Value>
+            <Frequency>0.02</Frequency>
+            <InputUnits>
+              <Name>M/S</Name>
+            </InputUnits>
+            <OutputUnits>
+              <Name>COUNTS</Name>
+            </OutputUnits>
+          </InstrumentSensitivity>
+          <Stage number="1">
+            <PolesZeros resourceId="ResponsePAZ#20130927094148.137909.8" name="LUSI.2012.307.HE">
+              <InputUnits>
+                <Name>M/S</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>V</Name>
+              </OutputUnits>
+              <PzTransferFunctionType>LAPLACE (RADIANS/SECOND)</PzTransferFunctionType>
+              <NormalizationFactor>59680600</NormalizationFactor>
+              <NormalizationFrequency>0.02</NormalizationFrequency>
+              <Zero number="5">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Zero number="6">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Pole number="0">
+                <Real>-0.035647</Real>
+                <Imaginary>-0.036879</Imaginary>
+              </Pole>
+              <Pole number="1">
+                <Real>-0.035647</Real>
+                <Imaginary>0.036879</Imaginary>
+              </Pole>
+              <Pole number="2">
+                <Real>-251.33</Real>
+                <Imaginary>0</Imaginary>
+              </Pole>
+              <Pole number="3">
+                <Real>-131.04</Real>
+                <Imaginary>-467.29</Imaginary>
+              </Pole>
+              <Pole number="4">
+                <Real>-131.04</Real>
+                <Imaginary>467.29</Imaginary>
+              </Pole>
+            </PolesZeros>
+            <StageGain>
+              <Value>1500</Value>
+              <Frequency>0.02</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="2">
+            <Coefficients>
+              <InputUnits>
+                <Name>V</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <CfTransferFunctionType>DIGITAL</CfTransferFunctionType>
+            </Coefficients>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>419430</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="3">
+            <FIR resourceId="ResponseFIR#20130927094148.138952.12" name="LUSI..HHZ.2012.307.stage_3">
+              <InputUnits>
+                <Name>COUNTS</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <Symmetry>NONE</Symmetry>
+            </FIR>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>1</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+        </Response>
+      </Channel>
+      <Channel code="HHN" startDate="2012-11-02T11:31:05" restrictedStatus="open" locationCode="">
+        <Latitude>45.9595</Latitude>
+        <Longitude>10.9436</Longitude>
+        <Elevation>860</Elevation>
+        <Depth>0</Depth>
+        <Azimuth>0</Azimuth>
+        <Dip>0</Dip>
+        <SampleRate>100</SampleRate>
+        <SampleRateRatio>
+          <NumberSamples>100</NumberSamples>
+          <NumberSeconds>1</NumberSeconds>
+        </SampleRateRatio>
+        <StorageFormat>Steim2</StorageFormat>
+        <ClockDrift>0</ClockDrift>
+        <Sensor resourceId="Sensor#20130927094148.13853.10">
+          <Type>STS-2-120S</Type>
+          <Description>STS-2-120S</Description>
+          <Model>STS-2-120S</Model>
+        </Sensor>
+        <DataLogger resourceId="Datalogger#20130927094148.13728.5">
+          <Description>LUSI.2012.307.H</Description>
+        </DataLogger>
+        <Response>
+          <InstrumentSensitivity>
+            <Value>629145000</Value>
+            <Frequency>0.02</Frequency>
+            <InputUnits>
+              <Name>M/S</Name>
+            </InputUnits>
+            <OutputUnits>
+              <Name>COUNTS</Name>
+            </OutputUnits>
+          </InstrumentSensitivity>
+          <Stage number="1">
+            <PolesZeros resourceId="ResponsePAZ#20130927094148.138592.11" name="LUSI.2012.307.HN">
+              <InputUnits>
+                <Name>M/S</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>V</Name>
+              </OutputUnits>
+              <PzTransferFunctionType>LAPLACE (RADIANS/SECOND)</PzTransferFunctionType>
+              <NormalizationFactor>59680600</NormalizationFactor>
+              <NormalizationFrequency>0.02</NormalizationFrequency>
+              <Zero number="5">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Zero number="6">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Pole number="0">
+                <Real>-0.035647</Real>
+                <Imaginary>-0.036879</Imaginary>
+              </Pole>
+              <Pole number="1">
+                <Real>-0.035647</Real>
+                <Imaginary>0.036879</Imaginary>
+              </Pole>
+              <Pole number="2">
+                <Real>-251.33</Real>
+                <Imaginary>0</Imaginary>
+              </Pole>
+              <Pole number="3">
+                <Real>-131.04</Real>
+                <Imaginary>-467.29</Imaginary>
+              </Pole>
+              <Pole number="4">
+                <Real>-131.04</Real>
+                <Imaginary>467.29</Imaginary>
+              </Pole>
+            </PolesZeros>
+            <StageGain>
+              <Value>1500</Value>
+              <Frequency>0.02</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="2">
+            <Coefficients>
+              <InputUnits>
+                <Name>V</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <CfTransferFunctionType>DIGITAL</CfTransferFunctionType>
+            </Coefficients>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>419430</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="3">
+            <FIR resourceId="ResponseFIR#20130927094148.138952.12" name="LUSI..HHZ.2012.307.stage_3">
+              <InputUnits>
+                <Name>COUNTS</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <Symmetry>NONE</Symmetry>
+            </FIR>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>1</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+        </Response>
+      </Channel>
+      <Channel code="HHZ" startDate="2012-11-02T11:31:05" restrictedStatus="open" locationCode="">
+        <Latitude>45.9595</Latitude>
+        <Longitude>10.9436</Longitude>
+        <Elevation>860</Elevation>
+        <Depth>0</Depth>
+        <Azimuth>0</Azimuth>
+        <Dip>-90</Dip>
+        <SampleRate>100</SampleRate>
+        <SampleRateRatio>
+          <NumberSamples>100</NumberSamples>
+          <NumberSeconds>1</NumberSeconds>
+        </SampleRateRatio>
+        <StorageFormat>Steim2</StorageFormat>
+        <ClockDrift>0</ClockDrift>
+        <Sensor resourceId="Sensor#20130927094148.139014.13">
+          <Type>STS-2-120S</Type>
+          <Description>STS-2-120S</Description>
+          <Model>STS-2-120S</Model>
+        </Sensor>
+        <DataLogger resourceId="Datalogger#20130927094148.13728.5">
+          <Description>LUSI.2012.307.H</Description>
+        </DataLogger>
+        <Response>
+          <InstrumentSensitivity>
+            <Value>629145000</Value>
+            <Frequency>0.02</Frequency>
+            <InputUnits>
+              <Name>M/S</Name>
+            </InputUnits>
+            <OutputUnits>
+              <Name>COUNTS</Name>
+            </OutputUnits>
+          </InstrumentSensitivity>
+          <Stage number="1">
+            <PolesZeros resourceId="ResponsePAZ#20130927094148.139069.14" name="LUSI.2012.307.HZ">
+              <InputUnits>
+                <Name>M/S</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>V</Name>
+              </OutputUnits>
+              <PzTransferFunctionType>LAPLACE (RADIANS/SECOND)</PzTransferFunctionType>
+              <NormalizationFactor>59680600</NormalizationFactor>
+              <NormalizationFrequency>0.02</NormalizationFrequency>
+              <Zero number="5">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Zero number="6">
+                <Real>0</Real>
+                <Imaginary>0</Imaginary>
+              </Zero>
+              <Pole number="0">
+                <Real>-0.035647</Real>
+                <Imaginary>-0.036879</Imaginary>
+              </Pole>
+              <Pole number="1">
+                <Real>-0.035647</Real>
+                <Imaginary>0.036879</Imaginary>
+              </Pole>
+              <Pole number="2">
+                <Real>-251.33</Real>
+                <Imaginary>0</Imaginary>
+              </Pole>
+              <Pole number="3">
+                <Real>-131.04</Real>
+                <Imaginary>-467.29</Imaginary>
+              </Pole>
+              <Pole number="4">
+                <Real>-131.04</Real>
+                <Imaginary>467.29</Imaginary>
+              </Pole>
+            </PolesZeros>
+            <StageGain>
+              <Value>1500</Value>
+              <Frequency>0.02</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="2">
+            <Coefficients>
+              <InputUnits>
+                <Name>V</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <CfTransferFunctionType>DIGITAL</CfTransferFunctionType>
+            </Coefficients>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>419430</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+          <Stage number="3">
+            <FIR resourceId="ResponseFIR#20130927094148.138952.12" name="LUSI..HHZ.2012.307.stage_3">
+              <InputUnits>
+                <Name>COUNTS</Name>
+              </InputUnits>
+              <OutputUnits>
+                <Name>COUNTS</Name>
+              </OutputUnits>
+              <Symmetry>NONE</Symmetry>
+            </FIR>
+            <Decimation>
+              <InputSampleRate>100</InputSampleRate>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <Delay>0</Delay>
+              <Correction>0</Correction>
+            </Decimation>
+            <StageGain>
+              <Value>1</Value>
+              <Frequency>0</Frequency>
+            </StageGain>
+          </Stage>
+        </Response>
+      </Channel>
+    </Station>
+  </Network>
+</FDSNStationXML>

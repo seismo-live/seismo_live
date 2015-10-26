@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<q:quakeml xmlns:q="http://quakeml.org/xmlns/quakeml/1.2" xmlns="http://quakeml.org/xmlns/bed/1.2">
+  <eventParameters publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query">
+    <event publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query?eventId=841091">
+      <description>
+        <type>region name</type>
+        <text>MODENA</text>
+      </description>
+      <type>earthquake</type>
+      <preferredMagnitudeID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?magnitudeId=4196921</preferredMagnitudeID>
+      <preferredOriginID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?originId=5896831</preferredOriginID>
+      <preferredFocalMechanismID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?focalMechanismId=1131</preferredFocalMechanismID>
+      <creationInfo>
+        <agencyID>INGV</agencyID>
+        <author>hew1_mole#MOD_EQASSEMBLE</author>
+        <creationTime>2012-05-29T07:19:57</creationTime>
+      </creationInfo>
+      <origin publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query?originId=5896831">
+        <evaluationMode>manual</evaluationMode>
+        <type>hypocenter</type>
+        <time>
+          <value>2012-05-29T07:00:02.880000</value>
+          <uncertainty>0.02</uncertainty>
+        </time>
+        <latitude>
+          <value>44.8417</value>
+          <uncertainty>0.0009</uncertainty>
+        </latitude>
+        <longitude>
+          <value>11.0657</value>
+          <uncertainty>0.0013</uncertainty>
+        </longitude>
+        <depth>
+          <value>8070</value>
+          <uncertainty>400</uncertainty>
+        </depth>
+        <depthType>from location</depthType>
+        <originUncertainty>
+          <preferredDescription>uncertainty ellipse</preferredDescription>
+          <horizontalUncertainty>100.0</horizontalUncertainty>
+          <minHorizontalUncertainty>47</minHorizontalUncertainty>
+          <maxHorizontalUncertainty>271</maxHorizontalUncertainty>
+          <azimuthMaxHorizontalUncertainty>59</azimuthMaxHorizontalUncertainty>
+          <confidenceLevel>68</confidenceLevel>
+        </originUncertainty>
+        <quality>
+          <azimuthalGap>72</azimuthalGap>
+          <associatedPhaseCount>60</associatedPhaseCount>
+          <usedPhaseCount>60</usedPhaseCount>
+          <standardError>0.1984</standardError>
+          <minimumDistance>0.08364</minimumDistance>
+          <maximumDistance>1.16192</maximumDistance>
+          <associatedStationCount>36</associatedStationCount>
+          <usedStationCount>36</usedStationCount>
+        </quality>
+        <evaluationStatus>reviewed</evaluationStatus>
+        <methodID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?methodId=21</methodID>
+        <earthModelID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?earthModelId=31</earthModelID>
+        <creationInfo>
+          <agencyID>INGV</agencyID>
+          <author>REMO-INGV</author>
+          <version>1000</version>
+          <creationTime>2014-09-19T08:14:18</creationTime>
+        </creationInfo>
+      </origin>
+      <magnitude publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query?magnitudeId=4196921">
+        <originID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?originId=1432821</originID>
+        <type>Mw</type>
+        <mag>
+          <value>5.6</value>
+        </mag>
+        <methodID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?methodId=1</methodID>
+        <creationInfo>
+          <agencyID>INGV</agencyID>
+          <author>TDMT Reviewer</author>
+          <creationTime>2014-03-26T10:25:55</creationTime>
+        </creationInfo>
+      </magnitude>
+      <focalMechanism publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query?focalMechanismId=1131">
+        <triggeringOriginID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?originId=1432821</triggeringOriginID>
+        <nodalPlanes>
+          <nodalPlane1>
+            <strike>
+              <value>275</value>
+            </strike>
+            <dip>
+              <value>52</value>
+            </dip>
+            <rake>
+              <value>90</value>
+            </rake>
+          </nodalPlane1>
+          <nodalPlane2>
+            <strike>
+              <value>95</value>
+            </strike>
+            <dip>
+              <value>38</value>
+            </dip>
+            <rake>
+              <value>90</value>
+            </rake>
+          </nodalPlane2>
+        </nodalPlanes>
+        <creationInfo>
+          <agencyID>INGV</agencyID>
+          <author>Laura Scognamiglio (laura.scognamiglio@ingv.it) and Elisa Tinti (elisa.tinti@ingv.it) | Reference: http://bit.ly/1rnPkZz</author>
+          <creationTime>2014-03-26T10:25:55</creationTime>
+        </creationInfo>
+        <evaluationMode>manual</evaluationMode>
+        <evaluationStatus>reviewed</evaluationStatus>
+        <momentTensor publicID="smi:webservices.rm.ingv.it/fdsnws/event/1/query?momentTensorId=1131">
+          <momentMagnitudeID>smi:webservices.rm.ingv.it/fdsnws/event/1/query?magnitudeId=4196921</momentMagnitudeID>
+          <category>regional</category>
+          <varianceReduction>46.54</varianceReduction>
+          <doubleCouple>0.9700</doubleCouple>
+          <clvd>0.0300</clvd>
+          <iso>0.0000</iso>
+          <tensor>
+            <Mrr>
+              <value>3.4281309e17</value>
+            </Mrr>
+            <Mtt>
+              <value>-3.3575483999999994e17</value>
+            </Mtt>
+            <Mpp>
+              <value>-7.05826e15</value>
+            </Mpp>
+            <Mrt>
+              <value>-8.663886e16</value>
+            </Mrt>
+            <Mrp>
+              <value>9.05493e15</value>
+            </Mrp>
+            <Mtp>
+              <value>2.838198e16</value>
+            </Mtp>
+          </tensor>
+          <scalarMoment>
+            <value>3.51467e17</value>
+          </scalarMoment>
+          <dataUsed>
+            <waveType>combined</waveType>
+            <stationCount>40</stationCount>
+            <componentCount>120</componentCount>
+          </dataUsed>
+          <creationInfo>
+            <agencyID>INGV</agencyID>
+            <author>Laura Scognamiglio (laura.scognamiglio@ingv.it) and Elisa Tinti (elisa.tinti@ingv.it) | Reference: http://bit.ly/1rnPkZz</author>
+            <creationTime>2014-03-26T10:25:55</creationTime>
+          </creationInfo>
+        </momentTensor>
+      </focalMechanism>
+    </event>
+  </eventParameters>
+</q:quakeml>
