@@ -458,9 +458,6 @@ var parallelism = (function($) { var _ = {
 						if (_.settings.useScrollKeys) {
 
 							_.objects.window.keydown(function(e) {
-								if ($('.poptrox-popup').is(':visible'))
-									return;
-
 								switch (e.keyCode)
 								{
 									case 39:
@@ -481,21 +478,6 @@ var parallelism = (function($) { var _ = {
 							});
 
 						}
-
-				// Poptrox.
-					_.objects.reel.poptrox({
-						onPopupClose: (_.settings.useBlurFilter ? (function() { _.objects.wrapper.removeClass('overlayed'); }) : null),
-						onPopupOpen: (_.settings.useBlurFilter ? (function() { _.objects.wrapper.addClass('overlayed'); }) : null),
-						overlayColor: _.settings.popupOverlayColor,
-						overlayOpacity: _.settings.popupOverlayOpacity,
-						popupCloserText: '',
-						popupLoaderText: '',
-						selector: '.thumb a.image',
-						usePopupCaption: true,
-						usePopupCloser: false,
-						usePopupDefaultStyling: false,
-						usePopupNav: true
-					});
 
 				// Trigger resize event.
 					_.objects.window.trigger('resize');
@@ -534,24 +516,6 @@ var parallelism = (function($) { var _ = {
 
 
 					});
-
-				// Poptrox.
-					_.objects.reel.poptrox({
-						onPopupClose: (_.settings.useBlurFilter ? (function() { _.objects.wrapper.removeClass('overlayed'); }) : null),
-						onPopupOpen: (_.settings.useBlurFilter ? (function() { _.objects.wrapper.addClass('overlayed'); }) : null),
-						overlayColor: _.settings.popupOverlayColor,
-						overlayOpacity: _.settings.popupOverlayOpacity,
-						popupSpeed: 0,
-						selector: '.thumb a.image',
-						useBodyOverflow: false,
-						usePopupCaption: false,
-						usePopupCloser: false,
-						usePopupDefaultStyling: false,
-						usePopupLoader: false,
-						usePopupNav: false,
-						windowMargin: 0
-					});
-
 			},
 
 		// Main init method
