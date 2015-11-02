@@ -580,7 +580,7 @@ var parallelism = (function($) { var _ = {
 				});
 
                 // Modifications not related to the HTML5Up Theme go below this line!
-                var server_url = "http://vm-141-40-254-7.cloud.mwn.de:8000";
+                var server_url = "http://vm-141-40-254-15.cloud.mwn.de:8000";
                 $("#server_name").text(server_url);
                 $("#tmpnb_link").attr("href", server_url);
 
