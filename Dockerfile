@@ -8,6 +8,7 @@ MAINTAINER Lion Krischer <lion.krischer@gmail.com>
 # Install system libs as root.
 USER root
 
+RUN apt-get update
 RUN apt-get install -y gfortran git
 
 # Rest as jovyan user who is provided by the Jupyter notebook template.
