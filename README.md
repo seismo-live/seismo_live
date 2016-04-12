@@ -1,8 +1,13 @@
 ## Live Jupyter Notebooks for Seismology
 
+
+### Server Installation
+
+This explains how to install seismo-live on a server. For a local installation see below.
+
 Based on: https://github.com/jupyter/tmpnb
 
-### Installation
+#### Installation
 
 Install Docker for you platform: http://docs.docker.com/installation
 
@@ -27,7 +32,7 @@ cd seismo_live
 make build
 ```
 
-### Running
+#### Running
 
 To start it, edit the Makefile to set the desired number of Docker workers and available containers and start it with
 
@@ -35,14 +40,47 @@ To start it, edit the Makefile to set the desired number of Docker workers and a
 make fresh_start
 ```
 
-### Stop it
+#### Stop it
 
 ```bash
 make nuke
 ```
 
-### Help
+#### Help
 
 ```bash
 make help
+```
+
+
+### Local Installation
+
+You might be interested in running the notebooks locally on your own computer. A big advantage is that any changes you make will no longer be deleted. You can also contribute changes you made (or entirely new notebooks) back to the seismo-live project!
+
+The notebooks as of now require:
+
+* Python 3.5
+* The scientific Python stack (NumPy, SciPy, matplotlib)
+* The Jupyter notebooks
+* ObsPy >= 1.0.1
+* Instaseis
+
+We recommend to install ObsPy via Anaconda as written [in its installation instructions](https://github.com/obspy/obspy/wiki/Installation-via-Anaconda). Then install Instaseis (does not work on Windows) according to [its documentation](http://instaseis.net/#installation). Finally install the Jupyter project with
+
+```bash
+$ conda install jupyter
+```
+
+Now just clone the project from Github, cd to the correct folder and launch the notebook server.
+
+```bash
+$ git clone --depth=1 https://github.com/krischer/seismo_live.git
+$ cd seismo_live/notebooks
+$ jupyter-notebook
+```
+
+Please note that the Instaseis notebooks require a local database symlinked to `seismo_live/notebooks/Instaseis/data/database`. You could get one for example with:
+
+```bash
+$ wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C 20s_PREM_ANI_INSTASEIS_DB
 ```
