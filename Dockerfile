@@ -14,7 +14,7 @@ RUN apt-get install -y gfortran git
 USER jovyan
 
 # Install ObsPy and Instaseis Dependencies.
-RUN conda install --yes -c obspy obspy netcdf4 future requests tornado flake8 pytest mock basemap pip jupyter
+RUN conda install --yes -c obspy obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema
 RUN pip install responses
 
 # Install Instaseis from git.
