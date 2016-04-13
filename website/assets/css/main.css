@@ -528,7 +528,7 @@ article {
   }
 }
 
-.modal, .modal-title {
+.modal, .modal-title, .modal-content b {
     color: black
 }
 
@@ -541,5 +541,19 @@ article {
     border: none;
     border-radius: 0px;
     padding: 20px;
-    box-shadow: none
+    box-shadow: none;
+}
+
+.modal-content a {
+    color: red;
+}
+
+.row > h2 {
+    color: black;
+    font-weight: 700;
+    font-size: large;
+}
+
+.modal img {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }

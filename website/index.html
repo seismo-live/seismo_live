@@ -3,6 +3,7 @@
     Based on the template: Parallelism by HTML5 UP html5up.net | @n33co | Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
     -->
 <html>
+
     <head>
         <title>Live Notebooks for Seismology</title>
         <meta charset="utf-8" />
@@ -20,6 +21,7 @@
         <link rel="stylesheet" href="assets/css/ie9.css" />
         <![endif]-->
     </head>
+
     <body>
         <!--Potential error messages will go here!-->
         <div id="error_message">
@@ -39,7 +41,9 @@
                     <!-- Thumb Items -->
                     <article class="item thumb" data-width="282" style="background-color:#EF8824">
                         <h2>Help - What is this?</h2>
-                        <a href="http://obspy.org"><img src="images/help.jpg" alt=""></a>
+                        <a data-toggle="modal" data-target=".help-modal">
+                        <img src="images/help.jpg" alt="">
+                        </a>
                     </article>
                     <a id="tmpnb_link" href="#" target="_blank">
                         <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
@@ -78,6 +82,7 @@
                     </article>
                 </div>
             </div>
+
             <div id="footer">
                 <div class="left">
                     <p>tmpnb server: <span id="server_name">Enable JavaScript Tobi!!!</span></p>
@@ -101,6 +106,59 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade help-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title">What am I looking at?</h2>
+                    </div>
+                    <div class="modal-content">
+                        <div class="row">
+                            Seismo-Live is an interactive online learning
+                            platform for seismology. It utilizes
+                            <a href="http://jupyter.org/">Jupyter Notebooks</a>.
+                        </div>
+
+                        <div class="row" style="padding-top: 20px; padding-bottom: 10px">
+                            <h2>Getting Started</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Most links on the front page lead to tools and
+                                projects that are used on Seismo-Live. The
+                                glowing green button will launch a light-weight
+                                remote virtual machine with ready to use
+                                interactive notebooks. Click on it to get started.
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-responsive" src="images/which_button_to_click.jpg"></img>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top: 30px; padding-bottom: 10px">
+                            <h2 style="text-align:right">Jupyter Notebook Overview</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-responsive" src="images/notebook_overview.jpg"></img>
+                            </div>
+                            <div class="col-md-6">
+                                Once you clicked the green button, an overview
+                                of all available notebooks will be shown in a
+                                new tab. Choose any. If you have never seen
+                                this before, the <b>Python Courses</b> ones
+                                also contains a quick introduction on how to
+                                use the notebooks.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade info-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -114,6 +172,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade asdf-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -121,6 +180,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Scripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
