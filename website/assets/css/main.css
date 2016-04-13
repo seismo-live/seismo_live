@@ -507,10 +507,6 @@ article {
     overflow: visible !important;
 }
 
-#tmpnb_link, #tmpnb_link:hover {
-    color: white !important;
-}
-
 #launch_article {
     z-index: 1000 !important;
     animation: pulse 3.5s infinite;

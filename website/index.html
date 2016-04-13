@@ -38,30 +38,36 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Thumb Items -->
-                    <article class="item thumb" data-width="282" style="background-color:#EF8824">
-                        <h2>Help - What is this?</h2>
-                        <a data-toggle="modal" data-target=".help-modal">
-                        <img src="images/help.jpg" alt="">
-                        </a>
-                    </article>
-                    <a id="tmpnb_link" href="#" target="_blank">
+
+                    <!-- Help item -->
+                    <a data-toggle="modal" data-target=".help-modal">
+                        <article class="item thumb" data-width="282" style="background-color:#EF8824">
+                            <h2>Help - What is this?</h2>
+                            <img src="images/help.jpg" alt="">
+                        </article>
+                    </a>
+
+                    <!-- Launch notebooks item -->
+                    <a data-toggle="modal" data-target=".launch-modal">
                         <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
                             <h2>Launch</h2>
-                            <div id="status">
+                            <div id="status" style="color:white !important">
                                 <span id="available_containers">??</span> of
                                 <span id="container_capacity">??</span> </br>
                                 containers are currently available
                                 <div style="font-size: x-small; line-height: 2.2ex; font-style:italic; padding-top: 10px">Not persistent. Will be deleted after being idle for 30 minutes.</div>
                             </div>
                         </article>
+                    <a/>
+
+                    <!-- More information item -->
+                    <a href="#" data-toggle="modal" data-target=".info-modal">
+                        <article class="item thumb" data-width="282" style="background-color:#850A8B">
+                            <h2>More Information</h2>
+                            <img src="images/information.jpg" alt="">
+                        </article>
                     </a>
-                    <article class="item thumb" data-width="282" style="background-color:#850A8B">
-                        <h2>More Information</h2>
-                        <a data-toggle="modal" data-target=".info-modal">
-                        <img src="images/information.jpg" alt="">
-                        </a>
-                    </article>
+
                     <article class="item thumb" data-width="384">
                         <h2>ObsPy</h2>
                         <a href="http://obspy.org"><img src="images/obspy.jpg" alt=""></a>
@@ -158,6 +164,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade launch-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title">Launch</h2>
+                    </div>
+                    <div class="modal-content">
+                        <div class="row" style="text-align:center">
+                            Press the following button to launch a Jupyter Notebook in a new tab.
+                            <a id="tmpnb_link" href="#" target="_blank"type="button" class="btn btn-success btn-lg"
+                               style="color: white; margin-top: 50px">Launch a new Notebook</a>
+                        </div>
+                        <div class="row">
+                            <div class="alert alert-success" style="margin-top: 50px">
+                                These notebooks are not persistent. Any changes will be discarded after being idle for 30 minutes.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="modal fade info-modal">
             <div class="modal-dialog">
