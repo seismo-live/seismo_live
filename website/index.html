@@ -8,6 +8,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/css/main.css" />
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -35,6 +36,11 @@
 
                     <!-- Thumb Items -->
 
+                        <article class="item thumb" data-width="282" style="background-color:#EF8824">
+                            <h2>Help - What is this?</h2>
+                            <a href="http://obspy.org"><img src="images/help.jpg" alt=""></a>
+                        </article>
+
                         <a id="tmpnb_link" href="#" target="_blank">
                         <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
                             <h2>Launch</h2>
@@ -47,14 +53,21 @@
                         </article>
                         </a>
 
-                        <article class="item thumb" data-width="282">
-                            <h2>ASDF</h2>
-                            <a href="http://seismic-data.org"><img src="images/asdf.jpg" alt=""></a>
+                        <article class="item thumb" data-width="282" style="background-color:#850A8B">
+                            <h2>More Information</h2>
+                            <a href="http://obspy.org"><img src="images/information.jpg" alt=""></a>
                         </article>
 
                         <article class="item thumb" data-width="384">
                             <h2>ObsPy</h2>
                             <a href="http://obspy.org"><img src="images/obspy.jpg" alt=""></a>
+                        </article>
+
+                        <article class="item thumb" data-width="282">
+                            <h2>ASDF</h2>
+                            <a data-toggle="modal" data-target=".asdf-modal">
+                                <img src="images/asdf.jpg" alt="">
+                            </a>
                         </article>
 
                         <article class="item thumb" data-width="384">
@@ -94,9 +107,26 @@
             </div>
 
         </div>
+            <div class="modal fade launch-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    Seom random content
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade asdf-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  ...
+                </div>
+              </div>
+            </div>
+
 
         <!-- Scripts -->
         <script src="assets/js/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script src="assets/js/skel-viewport.min.js"></script>
         <script src="assets/js/util.js"></script>

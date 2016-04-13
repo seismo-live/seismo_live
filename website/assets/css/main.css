@@ -507,7 +507,7 @@ article {
     overflow: visible !important;
 }
 
-#tmpnb_link:hover {
+#tmpnb_link, #tmpnb_link:hover {
     color: white !important;
 }
 
