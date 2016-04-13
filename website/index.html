@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
     Based on the template: Parallelism by HTML5 UP html5up.net | @n33co | Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+    -->
 <html>
     <head>
         <title>Live Notebooks for Seismology</title>
@@ -10,38 +10,38 @@
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/css/main.css" />
-        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <noscript>
+            <link rel="stylesheet" href="assets/css/noscript.css" />
+        </noscript>
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="assets/css/ie8.css" />
+        <![endif]-->
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="assets/css/ie9.css" />
+        <![endif]-->
     </head>
     <body>
         <!--Potential error messages will go here!-->
         <div id="error_message">
         </div>
-
         <div id="wrapper">
-
             <div id="main">
                 <div id="reel">
-
                     <!-- Header Item -->
-
-                        <div id="header" class="item" data-width="400">
-                            <div class="inner">
-                                <h1>Seismo-Live</h1>
-                                <p>Live Jupyter Notebooks<br />
-                                for Seismology</p>
-                            </div>
+                    <div id="header" class="item" data-width="400">
+                        <div class="inner">
+                            <h1>Seismo-Live</h1>
+                            <p>Live Jupyter Notebooks<br />
+                                for Seismology
+                            </p>
                         </div>
-
+                    </div>
                     <!-- Thumb Items -->
-
-                        <article class="item thumb" data-width="282" style="background-color:#EF8824">
-                            <h2>Help - What is this?</h2>
-                            <a href="http://obspy.org"><img src="images/help.jpg" alt=""></a>
-                        </article>
-
-                        <a id="tmpnb_link" href="#" target="_blank">
+                    <article class="item thumb" data-width="282" style="background-color:#EF8824">
+                        <h2>Help - What is this?</h2>
+                        <a href="http://obspy.org"><img src="images/help.jpg" alt=""></a>
+                    </article>
+                    <a id="tmpnb_link" href="#" target="_blank">
                         <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
                             <h2>Launch</h2>
                             <div id="status">
@@ -51,40 +51,33 @@
                                 <div style="font-size: x-small; line-height: 2.2ex; font-style:italic; padding-top: 10px">Not persistent. Will be deleted after being idle for 30 minutes.</div>
                             </div>
                         </article>
+                    </a>
+                    <article class="item thumb" data-width="282" style="background-color:#850A8B">
+                        <h2>More Information</h2>
+                        <a data-toggle="modal" data-target=".info-modal">
+                        <img src="images/information.jpg" alt="">
                         </a>
-
-                        <article class="item thumb" data-width="282" style="background-color:#850A8B">
-                            <h2>More Information</h2>
-                            <a data-toggle="modal" data-target=".info-modal">
-                                <img src="images/information.jpg" alt="">
-                            </a>
-                        </article>
-
-                        <article class="item thumb" data-width="384">
-                            <h2>ObsPy</h2>
-                            <a href="http://obspy.org"><img src="images/obspy.jpg" alt=""></a>
-                        </article>
-
-                        <article class="item thumb" data-width="282">
-                            <h2>ASDF</h2>
-                            <a data-toggle="modal" data-target=".asdf-modal">
-                                <img src="images/asdf.jpg" alt="">
-                            </a>
-                        </article>
-
-                        <article class="item thumb" data-width="384">
-                            <h2>Instaseis</h2>
-                            <a href="http://instaseis.net"><img src="images/instaseis.jpg" alt=""></a>
-                        </article>
-
-                        <article class="item thumb" data-width="274">
-                            <h2>Computational Seismology</h2>
-                            <a href="http://www.geophysik.uni-muenchen.de/Members/igel"><img src="images/computational_seismology.jpg" alt=""></a>
-                        </article>
-
+                    </article>
+                    <article class="item thumb" data-width="384">
+                        <h2>ObsPy</h2>
+                        <a href="http://obspy.org"><img src="images/obspy.jpg" alt=""></a>
+                    </article>
+                    <article class="item thumb" data-width="282">
+                        <h2>ASDF</h2>
+                        <a data-toggle="modal" data-target=".asdf-modal">
+                        <img src="images/asdf.jpg" alt="">
+                        </a>
+                    </article>
+                    <article class="item thumb" data-width="384">
+                        <h2>Instaseis</h2>
+                        <a href="http://instaseis.net"><img src="images/instaseis.jpg" alt=""></a>
+                    </article>
+                    <article class="item thumb" data-width="274">
+                        <h2>Computational Seismology</h2>
+                        <a href="http://www.geophysik.uni-muenchen.de/Members/igel"><img src="images/computational_seismology.jpg" alt=""></a>
+                    </article>
                 </div>
             </div>
-
             <div id="footer">
                 <div class="left">
                     <p>tmpnb server: <span id="server_name">Enable JavaScript Tobi!!!</span></p>
@@ -107,32 +100,27 @@
                     </ul>
                 </div>
             </div>
-
         </div>
-
-            <div class="modal fade info-modal">
-              <div class="modal-dialog">
+        <div class="modal fade info-modal">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h2 class="modal-title">Seismo-Live</h2>
                     </div>
                     <div class="modal-content">
-                    random
+                        random
                     </div>
                 </div>
-              </div>
             </div>
-
-            <div class="modal fade asdf-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-              <div class="modal-dialog modal-sm">
+        </div>
+        <div class="modal fade asdf-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-                  ...
+                    ...
                 </div>
-              </div>
             </div>
-
-
+        </div>
         <!-- Scripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -141,15 +129,14 @@
         <script src="assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
-
         <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-          ga('create', 'UA-44800463-3', 'auto');
-          ga('send', 'pageview');
+            ga('create', 'UA-44800463-3', 'auto');
+            ga('send', 'pageview');
 
         </script>
     </body>
