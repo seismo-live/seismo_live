@@ -527,3 +527,19 @@ article {
     box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 1.0), 0px 0px 50px 000px rgb(30, 201, 32);
   }
 }
+
+.modal, .modal-title {
+    color: black
+}
+
+.modal-header > h2 {
+    font-weight: 900;
+    font-size: xx-large;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 0px;
+    padding: 20px;
+    box-shadow: none
+}

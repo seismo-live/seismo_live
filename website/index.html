@@ -55,7 +55,9 @@
 
                         <article class="item thumb" data-width="282" style="background-color:#850A8B">
                             <h2>More Information</h2>
-                            <a href="http://obspy.org"><img src="images/information.jpg" alt=""></a>
+                            <a data-toggle="modal" data-target=".info-modal">
+                                <img src="images/information.jpg" alt="">
+                            </a>
                         </article>
 
                         <article class="item thumb" data-width="384">
@@ -97,7 +99,7 @@
                         <li>
                             Except where otherwise noted, content on this site is licensed under a
                             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> License.
-                            &copy; 2015 Lion Krischer.
+                            &copy; 2015-2016 Lion Krischer.
                         </li>
                         <li>
                             Design based on a template from <a href="http://html5up.net">HTML5 UP</a>
@@ -107,10 +109,17 @@
             </div>
 
         </div>
-            <div class="modal fade launch-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-              <div class="modal-dialog modal-sm">
+
+            <div class="modal fade info-modal">
+              <div class="modal-dialog">
                 <div class="modal-content">
-                    Seom random content
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title">Seismo-Live</h2>
+                    </div>
+                    <div class="modal-content">
+                    random
+                    </div>
                 </div>
               </div>
             </div>
