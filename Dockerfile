@@ -17,9 +17,6 @@ USER jovyan
 # Install ObsPy and Instaseis Dependencies.
 RUN conda install --yes -c obspy obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema
 RUN pip install responses
-# See https://github.com/ContinuumIO/anaconda-issues/issues/686
-# Needed for instaseis.
-RUN conda remove libgfortran --force --yes
 
 # Install Instaseis from git.
 RUN cd /tmp; git clone https://github.com/krischer/instaseis.git; cd instaseis; pip install -v -e .
