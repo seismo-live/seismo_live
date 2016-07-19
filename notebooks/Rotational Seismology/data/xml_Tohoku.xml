@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<q:quakeml xmlns:ns0="http://service.iris.edu/fdsnws/event/1/" xmlns:q="http://quakeml.org/xmlns/quakeml/1.2" xmlns="http://quakeml.org/xmlns/bed/1.2">
+  <eventParameters publicID="smi:local/89db24a4-960c-452a-90dd-2ea3b1d03a90">
+    <event publicID="smi:service.iris.edu/fdsnws/event/1/query?eventid=3279407">
+      <preferredOriginID>smi:service.iris.edu/fdsnws/event/1/query?originid=7990001</preferredOriginID>
+      <preferredMagnitudeID>smi:service.iris.edu/fdsnws/event/1/query?magnitudeid=14253553</preferredMagnitudeID>
+      <type>earthquake</type>
+      <description ns0:FEcode="229">
+        <text>OFF EAST COAST OF HONSHU, JAPAN</text>
+        <type>Flinn-Engdahl region</type>
+      </description>
+      <origin publicID="smi:service.iris.edu/fdsnws/event/1/query?originid=7990001" ns0:contributor="GCMT" ns0:contributorOriginId="M201103110546A" ns0:catalog="GCMT" ns0:contributorEventId="M201103110546A">
+        <time>
+          <value>2011-03-11T05:47:32.800000Z</value>
+        </time>
+        <latitude>
+          <value>37.52</value>
+        </latitude>
+        <longitude>
+          <value>143.05</value>
+        </longitude>
+        <depth>
+          <value>20000.0</value>
+        </depth>
+        <creationInfo>
+          <author>GCMT</author>
+        </creationInfo>
+      </origin>
+      <magnitude publicID="smi:service.iris.edu/fdsnws/event/1/query?magnitudeid=14253553">
+        <mag>
+          <value>9.1</value>
+        </mag>
+        <type>MW</type>
+        <originID>smi:service.iris.edu/fdsnws/event/1/query?originid=7990001</originID>
+        <creationInfo>
+          <author>GCMT</author>
+        </creationInfo>
+      </magnitude>
+    </event>
+  </eventParameters>
+</q:quakeml>
