@@ -15,7 +15,7 @@ RUN apt-get install -y gfortran git
 USER jovyan
 
 # Install ObsPy and Instaseis Dependencies.
-RUN conda install --yes -c obspy obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema
+RUN conda install --yes -c obspy -c conda-forge obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires
 RUN pip install responses
 
 # Install Instaseis from git.
@@ -31,8 +31,8 @@ RUN chown -R jovyan:users /home/jovyan/work
 USER jovyan
 
 # Download the instaseis database.
-RUN mkdir -p /home/jovyan/work/Instaseis/data/database
-RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis/data/database
+RUN mkdir -p /home/jovyan/work/Instaseis-Syngine/data/database
+RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis-Syngine/data/database
 
 # Set a default backend for matplotlib!
 RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && printf "\nbackend: agg\n" >> ~/.config/matplotlib/matplotlibrc
