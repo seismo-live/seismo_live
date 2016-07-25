@@ -18,6 +18,18 @@ USER jovyan
 RUN conda install --yes -c obspy -c conda-forge obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires
 RUN pip install responses
 
+# Install the rate and state toolkit.
+RUN pip install https://github.com/jrleeman/rsfmodel/archive/master.zip
+
+# Install jupyter lab.
+RUN pip install jupyterlab
+RUN jupyter serverextension enable --py jupyterlab
+
+# Install the jupyter dashboards.
+RUN pip install jupyter_dashboards
+RUN jupyter dashboards quick-setup --sys-prefix
+RUN jupyter nbextension enable jupyter_dashboards --py --sys-prefix
+
 # Install Instaseis from git.
 RUN cd /tmp; git clone https://github.com/krischer/instaseis.git; cd instaseis; pip install -v -e .
 
@@ -30,6 +42,8 @@ RUN chown -R jovyan:users /home/jovyan/work
 
 USER jovyan
 
+# This might exist locally and will thus be copied to the docker image...
+RUN rm -rf /home/jovyan/work/Instaseis-Syngine/data/database
 # Download the instaseis database.
 RUN mkdir -p /home/jovyan/work/Instaseis-Syngine/data/database
 RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis-Syngine/data/database
