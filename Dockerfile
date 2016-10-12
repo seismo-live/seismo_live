@@ -14,9 +14,8 @@ RUN apt-get install -y gfortran git
 # Rest as jovyan user who is provided by the Jupyter notebook template.
 USER jovyan
 
-# Install ObsPy and Instaseis Dependencies.
-RUN conda install --yes -c obspy -c conda-forge obspy h5py future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires
-RUN pip install responses
+# Install ObsPy and Instaseis.
+RUN conda install --yes -c conda-forge obspy future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires instaseis
 
 # Install the rate and state toolkit.
 RUN pip install https://github.com/jrleeman/rsfmodel/archive/master.zip
@@ -30,8 +29,10 @@ RUN pip install jupyter_dashboards
 RUN jupyter dashboards quick-setup --sys-prefix
 RUN jupyter nbextension enable jupyter_dashboards --py --sys-prefix
 
-# Install Instaseis from git.
-RUN cd /tmp; git clone https://github.com/krischer/instaseis.git; cd instaseis; pip install -v -e .
+# Install the code folding plugin.
+RUN conda install --yes -c conda-forge jupyter_contrib_nbextensions
+RUN jupyter contrib nbextension install --user
+RUN jupyter nbextension enable codefolding/main
 
 # Copy the actual notebooks.
 COPY notebooks/ /home/jovyan/work/
