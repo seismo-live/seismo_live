@@ -4,4 +4,9 @@ notebooks/Instaseis-Syngine/data/database
 # Data out files from the instaseis notebook
 notebooks/Instaseis-Syngine/data_out/*.mseed
 
+# Ignore binaries for Lamb's problem.
+notebooks/Computational Seismology/Wave Propagation - Analytical Solutions/Lambs_problem_3D/lamb.exe
+notebooks/Computational Seismology/Wave Propagation - Analytical Solutions/Lambs_problem_3D/output.txt
+
+
 *.ipynb_checkpoints
