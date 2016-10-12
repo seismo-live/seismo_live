@@ -54,3 +54,6 @@ RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && 
 
 # Build the font cache so its already done in the notebooks.
 RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
+
+# Ignore all Python warnings because they look ugly in the docs.
+ENV PYTHONWARNINGS ignore
