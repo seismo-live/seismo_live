@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Lion Krischer">
+
+    <base target="_blank">
+
+    <title>Seismo-Live</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <link href="./custom.css" rel="stylesheet">
+    <!--<link href="./bootstrap-treeview.min.css" rel="stylesheet">-->
+    <link href="./bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="./jquery.treegrid.css" rel="stylesheet">
+    <link href="./bootstrap-treeview.min.css" rel="stylesheet">
+
+    <script src="./jquery-3.1.1.min.js"></script>
+    <script src="./jquery.treegrid.min.js"></script>
+    <script src="./jquery.treegrid.bootstrap3.js"></script>
+
+    <script src="./custom.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="header-row" class="row">
+            <div id="header" class="col-md-12">
+                <h1>Seismo-Live</h1>
+                <h2>Live Jupyter Notebooks for Seismology</h2>
+                <div id="header-float-box">
+                    <a href="/tree" class="btn btn-lg btn-primary">VIEW ALL NOTEBOOKS</a>
+                </div>
+            </div>
+        </div>
+        <div id="warning-box" class="row">
+            <div class="col-md-12">
+                These notebooks are not persistent. Any changes will be discarded after being idle for 30 minutes.
+            </div>
+        </div>
+        <div id="list-of-notebooks" class="row">
+            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                <table class="tree table table-hover">
+                    <tr class="treegrid-root">
+                        <td>All Notebooks</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="treegrid-noise treegrid-parent-root">
+                        <td>Ambient Seismic Noise</td>
+                        <td>Notebooks for studying ambient seismic noise.</td>
+                        <td><a class="btn btn-sm" href="/tree/Ambient%20Seismic%20Noise">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-noise-asn treegrid-parent-noise">
+                        <td>Ambient Seismic Noise</td>
+                        <td>Basics of Probabilistic Power Spectral Densities.</td>
+                        <td><a class="btn btn-success btn-sm" href="/notebooks/Ambient%20Seismic%20Noise/Probabilistic%20Power%20Spectral%20Densities.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <!--COMPUTATIONAL SEISMOLOGY-->
+
+                    <tr class="treegrid-cs treegrid-parent-root">
+                        <td>Computational Seismology</td>
+                        <td>Supplementary material to <a href="http://www.computational-seismology.org/">Computational Seismology: A Practical Introduction</a>.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-as treegrid-parent-cs">
+                        <td>Wave Propagation - Analytical Solutions</td>
+                        <td>Analytical solutions of the wave equation.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/Wave%20Propagation%20-%20Analytical%20Solutions">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-as-gf treegrid-parent-cs-as">
+                        <td>Acoustic Green's Function</td>
+                        <td>Analytical Green's function in 1D, 2D, and 3D.</td>
+                        <td><a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/Wave%20Propagation%20-%20Analytical%20Solutions/Greens_function_acoustic_1-3D.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-as-dc treegrid-parent-cs-as">
+                        <td>Double Couple</td>
+                        <td>Analytical double couple in a homogeneous 3D medium.</td>
+                        <td><a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/Wave%20Propagation%20-%20Analytical%20Solutions/Double_couple_homogeneous_3D/Double_couple_homogeneous_3D.ipynb">OPEN </a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-as-dc treegrid-parent-cs-as">
+                        <td>Lamb's Problem</td>
+                        <td>Analytical solution of Lamb's problem in 3D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/Wave%20Propagation%20-%20Analytical%20Solutions/Lambs_problem_3D/lambs_problem.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/Wave%20Propagation%20-%20Analytical%20Solutions/Lambs_problem_3D/lambs_problem_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd treegrid-parent-cs">
+                        <td>The Finite-Difference Method</td>
+                        <td>Solving various equations with the finite difference method.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Finite-Difference%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+
+                    <tr class="treegrid-cs-fd-fd treegrid-parent-cs-fd">
+                        <td>Numerical First Derivative</td>
+                        <td>Numerically calculating the first derivative with finite differences.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_first_derivative.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_first_derivative_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-to treegrid-parent-cs-fd">
+                        <td>Taylor operators.</td>
+                        <td>How to derive and use Taylor operators.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_taylor_operators.ipynb">SIMPLE</a>
+                            <a class="btn btn-sm btn-danger" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_taylor_operators_advanced.ipynb">ADVANCED</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-1d treegrid-parent-cs-fd">
+                        <td>FD Acoustic 1D</td>
+                        <td>Acoustic wave equation in 1D solved with finite differences.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac1d_with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-2d treegrid-parent-cs-fd">
+                        <td>FD Acoustic 2D</td>
+                        <td>Acoustic wave equation in 2D solved with finite differences.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac2d_homogeneous.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac2d_homogeneous_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-3d treegrid-parent-cs-fd">
+                        <td>FD Acoustic 3D</td>
+                        <td>Acoustic wave equation in 3D solved with finite differences.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac3d_homogeneous.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac3d_homogeneous_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-2d-he treegrid-parent-cs-fd">
+                        <td>FD Acoustic 2D Hetero</td>
+                        <td>Acoustic wave equation in 2D solved in a heterogeneous medium.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac2d_heterogeneous.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_ac2d_heterogeneous_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-ad treegrid-parent-cs-fd">
+                        <td>Advection in 1D</td>
+                        <td>Solving advection in 1D with finite difference.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_advection_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_advection_1d_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-dr treegrid-parent-cs-fd">
+                        <td>Advection Diffusion Reaction</td>
+                        <td>Solving the advection diffusion reaction equation.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_advection_diffusion_reaction.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_advection_diffusion_reaction_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-st treegrid-parent-cs-fd">
+                        <td>Staggered Grid 1D</td>
+                        <td>The wave equation in 1D on a staggered grid.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_elastic1d_staggered.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_elastic1d_staggered_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fd-sm treegrid-parent-cs-fd">
+                        <td>Seismometer Equation</td>
+                        <td>Solving the seismometer equation.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_seismometer.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Difference%20Method/fd_seismometer_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+
+                    <tr class="treegrid-cs-ps treegrid-parent-cs">
+                        <td>The Pseudospectral Method</td>
+                        <td>Introducing the pseudospectral method.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Pseudospectral%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-ps-fd treegrid-parent-cs-ps">
+                        <td>Fourier Derivatives</td>
+                        <td>Calculating derivatives in the spectral domain.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_fourier_derivative.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_fourier_derivative_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-ps-cd treegrid-parent-cs-ps">
+                        <td>Chebyshev Derivatives</td>
+                        <td>Calculating derivatives on Chebyshev collocation points.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_cheby_derivative.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_cheby_derivative_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-ps-fa1d treegrid-parent-cs-ps">
+                        <td>PS Acoustic 1D</td>
+                        <td>Using the pseudospectral method to solve the wave equation in 1D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_fourier_acoustic_1d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-ps-fa2d treegrid-parent-cs-ps">
+                        <td>PS Acoustic 2D</td>
+                        <td>Using the pseudospectral method to solve the wave equation in 2D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_fourier_acoustic_2d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-ps-ce1d treegrid-parent-cs-ps">
+                        <td>Cheby Elastic 1D</td>
+                        <td>Solving the wave equation with the Chebyshev pseudospectral method.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_cheby_elastic_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Pseudospectral%20Method/ps_cheby_elastic_1d_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fe treegrid-parent-cs">
+                        <td>The Finite-Element Method</td>
+                        <td>Using the finite element method to solve the wave equation.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Finite-Element%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fe-el-1d treegrid-parent-cs-fe">
+                        <td>FE Elastic 1D</td>
+                        <td>Solving the elastic wave equation with finite elements in 1D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Element%20Method/fe_elastic_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Element%20Method/fe_elastic_1d_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fe-se treegrid-parent-cs-fe">
+                        <td>Static Elasticity</td>
+                        <td>Solving the static problem with finite elements.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Element%20Method/fe_static_elasticity.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+
+                    <tr class="treegrid-cs-sem treegrid-parent-cs">
+                        <td>The Spectral-Element Method</td>
+                        <td>Introducing the widely used spectral element method.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Spectral-Element%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-sem-la treegrid-parent-cs-sem">
+                        <td>Lagrange Interpolation</td>
+                        <td>The fundamentals of Lagrange interpolation.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Spectral-Element%20Method/se_Lagrange_interpolation.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-sem-int treegrid-parent-cs-sem">
+                        <td>Numerical Integration</td>
+                        <td>Numerical integration with GLL collocation points.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Spectral-Element%20Method/se_numerical_integration_GLL.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-sem-homo treegrid-parent-cs-sem">
+                        <td>Homogeneous 1D</td>
+                        <td>Spectral element solution of the wave equation in 1D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Spectral-Element%20Method/se_homo_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Spectral-Element%20Method/se_homo_1d_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+
+                    <tr class="treegrid-cs-fv treegrid-parent-cs">
+                        <td>The Finite-Volume Method</td>
+                        <td>Solutions to the wave equation using the finite volume method.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Finite-Volume%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fv-adv treegrid-parent-cs-fv">
+                        <td>Scalar Advection</td>
+                        <td>Solving the scalar advection equation with finite volumes in 1D.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Volume%20Method/fv_scalar_advection_1d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fv-homo treegrid-parent-cs-fv">
+                        <td>Elastic 1D</td>
+                        <td>Solving the 1D elastic wave equation with finite volumes.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Volume%20Method/fv_elastic_homo_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Finite-Volume%20Method/fv_elastic_homo_1d_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-fv_hetero treegrid-parent-cs-fv">
+                        <td>Elastic 1D Hetero</td>
+                        <td>Solving the 1D elastic wave equation with finite volumes in a heterogeneous medium.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Finite-Volume%20Method/fv_elastic_hetero_1d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+
+                    <tr class="treegrid-cs-dg treegrid-parent-cs">
+                        <td>The Discontinuous Galerkin Method</td>
+                        <td>Demonstrating the powerful discontinuous Galerkin method.</td>
+                        <td><a class="btn btn-sm" href="/tree/Computational%20Seismology/The%20Discontinuous%20Galerkin%20Method">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-dg-adv treegrid-parent-cs-dg">
+                        <td>Scalar Advection</td>
+                        <td>Solving the scalar advection equation with a DG method.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Discontinuous%20Galerkin%20Method/dg_scalar_advection_1d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-dg-homo treegrid-parent-cs-dg">
+                        <td>Elastic 1D</td>
+                        <td>Solving the elastic wave equation in 1D with a DG method.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Discontinuous%20Galerkin%20Method/dg_elastic_homo_1d.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Computational%20Seismology/The%20Discontinuous%20Galerkin%20Method/dg_elastic_homo_1d_solution.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-cs-dg-hetero treegrid-parent-cs-dg">
+                        <td>Elastic 1D Hetero</td>
+                        <td>Solving the elastic wave equation in 1D with a DG method in a heterogeneous medium.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Computational%20Seismology/The%20Discontinuous%20Galerkin%20Method/dg_elastic_hetero_1d.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+
+                    <!--EARTHQUAKE PHYSICS-->
+
+                    <tr class="treegrid-ep treegrid-parent-root">
+                        <td>Earthquake Physics</td>
+                        <td>Notebooks for studying earthquake physics.</td>
+                        <td><a class="btn btn-sm" href="/tree/Earthquake%20Physics">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-ep-rsf treegrid-parent-ep">
+                        <td>The Rate and State Friction Toolkit</td>
+                        <td>A demo of the rsfmodel dashboard.</td>
+                        <td><a class="btn btn-sm btn-success" href="/notebooks/Earthquake%20Physics/rsf_widgets_dashboard.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <!--GENERAL SEISMOLOGY-->
+
+                    <tr class="treegrid-gs treegrid-parent-root">
+                        <td>General Seismology</td>
+                        <td>Notebooks for general seismology.</td>
+                        <td><a class="btn btn-sm" href="/tree/General%20Seismology">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-gs-ir treegrid-parent-gs">
+                        <td>Instrument Correction</td>
+                        <td>An exercise to perform instrument correction.</td>
+                        <td><a class="btn btn-sm btn-success" href="/notebooks/General%20Seismology/instrument_response.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <!--INSTASEIS/SYNGINE-->
+
+                    <tr class="treegrid-instaseis treegrid-parent-root">
+                        <td>Instaseis-Syngine</td>
+                        <td>Notebooks to learn <a href="http://instaseis.net">Instaseis</a>/<a href="http://ds.iris.edu/ds/products/syngine/">Syngine</a>.</td>
+                        <td><a class="btn btn-sm" href="/tree/Instaseis-Syngine">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-instaseis-01 treegrid-parent-instaseis">
+                        <td>Instaseis Introduction</td>
+                        <td>What is it?</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_01_introduction.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-instaseis-02 treegrid-parent-instaseis">
+                        <td>Instaseis Basics</td>
+                        <td>The very basics.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_02_basis.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_02_basis_with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-instaseis-03 treegrid-parent-instaseis">
+                        <td>Instaseis Record Section</td>
+                        <td>Calculating and plotting a record section.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_03_record_section.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_03_record_section_with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-instaseis-04 treegrid-parent-instaseis">
+                        <td>Instaseis Finite Sources</td>
+                        <td>Finite source calculations and analysis.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_04_finite_source.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Instaseis-Syngine/Instaseis_Tutorial_04_finite_source_with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-instaseis-syngine treegrid-parent-instaseis">
+                        <td>Syngine Tutorial</td>
+                        <td>How to use the Syngine service?</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Instaseis-Syngine/syngine_tutorial.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <!--OBSPY-->
+
+                    <tr class="treegrid-obspy treegrid-parent-root">
+                        <td>ObsPy</td>
+                        <td>A 1 to 2 day <a href="http://obspy.org">ObsPy</a> course.</td>
+                        <td><a class="btn btn-sm" href="/tree/ObsPy">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-00 treegrid-parent-obspy">
+                        <td>0. Introduction</td>
+                        <td>Start Here.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/00_introduction.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-01 treegrid-parent-obspy">
+                        <td>1. File Formats</td>
+                        <td>An Overview of how ObsPy deals with various files.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/01_File_Formats.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/01_File_Formats-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-02 treegrid-parent-obspy">
+                        <td>2. UTCDateTime</td>
+                        <td>Time handling in ObsPy.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/02_UTCDateTime.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/02_UTCDateTime-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-03 treegrid-parent-obspy">
+                        <td>3. Waveform Data</td>
+                        <td>How ObsPy deals with waveform data.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/03_waveform_data.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/03_waveform_data-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-04 treegrid-parent-obspy">
+                        <td>4. Station Metainformation</td>
+                        <td>Reading station information with ObsPy.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/04_Station_metainformation.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/04_Station_metainformation-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-05 treegrid-parent-obspy">
+                        <td>5. Event Metadata</td>
+                        <td>Getting earthquake information with ObsPy.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/05_Event_metadata.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/05_Event_metadata-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-06 treegrid-parent-obspy">
+                        <td>6. FDSN</td>
+                        <td>Downloading data with FDSN web services.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/06_FDSN.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/06_FDSN-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-07 treegrid-parent-obspy">
+                        <td>7. Exercise: Basic Processing</td>
+                        <td>Apply your new skills.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/07_Basic_Processing_Exercise.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/07_Basic_Processing_Exercise-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-obspy-08 treegrid-parent-obspy">
+                        <td>8. Exercise: Aftershock Series</td>
+                        <td>An advanced and more involved exercise.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/ObsPy/08_Exercise__2008_MtCarmel_Earthquake_and_Aftershock_Series.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/ObsPy/08_Exercise__2008_MtCarmel_Earthquake_and_Aftershock_Series-with_solutions.ipynb">SOLUTION</a>
+                        </td>
+                    </tr>
+
+                    <!--PYTHON INTRODUCTION-->
+
+                    <tr class="treegrid-python treegrid-parent-root">
+                        <td>Python Introduction</td>
+                        <td>An introduction to the Python programming language.</td>
+                        <td><a class="btn btn-sm" href="/tree/Python%20Introduction">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-python-crashcourse treegrid-parent-python">
+                        <td>Python Crash Course</td>
+                        <td>Python in 30 Minutes.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Python%20Introduction/Python_Crash_Course.ipynb">OPEN</a>
+                            <a class="btn btn-sm btn-warning" href="/notebooks/Python%20Introduction/Python_Crash_Course-with_solutions.ipynb">SOLUTIOn</a>
+                        </td>
+                    </tr>
+
+                    <!--ROTATIONAL SEISMOLOGY-->
+
+                    <tr class="treegrid-rotseis treegrid-parent-root">
+                        <td>Rotational Seismology</td>
+                        <td>Notebooks studying rotational seismology.</td>
+                        <td><a class="btn btn-sm" href="/tree/Rotational%20Seismology">VIEW ALL</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-rotseis-dl_pr treegrid-parent-rotseis">
+                        <td>Downloading and Preprocessing</td>
+                        <td>Downloading and preprocessing of rotational data.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Rotational%20Seismology/download+preprocess_data.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-rotseis-ba treegrid-parent-rotseis">
+                        <td>Backazimuth Estimation</td>
+                        <td>Estimate the backazimuth with rotational data.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Rotational%20Seismology/estimate_backazimuth.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                    <tr class="treegrid-rotseis-dl_pr treegrid-parent-rotseis">
+                        <td>Phase Velocity Estimation</td>
+                        <td>Estimate the phase velocity with rotational data.</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/notebooks/Rotational%20Seismology/estimate_phase_velocity.ipynb">OPEN</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

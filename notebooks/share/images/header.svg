@@ -1,3 +1,255 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="158.16535 116.165354 856.6693 434.6693" width="856.6693pt" height="434.6693pt" xmlns:dc="http://purl.org/dc/elements/1.1/"><metadata> Produced by OmniGraffle 6.0.3 <dc:date>2016-04-11 13:31Z</dc:date></metadata><defs><font-face font-family="Helvetica Neue" font-size="35" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.99585" descent="-212.99744" font-weight="500"><font-face-src><font-face-name name="HelveticaNeue"/></font-face-src></font-face><font-face font-family="Helvetica Neue" font-size="20" panose-1="2 0 4 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="530" cap-height="728" ascent="966.99524" descent="-212.99744" font-weight="300"><font-face-src><font-face-name name="HelveticaNeue-Light"/></font-face-src></font-face></defs><g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1"><title>Canvas 1</title><g><title>Layer 1</title><rect x="161.5748" y="119.05512" width="850.3937" height="428.0315" fill="#d2314b"/><text transform="translate(201.5748 168.57086)" fill="white"><tspan font-family="Helvetica Neue" font-size="35" font-weight="500" fill="white" x="0" y="33" textLength="193.83">Seismo-Live</tspan><tspan font-family="Helvetica Neue" font-size="20" font-weight="300" fill="white" fill-opacity=".52" x="0" y="84" textLength="204.12">Live Jupyter Notebooks</tspan><tspan font-family="Helvetica Neue" font-size="20" font-weight="300" fill="white" fill-opacity=".52" x="0" y="108" textLength="127.44">for Seismology</tspan></text><rect x="731.3386" y="119.05512" width="280.62992" height="428.0315" fill="#6ec2ab"/><text transform="translate(771.3386 309.07086)" fill="#d3d3d3"/><path d="M 507.32295 119.05512 L 613.85796 119.05512 L 587.2242 547.0866 L 480.6892 547.0866 Z" fill="#56be2a"/><path d="M 590.23935 119.05512 L 696.77436 119.05512 L 670.1406 547.0866 L 563.6056 547.0866 Z" fill="#277d00"/><path d="M 602.80244 119.05512 L 709.33745 119.05512 L 682.7037 547.0866 L 576.1687 547.0866 Z" fill="#3baa04"/><path d="M 615.36553 119.05512 L 721.90054 119.05512 L 695.2668 547.0866 L 588.73178 547.0866 Z" fill="#78dc4e"/><path d="M 630.44125 119.05512 L 736.97626 119.05512 L 710.3425 547.0866 L 603.8075 547.0866 Z" fill="#9feb7e"/><path d="M 643.65737 119.05512 L 750.1924 119.05512 L 723.55863 547.0866 L 617.02362 547.0866 Z" fill="#de7036"/><path d="M 726.57377 119.05512 L 833.1088 119.05512 L 806.47503 547.0866 L 699.94002 547.0866 Z" fill="#913500"/><path d="M 739.13687 119.05512 L 845.6719 119.05512 L 819.0381 547.0866 L 712.5031 547.0866 Z" fill="#c64f12"/><path d="M 751.69996 119.05512 L 858.23497 119.05512 L 831.6012 547.0866 L 725.0662 547.0866 Z" fill="#ff985f"/><path d="M 766.77567 119.05512 L 873.3107 119.05512 L 846.67693 547.0866 L 740.1419 547.0866 Z" fill="#ffb78d"/><path d="M 781.85136 119.05512 L 888.3864 119.05512 L 861.7526 547.0866 L 755.2176 547.0866 Z" fill="#258468"/><path d="M 864.76776 119.05512 L 971.3028 119.05512 L 944.669 547.0866 L 838.134 547.0866 Z" fill="#0b5840"/><path d="M 877.33085 119.05512 L 983.86587 119.05512 L 957.2321 547.0866 L 850.6971 547.0866 Z" fill="#137757"/><path d="M 889.89395 119.05512 L 996.42896 119.05512 L 969.7952 547.0866 L 863.2602 547.0866 Z" fill="#3e9d80"/><path d="M 904.96966 119.05512 L 1011.5047 119.05512 L 984.8709 547.0866 L 878.3359 547.0866 Z" fill="#6ec2ab"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="158.16535 116.16535 850.39373 428.03151"
+   width="850.39374pt"
+   height="428.03152pt"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="header.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview64"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.1579731"
+     inkscape:cx="310.29019"
+     inkscape:cy="185.34741"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata4"> Produced by OmniGraffle 6.0.3 <dc:date>2016-04-11 13:31Z</dc:date>
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <defs
+     id="defs6">
+    <font-face
+       font-family="Helvetica Neue"
+       font-size="35"
+       panose-1="2 0 5 3 0 0 0 2 0 4"
+       units-per-em="1000"
+       underline-position="-100"
+       underline-thickness="50"
+       slope="0"
+       x-height="517"
+       cap-height="714"
+       ascent="951.99585"
+       descent="-212.99744"
+       font-weight="500"
+       id="font-face8"
+       stemv="0"
+       stemh="0"
+       accent-height="0"
+       ideographic="0"
+       alphabetic="0"
+       mathematical="0"
+       hanging="0"
+       v-ideographic="0"
+       v-alphabetic="0"
+       v-mathematical="0"
+       v-hanging="0"
+       strikethrough-position="0"
+       strikethrough-thickness="0"
+       overline-position="0"
+       overline-thickness="0">
+      <font-face-src>
+        <font-face-name
+           name="HelveticaNeue" />
+      </font-face-src>
+    </font-face>
+    <font-face
+       font-family="Helvetica Neue"
+       font-size="20"
+       panose-1="2 0 4 3 0 0 0 2 0 4"
+       units-per-em="1000"
+       underline-position="-100"
+       underline-thickness="50"
+       slope="0"
+       x-height="530"
+       cap-height="728"
+       ascent="966.99524"
+       descent="-212.99744"
+       font-weight="300"
+       id="font-face10"
+       stemv="0"
+       stemh="0"
+       accent-height="0"
+       ideographic="0"
+       alphabetic="0"
+       mathematical="0"
+       hanging="0"
+       v-ideographic="0"
+       v-alphabetic="0"
+       v-mathematical="0"
+       v-hanging="0"
+       strikethrough-position="0"
+       strikethrough-thickness="0"
+       overline-position="0"
+       overline-thickness="0">
+      <font-face-src>
+        <font-face-name
+           name="HelveticaNeue-Light" />
+      </font-face-src>
+    </font-face>
+  </defs>
+  <g
+     id="g12"
+     style="fill:none;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     transform="translate(-3.4094543,-2.8897681)">
+    <title
+       id="title14">Canvas 1</title>
+    <g
+       id="g16">
+      <title
+         id="title18">Layer 1</title>
+      <rect
+         x="161.5748"
+         y="119.05512"
+         width="850.39368"
+         height="428.03149"
+         id="rect20"
+         style="fill:#d2314b" />
+      <text
+         transform="translate(201.5748,168.57086)"
+         id="text22"
+         style="fill:#ffffff">
+        <tspan
+           font-size="35"
+           font-weight="500"
+           x="0"
+           y="33"
+           textLength="193.83"
+           id="tspan24"
+           style="font-weight:500;font-size:35px;font-family:'Helvetica Neue';fill:#ffffff">Seismo-Live</tspan>
+        <tspan
+           font-size="20"
+           font-weight="300"
+           x="0"
+           y="84"
+           textLength="204.12"
+           id="tspan26"
+           style="font-weight:300;font-size:20px;font-family:'Helvetica Neue';fill:#ffffff;fill-opacity:0.51999996">Live Jupyter Notebooks</tspan>
+        <tspan
+           font-size="20"
+           font-weight="300"
+           x="0"
+           y="108"
+           textLength="127.44"
+           id="tspan28"
+           style="font-weight:300;font-size:20px;font-family:'Helvetica Neue';fill:#ffffff;fill-opacity:0.51999996">for Seismology</tspan>
+      </text>
+      <rect
+         x="731.33862"
+         y="119.05512"
+         width="280.62991"
+         height="428.03149"
+         id="rect30"
+         style="fill:#6ec2ab" />
+      <text
+         transform="translate(771.3386,309.07086)"
+         id="text32"
+         style="fill:#d3d3d3" />
+      <path
+         d="m 507.32295,119.05512 106.53501,0 -26.63376,428.03148 -106.535,0 z"
+         id="path34"
+         inkscape:connector-curvature="0"
+         style="fill:#56be2a" />
+      <path
+         d="m 590.23935,119.05512 106.53501,0 -26.63376,428.03148 -106.535,0 z"
+         id="path36"
+         inkscape:connector-curvature="0"
+         style="fill:#277d00" />
+      <path
+         d="m 602.80244,119.05512 106.53501,0 -26.63375,428.03148 -106.535,0 z"
+         id="path38"
+         inkscape:connector-curvature="0"
+         style="fill:#3baa04" />
+      <path
+         d="m 615.36553,119.05512 106.53501,0 -26.63374,428.03148 -106.53502,0 z"
+         id="path40"
+         inkscape:connector-curvature="0"
+         style="fill:#78dc4e" />
+      <path
+         d="m 630.44125,119.05512 106.53501,0 -26.63376,428.03148 -106.535,0 z"
+         id="path42"
+         inkscape:connector-curvature="0"
+         style="fill:#9feb7e" />
+      <path
+         d="m 643.65737,119.05512 106.53503,0 -26.63377,428.03148 -106.53501,0 z"
+         id="path44"
+         inkscape:connector-curvature="0"
+         style="fill:#de7036" />
+      <path
+         d="m 726.57377,119.05512 106.53503,0 -26.63377,428.03148 -106.53501,0 z"
+         id="path46"
+         inkscape:connector-curvature="0"
+         style="fill:#913500" />
+      <path
+         d="m 739.13687,119.05512 106.53503,0 -26.6338,428.03148 -106.535,0 z"
+         id="path48"
+         inkscape:connector-curvature="0"
+         style="fill:#c64f12" />
+      <path
+         d="m 751.69996,119.05512 106.53501,0 -26.63377,428.03148 -106.535,0 z"
+         id="path50"
+         inkscape:connector-curvature="0"
+         style="fill:#ff985f" />
+      <path
+         d="m 766.77567,119.05512 106.53503,0 -26.63377,428.03148 -106.53503,0 z"
+         id="path52"
+         inkscape:connector-curvature="0"
+         style="fill:#ffb78d" />
+      <path
+         d="m 781.85136,119.05512 106.53504,0 -26.6338,428.03148 -106.535,0 z"
+         id="path54"
+         inkscape:connector-curvature="0"
+         style="fill:#258468" />
+      <path
+         d="m 864.76776,119.05512 106.53504,0 -26.6338,428.03148 -106.535,0 z"
+         id="path56"
+         inkscape:connector-curvature="0"
+         style="fill:#0b5840" />
+      <path
+         d="m 877.33085,119.05512 106.53502,0 -26.63377,428.03148 -106.535,0 z"
+         id="path58"
+         inkscape:connector-curvature="0"
+         style="fill:#137757" />
+      <path
+         d="m 889.89395,119.05512 106.53501,0 -26.63376,428.03148 -106.535,0 z"
+         id="path60"
+         inkscape:connector-curvature="0"
+         style="fill:#3e9d80" />
+      <path
+         d="m 904.96966,119.05512 106.53504,0 -26.6338,428.03148 -106.535,0 z"
+         id="path62"
+         inkscape:connector-curvature="0"
+         style="fill:#6ec2ab" />
+    </g>
+  </g>
+</svg>
