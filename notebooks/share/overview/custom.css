@@ -69,5 +69,26 @@
 }
 
 #list-of-notebooks {
-    margin-top: 10px;
+    margin-top: 25px;
+}
+
+table {
+    padding: 10px;
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.treegrid-root {
+    background-color: #ccc;
+}
+
+.treegrid-parent-root {
+    background-color: #dddddd;
+}
+
+.treegrid-parent-cs {
+    background-color: #f5f5f5;
+}
+
+tr > td:nth-child(2) {
+    font-style: italic;
 }
