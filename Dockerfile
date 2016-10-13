@@ -57,7 +57,3 @@ RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
 
 # Ignore all Python warnings because they look ugly in the docs.
 ENV PYTHONWARNINGS ignore
-
-# Copy the jupyter notebook configuration.
-RUN mkdir -p ~/.jupyter
-COPY jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
