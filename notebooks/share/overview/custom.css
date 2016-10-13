@@ -12,7 +12,7 @@
 
     /*Make sure the text is readable for all screen sizes.*/
     background-image: url("../images/header_no_text.svg");
-    background-position: 220px;
+    background-position: 240px;
     background-repeat: no-repeat;
     background-size: cover;
 }
