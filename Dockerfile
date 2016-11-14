@@ -15,7 +15,7 @@ RUN apt-get install -y gfortran git
 USER jovyan
 
 # Install ObsPy and Instaseis.
-RUN conda install --yes -c conda-forge obspy future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires instaseis
+RUN conda install --yes -c conda-forge obspy future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires instaseis pandas
 
 # Install the rate and state toolkit.
 RUN pip install https://github.com/jrleeman/rsfmodel/archive/master.zip
