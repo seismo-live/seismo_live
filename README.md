@@ -5,6 +5,8 @@
 
 We intend seismo-live to be a place to collect all kinds of tutorial and notebooks related to seismology so contributions are gladly accepted and actually crucial for the success of the whole project. To contribute make sure you have the same installation, especially **Python version 3.5**, as documented below. If you require additional packages please mention it in your pull request. Once your environment is setup, create your new notebooks and send us a pull request. Tutorials on how to do that can be found [here](https://yangsu.github.io/pull-request-tutorial/) and [here](https://www.thinkful.com/learn/github-pull-request-tutorial/) and lots of other places online. If you need help, don't hesitate to contact us.
 
+**New contributors, please sign this:** https://www.clahub.com/agreements/krischer/seismo_live
+
 
 ### Server Installation
 
