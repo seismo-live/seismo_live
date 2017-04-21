@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<FDSNStationXML schemaVersion="1.0" xmlns="http://www.fdsn.org/xml/station/1">
+  <Source>IRIS-DMC</Source>
+  <Sender>IRIS-DMC</Sender>
+  <Module>IRIS WEB SERVICE: fdsnws-station | version: 1.1.25</Module>
+  <ModuleURI>http://service.iris.edu/fdsnws/station/1/query?starttime=2017-02-24T00%3A32%3A17.200000&amp;channel=BHN&amp;endtime=2017-02-24T01%3A32%3A17.200000&amp;station=BFO&amp;network=II&amp;format=xml&amp;location=00</ModuleURI>
+  <Created>2017-04-21T08:08:32+00:00</Created>
+  <Network code="II" endDate="2500-12-31T23:59:59+00:00" restrictedStatus="open" startDate="1986-01-01T00:00:00+00:00">
+    <Description>Global Seismograph Network (GSN - IRIS/IDA)</Description>
+    <TotalNumberStations>53</TotalNumberStations>
+    <SelectedNumberStations>1</SelectedNumberStations>
+    <Station code="BFO" endDate="2599-12-31T23:59:59+00:00" restrictedStatus="open" startDate="1996-05-29T00:00:00+00:00">
+      <Comment>
+        <Value>Day contains positive leap second (86401 s/day).</Value>
+        <BeginEffectiveTime>1997-06-30T00:00:00+00:00</BeginEffectiveTime>
+        <EndEffectiveTime>1997-07-01T00:00:00+00:00</EndEffectiveTime>
+      </Comment>
+      <Comment>
+        <Value>Day contains positive leap second (86401 s/day).</Value>
+        <BeginEffectiveTime>1998-12-31T00:00:00+00:00</BeginEffectiveTime>
+        <EndEffectiveTime>1998-12-31T23:59:59+00:00</EndEffectiveTime>
+      </Comment>
+      <Latitude unit="DEGREES">48.3301</Latitude>
+      <Longitude unit="DEGREES">8.3296</Longitude>
+      <Elevation>589.0</Elevation>
+      <Site>
+        <Name>Black Forest Observatory, Schiltach, Germany</Name>
+      </Site>
+      <CreationDate>1996-05-29T00:00:00+00:00</CreationDate>
+      <TotalNumberChannels>129</TotalNumberChannels>
+      <SelectedNumberChannels>0</SelectedNumberChannels>
+    </Station>
+  </Network>
+</FDSNStationXML>
