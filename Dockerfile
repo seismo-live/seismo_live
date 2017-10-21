@@ -35,19 +35,19 @@ RUN jupyter contrib nbextension install --user
 RUN jupyter nbextension enable codefolding/main
 
 # Copy the actual notebooks.
-COPY notebooks/ /home/jovyan/work/
+COPY notebooks/ /home/jovyan
 
 # A bit ugly but unfortunately necessary: https://github.com/docker/docker/issues/6119
 USER root
-RUN chown -R jovyan:users /home/jovyan/work
+RUN chown -R jovyan:users /home/jovyan
 
 USER jovyan
 
 # This might exist locally and will thus be copied to the docker image...
-RUN rm -rf /home/jovyan/work/Instaseis-Syngine/data/database
+RUN rm -rf /home/jovyan/Instaseis-Syngine/data/database
 # Download the instaseis database.
-RUN mkdir -p /home/jovyan/work/Instaseis-Syngine/data/database
-RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/work/Instaseis-Syngine/data/database
+RUN mkdir -p /home/jovyan/Instaseis-Syngine/data/database
+RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/Instaseis-Syngine/data/database
 
 # Set a default backend for matplotlib!
 RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && printf "\nbackend: agg\n" >> ~/.config/matplotlib/matplotlibrc
