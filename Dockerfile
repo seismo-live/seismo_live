@@ -50,7 +50,7 @@ RUN mkdir -p /home/jovyan/Instaseis-Syngine/data/database
 RUN wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C /home/jovyan/Instaseis-Syngine/data/database
 
 # Set a default backend for matplotlib!
-RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && printf "\nbackend: agg\n" >> ~/.config/matplotlib/matplotlibrc
+RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && printf "\nbackend: nbagg\n" >> ~/.config/matplotlib/matplotlibrc
 
 # Build the font cache so its already done in the notebooks.
 RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
