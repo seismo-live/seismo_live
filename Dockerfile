@@ -15,7 +15,9 @@ RUN apt-get install -y gfortran git
 USER jovyan
 
 # Install ObsPy and Instaseis.
-RUN conda install --yes -c conda-forge obspy future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires instaseis pandas seaborn
+# XXX temporarily pin matplotlib due to obspy/obspy#2097 not yet in a release
+# XXX version
+RUN conda install --yes -c conda-forge obspy future requests tornado flake8 pytest mock basemap pip jupyter jsonschema basemap-data-hires instaseis pandas seaborn 'matplotlib<2.2'
 
 # Install the rate and state toolkit.
 RUN pip install https://github.com/jrleeman/rsfmodel/archive/master.zip
