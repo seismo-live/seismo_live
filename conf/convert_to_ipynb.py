@@ -6,15 +6,8 @@ import subprocess
 import typing
 
 
-# subprocess.run(["jupytext", "--to", "py", str(f), "-o", str(output_file)], check=True)
-# f.unlink()
-
-
 def convert_jupytext_to_ipynb(input_file: pathlib.Path):
     pass
-
-
-# subprocess.run(["jupytext", "--to", "py", str(f), "-o", str(output_file)], check=True)
 
 
 def find_jupytext_files(folder: pathlib.Path) -> typing.List[pathlib.Path]:
@@ -53,12 +46,18 @@ def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
         )
 
 
-def strip_solution_content(ipynb_filename: pathlib.Path, no_solution_filename: pathlib.Path):
+def strip_solution_content(
+    ipynb_filename: pathlib.Path, no_solution_filename: pathlib.Path
+):
     with open(ipynb_filename, "r") as fh:
         nb = json.load(fh)
     stripped_cell_count = 0
     for cell in nb["cells"]:
-        if not "metadata" in cell or not "tags" in cell["metadata"] or not "solution" in cell["metadata"]["tags"]:
+        if (
+            not "metadata" in cell
+            or not "tags" in cell["metadata"]
+            or not "solution" in cell["metadata"]["tags"]
+        ):
             continue
         cell["source"] = []
         stripped_cell_count += 1
@@ -111,7 +110,9 @@ def convert_file(
     )
 
     if ipynb_filename.stem.endswith("_solution"):
-        no_solution_filename = ipynb_filename.parent  / (ipynb_filename.stem[:-len("_solution")] + ".ipynb")
+        no_solution_filename = ipynb_filename.parent / (
+            ipynb_filename.stem[: -len("_solution")] + ".ipynb"
+        )
         print(f"Creating no-solution file: {no_solution_filename}")
         strip_solution_content(ipynb_filename, no_solution_filename)
 
@@ -124,11 +125,14 @@ def convert_file(
                 "html",
                 str(no_solution_filename),
                 "--output-dir",
-                str(get_html_folder(no_solution_filename, notebook_folder, html_folder)),
+                str(
+                    get_html_folder(
+                        no_solution_filename, notebook_folder, html_folder
+                    )
+                ),
             ],
             check=True,
         )
-
 
     print(f"Running .ipynb file: {ipynb_filename}")
     subprocess.run(
@@ -174,6 +178,7 @@ def convert_folder(
     check_for_duplicate_solution_files(jupytext_files)
 
     # Only use a few for testing purposes.
+    # XXX: REMOVE AT ONE POINT!!
     jupytext_files = [
         i for i in jupytext_files if "fourier_transform_solution" in str(i)
     ]
