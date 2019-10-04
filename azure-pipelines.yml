@@ -13,7 +13,7 @@ steps:
 
   - script: |
       pip --version
-      pip install numpy scipy matplotlib jupytext nbconvert jupyter_client
+      pip install numpy scipy matplotlib jupyter jupytext nbconvert
     displayName: "Install dependencies"
 
   - script: |
