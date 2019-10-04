@@ -1,4 +1,5 @@
 import argparse
+import json
 import pathlib
 import shutil
 import subprocess
@@ -52,6 +53,22 @@ def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
         )
 
 
+def strip_solution_content(ipynb_filename: pathlib.Path, no_solution_filename: pathlib.Path):
+    with open(ipynb_filename, "r") as fh:
+        nb = json.load(fh)
+    stripped_cell_count = 0
+    for cell in nb["cells"]:
+        if not "metadata" in cell or not "tags" in cell["metadata"] or not "solution" in cell["metadata"]["tags"]:
+            continue
+        cell["source"] = []
+        stripped_cell_count += 1
+
+    print(f"Stripped the solution in {stripped_cell_count} cells.")
+
+    with open(no_solution_filename, "w") as fh:
+        json.dump(nb, fh)
+
+
 def get_html_folder(
     ipynb_filename: pathlib.Path,
     notebook_folder: pathlib.Path,
@@ -92,6 +109,26 @@ def convert_file(
         ],
         check=True,
     )
+
+    if ipynb_filename.stem.endswith("_solution"):
+        no_solution_filename = ipynb_filename.parent  / (ipynb_filename.stem[:-len("_solution")] + ".ipynb")
+        print(f"Creating no-solution file: {no_solution_filename}")
+        strip_solution_content(ipynb_filename, no_solution_filename)
+
+        print(f"Converting to HTML: {no_solution_filename}")
+        subprocess.run(
+            [
+                "jupyter",
+                "nbconvert",
+                "--to",
+                "html",
+                str(no_solution_filename),
+                "--output-dir",
+                str(get_html_folder(no_solution_filename, notebook_folder, html_folder)),
+            ],
+            check=True,
+        )
+
 
     print(f"Running .ipynb file: {ipynb_filename}")
     subprocess.run(
@@ -138,8 +175,8 @@ def convert_folder(
 
     # Only use a few for testing purposes.
     jupytext_files = [
-        i for i in jupytext_files if "Signal Processing" in str(i)
-    ][:1]
+        i for i in jupytext_files if "fourier_transform_solution" in str(i)
+    ]
 
     for filename in jupytext_files:
         convert_file(

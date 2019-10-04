@@ -275,7 +275,6 @@ plt.show()
 # 8) How do you interpret the plot of the amplitude spectra?
 # 9) Which frequency contributes most to the final signal?
 
-# +
 # Cell 8: FFT of signal
 # number of sample points need to be the same as in cell 3
 print('samp =',samp,' Need to be the same as in cell 3.')
@@ -283,6 +282,8 @@ print('samp =',samp,' Need to be the same as in cell 3.')
 print('T =',T,' Need to be the same as in cell 3.')
 # percentage of taper applied to signal (initial: 0.1)
 taper_percentage = 0.1
+
+# + {"tags": ["solution"]}
 taper = cosine_taper(samp,taper_percentage)
 
 sig_ = sig * taper
