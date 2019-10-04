@@ -42,7 +42,8 @@ def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
             no_solution_name = file.parent / (
                 file.stem[: -(len("_solution"))] + ".py"
             )
-            no_solution_names.append(no_solution_name)
+            if no_solution_name.exists():
+                no_solution_names.append(no_solution_name)
 
     if no_solution_names:
         raise ValueError(
@@ -56,7 +57,7 @@ def convert_folder(input_folder: pathlib.Path, output_folder: pathlib.Path):
 
     jupytext_files = find_jupytext_files(folder=output_folder)
 
-    if len(jupytext_files) < 134:
+    if len(jupytext_files) < 92:
         raise ValueError("Not enough jupytext files found!")
 
     check_for_duplicate_solution_files(jupytext_files)
