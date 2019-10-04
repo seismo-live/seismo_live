@@ -52,7 +52,19 @@ def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
         )
 
 
-def convert_file(filename: pathlib.Path, html_folder: pathlib.Path):
+def get_html_folder(
+    ipynb_filename: pathlib.Path,
+    notebook_folder: pathlib.Path,
+    html_folder: pathlib.Path,
+):
+    return (html_folder / ipynb_filename.relative_to(notebook_folder)).parent
+
+
+def convert_file(
+    filename: pathlib.Path,
+    notebook_folder: pathlib.Path,
+    html_folder: pathlib.Path,
+):
     """
     Does a few things:
 
@@ -95,6 +107,20 @@ def convert_file(filename: pathlib.Path, html_folder: pathlib.Path):
         check=True,
     )
 
+    print(f"Converting to HTML: {ipynb_filename}")
+    subprocess.run(
+        [
+            "jupyter",
+            "nbconvert",
+            "--to",
+            "html",
+            str(ipynb_filename),
+            "--output-dir",
+            str(get_html_folder(ipynb_filename, notebook_folder, html_folder)),
+        ],
+        check=True,
+    )
+
 
 def convert_folder(
     input_folder: pathlib.Path,
@@ -110,11 +136,17 @@ def convert_folder(
 
     check_for_duplicate_solution_files(jupytext_files)
 
-    # Only use the last 5 for testing purposes for now.
-    jupytext_files = jupytext_files[-5:]
+    # Only use a few for testing purposes.
+    jupytext_files = [
+        i for i in jupytext_files if "Signal Processing" in str(i)
+    ][:1]
 
     for filename in jupytext_files:
-        convert_file(filename=filename, html_folder=html_folder)
+        convert_file(
+            filename=filename,
+            notebook_folder=notebook_folder,
+            html_folder=html_folder,
+        )
 
 
 if __name__ == "__main__":
