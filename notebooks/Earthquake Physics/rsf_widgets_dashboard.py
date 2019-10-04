@@ -38,7 +38,6 @@
 
 # + {"extensions": {"jupyter_dashboards": {"version": 1, "views": {"grid_default": {"hidden": true}, "report_default": {"hidden": false}}}}}
 import matplotlib.pyplot as plt
-#from __future__ import print_function
 import ipywidgets as widgets
 from IPython.display import display, clear_output
 import numpy as np
@@ -57,32 +56,32 @@ def RunModel():
         state1 = staterelations.DieterichState()
         state1.b = b1_floatBox.value  # Empirical coefficient for the evolution effect
         state1.Dc = Dc1_floatBox.value  # Critical slip distance
-    
+
     elif sv1_dropdown.value == "Slowness Relation":
         state1 = staterelations.RuinaState()
         state1.b = b1_floatBox.value  # Empirical coefficient for the evolution effect
         state1.Dc = Dc1_floatBox.value  # Critical slip distance
-        
+
     else:
         # We shouldn't be here!
         pass
-        
+
     if sv2_dropdown.value == "Aging Relation":
         state2 = staterelations.DieterichState()
         state2.b = b1_floatBox.value  # Empirical coefficient for the evolution effect
         state2.Dc = Dc1_floatBox.value  # Critical slip distance
-    
+
     elif sv2_dropdown.value == "Slowness Relation":
         state2 = staterelations.RuinaState()
         state2.b = b1_floatBox.value  # Empirical coefficient for the evolution effect
         state2.Dc = Dc1_floatBox.value  # Critical slip distance
-        
+
     else:
         # None
         pass
-    
+
     model.state_relations = [state1] # Which state relation we want to use
-    
+
     if sv2_dropdown.value != "None":
         model.state_relations.append(state2)
 
@@ -94,7 +93,7 @@ def RunModel():
 
     model.v = velocity[0] # Initial slider velocity, generally is vlp(t=0)
     model.vref = velocity[0] # Reference velocity, generally vlp(t=0)
-    
+
     # Run the model!
     model.solve()
 
@@ -104,15 +103,15 @@ def update_dispalcement_plot(model):
     #clear_output(wait=True)
     line_lp_mu.set_xdata(model.results.loadpoint_displacement)
     line_lp_mu.set_ydata(model.results.friction)
-    
+
     line_lp_vs.set_xdata(model.results.loadpoint_displacement)
     line_lp_vs.set_ydata(model.results.slider_velocity)
-    
+
     ax1.set_xlim(0, np.max(model.results.loadpoint_displacement))
-    
+
     ax1.relim()
     ax1.autoscale_view(False, False, True)
-    
+
     ax1b.relim()
     ax1b.autoscale_view(False, False, True)
     fig_vars.canvas.draw()
@@ -124,15 +123,15 @@ def update_time_plot(model):
 
     line_time_mu.set_xdata(model.results.time)
     line_time_mu.set_ydata(model.results.friction)
-    
+
     line_time_vs.set_xdata(model.results.time)
     line_time_vs.set_ydata(model.results.slider_velocity)
-    
+
     ax2.set_xlim(0, np.max(model.results.time))
-    
+
     ax2.relim()
     ax2.autoscale_view(False, False, True)
-    
+
     ax2b.relim()
     ax2b.autoscale_view(False, False, True)
     fig_vars.canvas.draw()
@@ -146,11 +145,11 @@ def update_phase_plot(model):
 
     ax3.set_xlabel(r'ln$\frac{V}{V_{ref}}$', fontsize=16, labelpad=20)
     ax3.set_ylabel(r'$\mu$', fontsize=16)
-    
+
     v_ratio = np.log(model.results.slider_velocity/model.vref)
     phase_line.set_xdata(v_ratio)
     phase_line.set_ydata(model.results.friction)
-    
+
     #xlims = ax2.get_xlims()#[np.min(v_ratio), np.max(v_ratio)]
     #ylims = ax3.get_xlims()#[np.min(model.results.friction), np.max(model.results.friction)]
     ax3.relim()
@@ -195,9 +194,9 @@ def parse_sequence(seqString):
         step_sequence_string.border_color = 'green'
         steps = np.array(steps)
         steps = steps.astype(int)
-        
+
         steps = steps.reshape((len(steps)/2,2))
-    
+
         dt = 0.01
 
         if simType_buttons.value == 'Velocity-Displacement':
@@ -206,18 +205,18 @@ def parse_sequence(seqString):
             for step_velocity, step_displacement in steps:
                 step_time = step_displacement/step_velocity
                 velocity = np.hstack((velocity, np.ones(step_time/dt) * step_velocity))
-        
+
         if simType_buttons.value == 'Velocity-Time':
             velocity = np.array([])
             time = np.arange(0, np.sum(steps[:,1]), dt)
             for step_velocity, step_time in steps:
                 velocity = np.hstack((velocity, np.ones(step_time/dt) * step_velocity))
-        
-        return time, velocity    
+
+        return time, velocity
 
 
 # + {"extensions": {"jupyter_dashboards": {"version": 1, "views": {"grid_default": {"hidden": true}, "report_default": {"hidden": false}}}}}
-def on_calculate_clicked(button):   
+def on_calculate_clicked(button):
     RunModel()
     update_dispalcement_plot(model)
     update_time_plot(model)
@@ -242,17 +241,17 @@ def on_reset(button):
 
 
 # + {"extensions": {"jupyter_dashboards": {"version": 1, "views": {"grid_default": {"hidden": true}, "report_default": {"hidden": false}}}}}
-# These are the "Tableau 20" colors as RGB.  
-tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),  
-             (44, 160, 44), (152, 223, 138), (214, 39, 40), (255, 152, 150),  
-             (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),  
-             (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),  
-             (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]  
-  
-# Scale the RGB values to the [0, 1] range, which is the format matplotlib accepts.  
-for i in range(len(tableau20)):  
-    r, g, b = tableau20[i]  
-    tableau20[i] = (r / 255., g / 255., b / 255.)  
+# These are the "Tableau 20" colors as RGB.
+tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
+             (44, 160, 44), (152, 223, 138), (214, 39, 40), (255, 152, 150),
+             (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),
+             (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),
+             (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
+
+# Scale the RGB values to the [0, 1] range, which is the format matplotlib accepts.
+for i in range(len(tableau20)):
+    r, g, b = tableau20[i]
+    tableau20[i] = (r / 255., g / 255., b / 255.)
 
 # + {"extensions": {"jupyter_dashboards": {"version": 1, "views": {"grid_default": {"hidden": true}, "report_default": {"hidden": false}}}}}
 model = rsf.Model()

@@ -41,7 +41,7 @@
 # 3. The `get_seismograms()` method has a couple of extra arguments:
 #   * `kind`: `displacement`, `velocity`, `acceleration`
 #   * `remove_source_shift`, `reconvolve_stf`, `dt`,
-#   
+#
 #   ... see the [documentation](http://www.instaseis.net/instaseis.html#instaseis.base_instaseis_db.BaseInstaseisDB.get_seismograms) for details.
 # 4. You can use the properties of the Receiver and Source objects to create usefull filenames.
 
@@ -50,7 +50,6 @@
 # Basic lines to set up the notebook and some paths.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -99,7 +98,7 @@ import glob # provides iterator to loop over files
 
 for filename in glob.iglob('data/events/quakeml/*.xml'):
      cat += obspy.read_events(filename)
-        
+
 print(cat)
 print(instaseis.Source.parse(cat.events[0]))
 cat.plot();
@@ -112,7 +111,7 @@ sources = []
 
 for filename in glob.iglob('data/events/quakeml/*.xml'):
     sources.append(instaseis.Source.parse(filename))
-    
+
 print(sources[0])
 
 for filename in glob.iglob('data/events/cmtsolutions/*'):
@@ -136,10 +135,10 @@ for event in cat:
         recname = '%s_%s' % (rec.network, rec.station)
         filename = '%s_%s' % (recname, srcname)
         filename = filename.replace('.', '_')
-        
+
         # extract seismograms using instaseis
         st = db.get_seismograms(source=src, receiver=rec, dt=dt)
-        
+
         # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
         # component support.
         st.write(os.path.join('data_out', filename + '.mseed'), format='mseed')
@@ -157,10 +156,10 @@ for src in sources:
         recname = '%s_%s' % (rec.network, rec.station)
         filename = '%s_%s' % (recname, srcname)
         filename = filename.replace('.', '_')
-        
+
         # extract seismograms using instaseis
         st = db.get_seismograms(source=src, receiver=rec, dt=dt)
-        
+
         # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
         # component support.
         st.write(os.path.join('data_out', filename + '.mseed'), format='mseed')

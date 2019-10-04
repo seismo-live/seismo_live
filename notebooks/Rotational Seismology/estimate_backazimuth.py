@@ -32,14 +32,13 @@
 # ---
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 15, 8
 
 # ### 1 Load pre-processed waveforms and event-xml
 #
-# Waveforms of transverse acceleration and vertical rotation rate are loaded from the repository. <br> 
+# Waveforms of transverse acceleration and vertical rotation rate are loaded from the repository. <br>
 # They were pre-processed as described in the **Data Download + Pre-processing**-Tutorial. <br>
 # That means they are:
 # <ul> <li>instrument corrected</li>
@@ -88,14 +87,14 @@ print('Theoretical backazimuth [deg]: ', np.round(baz[2],1))
 # We define the length of the time windows, we want to use and calculate the number of time windows for <br>
 # our downloaded and pre-processed waveform data. <br>
 #
-# For each time-window, we rotate the horizontal acceleration components through all possible <br> 
+# For each time-window, we rotate the horizontal acceleration components through all possible <br>
 # source directions (BAz, 0-360°) in **10°-steps**. In each of the steps, we check the similarity (phase-match) between <br>
 # vertical rotation rate and the rotated acceleration by cross-correlation (X-corr).<br>
 #
 # The rotation angle/ BAz-value yielding the highest correlation coefficient for the specific time window rotates the <br> horizontal acceleration components to radial/ transverse (= into the angular direction of the strongest signal source).<br>
-# That's exactly what *McLeod et al. (1998) and Pancha et al. (2000)* showed for Love waves:<br> 
+# That's exactly what *McLeod et al. (1998) and Pancha et al. (2000)* showed for Love waves:<br>
 #
-# **Vertical rotation rate and transverse acceleration are in phase!** 
+# **Vertical rotation rate and transverse acceleration are in phase!**
 
 # +
 from obspy.signal.cross_correlation import xcorr
@@ -105,7 +104,7 @@ sampling_rate = int(RLAS[0].stats.sampling_rate)
 sec = 60  # window length for correlation
 num_windows = len(RLAS[0]) // (int(sampling_rate * sec))
 
-# estimate the Backazimuth for each time window 
+# estimate the Backazimuth for each time window
 step = 10
 backas = np.linspace(0, 360 - step, 360 / step)
 corrbaz = []
@@ -113,7 +112,7 @@ ind=None
 for i_deg in range(0, len(backas)):
     for i_win in range(0, num_windows):
         corrbazz = xcorr(RLAS[0][sampling_rate * sec * i_win : sampling_rate * sec * (i_win + 1)],
-                             rotate_ne_rt(AC.select(component='N')[0].data, 
+                             rotate_ne_rt(AC.select(component='N')[0].data,
                                           AC.select(component='E')[0].data, backas[i_deg])
                              [1][sampling_rate * sec * i_win : sampling_rate * sec * (i_win + 1)],0)
         corrbaz.append(corrbazz[1])
@@ -135,10 +134,10 @@ X, Y = np.meshgrid(np.arange(0, sec * num_windows, sec), backas)
 from obspy.taup import TauPyModel
 
 TauPy_model = TauPyModel('ak135')
-arrivals_p = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11, 
+arrivals_p = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11,
                                         source_depth_in_km=event.origins[0].depth*0.001,
                                        phase_list=["P","p","Pdiff","PP","PKiKP","PKIKP","Pn","Pg"])
-arrivals_s = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11, 
+arrivals_s = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11,
                                         source_depth_in_km=event.origins[0].depth*0.001,
                                        phase_list=["S","s","Sdiff","SS","SKiKS","SKIKS","Sn","Sg"])
 tiemp = []
@@ -179,7 +178,7 @@ plt.xlim(0, time[-1])
 plt.ylabel('vert. rot. rate \n[nrad/s]')
 plt.legend()
 
-# add P- and S-wave arrivals 
+# add P- and S-wave arrivals
 plt.axvline(arriv_p);plt.annotate('P-arrival', xy=(arriv_p+20,np.max(RLAS[0].data)),xycoords='data');
 plt.axvline(arriv_s);plt.annotate('S-arrival', xy=(arriv_s+20,np.max(RLAS[0].data)),xycoords='data');
 
@@ -191,7 +190,7 @@ plt.ylabel('transv. acc. \n[$nm/s^2$]')
 plt.ticklabel_format(axis='y', style='sci', scilimits=(-2,2))
 plt.legend()
 plt.axvline(arriv_p)
-plt.axvline(arriv_s)    
+plt.axvline(arriv_s)
 
 # backazimuth estimation plot
 plt.subplot2grid((3, 30), (2, 0), colspan=29)
@@ -228,15 +227,15 @@ cb1 = mpl.colorbar.ColorbarBase(fig, cmap=plt.cm.RdYlGn_r, norm=norm, orientatio
 #     GJI, 168(1):182-196, doi: 10.1111/j.1365-246X.2006.03146.x<br>
 #     <br>
 #     Krischer, L., T. Megies, R. Barsch, M. Beyreuther, T. Lecocq, C. Caudron, J. Wassermann (2015)<br>
-#     <a href=http://iopscience.iop.org/article/10.1088/1749-4699/8/1/014003/meta;jsessionid=429E7836F3590551E4FF9EE94853C476.c5.iopscience.cld.iop.org> 
+#     <a href=http://iopscience.iop.org/article/10.1088/1749-4699/8/1/014003/meta;jsessionid=429E7836F3590551E4FF9EE94853C476.c5.iopscience.cld.iop.org>
 #     ObsPy: a bridge for seismology into the scientific Python ecosystem</a><br>
 #     Computational Science & Discovery, 8(1), 014003, doi:10.1088/1749-4699/8/1/014003<br>
 #     <br>
 #     McLeod, D., G. Stedman, T. Webb and U. Schreiber (1998)<br>
 #     <a href= http://www.bssaonline.org/content/88/6/1495.short>
 #     Comparison of standard and ring laser rotational seismograms,</a> <br>
-#     Bulletin of the Seismological Society of America, 88(6):1495-1503<br>    
-#     
+#     Bulletin of the Seismological Society of America, 88(6):1495-1503<br>
+#
 #     Megies, T., M. Beyreuther, R. Barsch, L. Krischer, J. Wassermann (2011)<br>
 #     <a href=http://www.annalsofgeophysics.eu/index.php/annals/article/view/4838>
 #     ObsPy – What can it do for data centers and observatories?</a> <br>

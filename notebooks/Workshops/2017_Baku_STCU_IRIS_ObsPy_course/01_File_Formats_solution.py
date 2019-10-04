@@ -50,7 +50,6 @@
 # One of the main goals of ObsPy is to free researchers from having to worry about which format their data is coming in to be able to focus at the task at hand.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
@@ -108,7 +107,7 @@ st = obspy.read("data/example.mseed")
 print(st)
 # -
 
-# Format specific information is an attribute named 
+# Format specific information is an attribute named
 # after the format.
 print(st[0].stats.mseed)
 

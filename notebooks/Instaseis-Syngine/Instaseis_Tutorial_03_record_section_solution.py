@@ -48,7 +48,6 @@
 # Basic lines to set up the notebook and some paths.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -103,7 +102,7 @@ for dist in np.linspace(mindist, maxdist, numrec):
     tr.filter('lowpass', freq=fmax)
     tr.normalize()
     plt.plot(tr.times(), tr.data * 5 + dist, color="black")
-    
+
     # get traveltimes
     arrivals = m.get_travel_times(distance_in_degree=dist,
                                   source_depth_in_km=depth_in_km,

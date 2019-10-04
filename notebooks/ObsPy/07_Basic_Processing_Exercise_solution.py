@@ -33,7 +33,6 @@
 # For the this exercise we will download some data from the Tohoku-Oki earthquake, cut out a certain time window around the first arrival and remove the instrument response from the data.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
@@ -150,7 +149,7 @@ st.plot();
 #
 # ![taper](images/cos_taper.png)
 
-st.remove_response(inventory=inv, 
+st.remove_response(inventory=inv,
                    pre_filt=(1.0 / 100.0, 1.0 / 50.0, 10.0, 20.0),
                    output="VEL")
 st.plot()
@@ -175,6 +174,6 @@ def plot_raypaths(distance, depth, wavetype):
     m.get_ray_paths(distance_in_degree=distance,
                     source_depth_in_km=depth,
                     phase_list=phases).plot();
-    
+
 interact(plot_raypaths, distance=[0, 180],
          depth=[0, 700], wavetype=["ttall", "diff"]);

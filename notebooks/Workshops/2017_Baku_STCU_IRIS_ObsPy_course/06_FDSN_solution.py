@@ -35,7 +35,6 @@
 # ![](images/obspy_logo_full_524x179px.png)
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
@@ -105,7 +104,7 @@ lat = 37.681873
 
 # Get currently active stations in 5 km radius around Livermore.
 inventory = client.get_stations(longitude=lon, latitude=lat,
-                                maxradius=0.05, level="station", 
+                                maxradius=0.05, level="station",
                                 starttime=obspy.UTCDateTime())
 print(inventory)
 inventory.plot(projection="local", resolution="i");
@@ -235,5 +234,5 @@ t = obspy.UTCDateTime('2011-03-11T14:46:24+09')
 
 st = client.get_waveforms(
     channel="LHZ", starttime=t, endtime=t+20,
-    latitude=50, longitude=14, maxradius=10)  
+    latitude=50, longitude=14, maxradius=10)
 print(st)

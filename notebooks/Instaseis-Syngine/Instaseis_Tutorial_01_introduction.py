@@ -30,7 +30,7 @@
 
 # <img style="width:50%" src="images/logo.png">
 
-# **Goal:** calculate seismograms on a 1D background model with [Instaseis](http://www.instaseis.net), assuming the 
+# **Goal:** calculate seismograms on a 1D background model with [Instaseis](http://www.instaseis.net), assuming the
 # Green's function database computed with [AxiSEM](http://www.axisem.info) is provided.
 
 # ### Overview:
@@ -53,7 +53,6 @@
 # Basic lines to set up the notebook and some paths.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import os

@@ -52,10 +52,58 @@ def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
         )
 
 
-def convert_folder(input_folder: pathlib.Path, output_folder: pathlib.Path):
-    shutil.copytree(input_folder, output_folder)
+def convert_file(filename: pathlib.Path, html_folder: pathlib.Path):
+    """
+    Does a few things:
 
-    jupytext_files = find_jupytext_files(folder=output_folder)
+    (1) Converts the jupytext file to a ipynb file.
+    (2) Deletes the jupytext file.
+    (3) If the file ends with "_solution":
+        * Creates a version of that file with stripped "solution" tags.
+    (4) Executes the file and saves the output
+    (5) Renders HTML version of all files.
+    """
+    jupytext_filename = filename
+    ipynb_filename = jupytext_filename.parent / (
+        jupytext_filename.stem + ".ipynb"
+    )
+
+    print("Convert to .ipynb file.")
+    subprocess.run(
+        [
+            "jupytext",
+            "--to",
+            "notebook",
+            str(jupytext_filename),
+            "-o",
+            str(ipynb_filename),
+        ],
+        check=True,
+    )
+
+    print(f"Running .ipynb file: {ipynb_filename}")
+    subprocess.run(
+        [
+            "jupyter",
+            "nbconvert",
+            "--to",
+            "notebook",
+            "--execute",
+            "--inplace",
+            str(ipynb_filename),
+        ],
+        check=True,
+    )
+
+
+def convert_folder(
+    input_folder: pathlib.Path,
+    notebook_folder: pathlib.Path,
+    html_folder: pathlib.Path,
+):
+    shutil.copytree(input_folder, notebook_folder)
+
+    jupytext_files = find_jupytext_files(folder=notebook_folder)
 
     if len(jupytext_files) < 92:
         raise ValueError("Not enough jupytext files found!")
@@ -64,7 +112,9 @@ def convert_folder(input_folder: pathlib.Path, output_folder: pathlib.Path):
 
     # Only use the last 5 for testing purposes for now.
     jupytext_files = jupytext_files[-5:]
-    print(jupytext_files)
+
+    for filename in jupytext_files:
+        convert_file(filename=filename, html_folder=html_folder)
 
 
 if __name__ == "__main__":
@@ -85,4 +135,11 @@ if __name__ == "__main__":
     if output_folder.exists():
         raise ValueError("Output folder must not yet exist.")
 
-    convert_folder(input_folder=input_folder, output_folder=output_folder)
+    notebook_folder = output_folder / "notebooks"
+    html_folder = output_folder / "html"
+
+    convert_folder(
+        input_folder=input_folder,
+        notebook_folder=notebook_folder,
+        html_folder=html_folder,
+    )

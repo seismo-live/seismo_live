@@ -38,14 +38,13 @@
 # ![](images/obspy_logo_full_524x179px.png)
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 15, 8
 
 # ### 1 Load pre-processed waveforms and event-xml
 #
-# Waveforms of transverse acceleration and vertical rotation rate are loaded from the repository. <br> 
+# Waveforms of transverse acceleration and vertical rotation rate are loaded from the repository. <br>
 # They were pre-processed as described in the **Data Download + Pre-processing**-Tutorial. <br>
 # That means they are:
 # <ul> <li>instrument corrected</li>
@@ -77,7 +76,7 @@ baz = gps2dist_azimuth(source_latitude, source_longitude, station_latitude, stat
 # ### 2 Calculate correlation coefficients for time windows
 # For the phase velocity analysis, the waveforms are divided into sub-windows. Due to the dispersive character of Love waves lower frequency waves are faster and arrive earlier at the measurement station than the higher frequency waves. We calculate phase velocities for subsequent time windows in which different frequencies dominate to catch this dispersive behavior.<br>
 # <br>
-# In the first step, for each time window, we need to calculate zero-lag correlation coefficients between the transverse component of acceleration and the vertical rotation rate. The correlation yields the similarity of the two observed waveforms and is used as a threshold for the phase velocity estimation. 
+# In the first step, for each time window, we need to calculate zero-lag correlation coefficients between the transverse component of acceleration and the vertical rotation rate. The correlation yields the similarity of the two observed waveforms and is used as a threshold for the phase velocity estimation.
 
 # +
 from obspy.signal.cross_correlation import xcorr
@@ -92,7 +91,7 @@ for ic in range(0, len(RLAS[0]) // (int(sampling_rate * sec))):
         coeffs = xcorr(RLAS[0].data[sampling_rate * sec * ic : sampling_rate * sec * (ic + 1)],
                        AC[0].data[sampling_rate * sec * ic : sampling_rate * sec * (ic + 1)], 0)
         corrcoefs.append(coeffs[1])
-        
+
 # plot waveforms in comparison and correlation coefficients in time windows
 plt.figure(figsize=(15,2))
 ax=plt.subplot(111)
@@ -118,7 +117,7 @@ plt.show()
 # -
 
 # ### 3 Estimate Love wave phase velocities
-# At any time rotation rate and transverse acceleration are in phase and the amplitudes are related by <br><br> 
+# At any time rotation rate and transverse acceleration are in phase and the amplitudes are related by <br><br>
 # \begin{equation}
 #     \frac{a_{transv}(x, t)}{\dot{\Omega_z}(x, t)} = −2 \cdot v_{ph}
 # \end{equation}<br>
@@ -130,10 +129,10 @@ plt.show()
 # +
 from obspy.taup import TauPyModel
 TauPy_model = TauPyModel('ak135')
-arrivals_p = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11, 
+arrivals_p = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11,
                                         source_depth_in_km=event.origins[0].depth*0.001,
                                        phase_list=["P","p","Pdiff","PP","PKiKP","PKIKP","Pn","Pg"])
-arrivals_s = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11, 
+arrivals_s = TauPy_model.get_travel_times(distance_in_degree=0.001 * baz[0] / 111.11,
                                         source_depth_in_km=event.origins[0].depth*0.001,
                                        phase_list=["S","s","Sdiff","SS","SKiKS","SKIKS","Sn","Sg"])
 tiemp = []
@@ -149,12 +148,12 @@ print("S-wave arrival: ", arriv_s, "sec")
 # -
 
 # **Estimate phase velocities**<br>
-# The Love wave phase velocities are estimated only for time-windows later than S-waves and for a threshold of 75% correlation between transverse acceleration and vertical rotation rate. 
+# The Love wave phase velocities are estimated only for time-windows later than S-waves and for a threshold of 75% correlation between transverse acceleration and vertical rotation rate.
 
 # +
 sampling_rate = int(RLAS[0].stats.sampling_rate)
 
-# calculate Love wave phase velocities [km/s] for time windows featuring correlation coefficients > 0.75 
+# calculate Love wave phase velocities [km/s] for time windows featuring correlation coefficients > 0.75
 # and after S-wave arrival
 surf = int(arriv_s/120.)+2  # window number after S-waves
 phasv = []
@@ -178,7 +177,7 @@ plt.xlim(0, RLAS[0].times()[-1])
 plt.ylabel('vert. rot. rate \n[nrad/s]')
 plt.legend(loc=3)
 
-# add P- and S-wave arrivals 
+# add P- and S-wave arrivals
 plt.axvline(arriv_p);plt.annotate('P-arrival', xy=(arriv_p+20,np.max(RLAS[0].data)),xycoords='data');
 plt.axvline(arriv_s);plt.annotate('S-arrival', xy=(arriv_s+20,np.max(RLAS[0].data)),xycoords='data');
 
@@ -190,7 +189,7 @@ plt.ylabel('transv. acc. \n[$nm/s^2$]')
 plt.ticklabel_format(axis='y', style='sci', scilimits=(-2,2))
 plt.legend(loc=3)
 plt.axvline(arriv_p)
-plt.axvline(arriv_s)    
+plt.axvline(arriv_s)
 
 # phase velocities plot
 plt.subplot2grid((4, 30), (2, 0), colspan=29)
@@ -230,7 +229,7 @@ plt.show()
 #     GRL, doi:10.1029/2004GL022336<br>
 #     <br>
 #     Krischer, L., T. Megies, R. Barsch, M. Beyreuther, T. Lecocq, C. Caudron, J. Wassermann (2015)<br>
-#     <a href=http://iopscience.iop.org/article/10.1088/1749-4699/8/1/014003/meta;jsessionid=429E7836F3590551E4FF9EE94853C476.c5.iopscience.cld.iop.org> 
+#     <a href=http://iopscience.iop.org/article/10.1088/1749-4699/8/1/014003/meta;jsessionid=429E7836F3590551E4FF9EE94853C476.c5.iopscience.cld.iop.org>
 #     ObsPy: a bridge for seismology into the scientific Python ecosystem</a><br>
 #     Computational Science & Discovery, 8(1), 014003, doi:10.1088/1749-4699/8/1/014003<br>
 #     <br>
