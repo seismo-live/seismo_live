@@ -1,0 +1,22 @@
+name: seismo-live environment
+channels:
+  - conda-forge
+dependencies:
+  - basemap
+  - basemap-data-hires
+  - flake8
+  - future
+  - instaseis
+  - jsonschema
+  - jupyter
+  - matplotlib[version='<2.2']
+  - mock
+  - obspy
+  - pandas
+  - pytest
+  - requests
+  - seaborn
+  - tornado
+  - python
+  - numpy
+  - pip
