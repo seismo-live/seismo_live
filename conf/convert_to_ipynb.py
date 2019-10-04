@@ -30,13 +30,40 @@ def find_jupytext_files(folder: pathlib.Path) -> typing.List[pathlib.Path]:
     return jupytext_files
 
 
+def check_for_duplicate_solution_files(files: typing.List[pathlib.Path]):
+    """
+    Makes sure that every file that ends with _solution.py does not have a
+    corresponding no solution file.
+    """
+    no_solution_names = []
+
+    for file in files:
+        if file.stem.endswith("_solution"):
+            no_solution_name = file.parent / (
+                file.stem[: -(len("_solution"))] + ".py"
+            )
+            no_solution_names.append(no_solution_name)
+
+    if no_solution_names:
+        raise ValueError(
+            "Solution files exist for the following files (these are thus not "
+            "needed):\n\n" + "\n".join(str(i) for i in no_solution_names)
+        )
+
+
 def convert_folder(input_folder: pathlib.Path, output_folder: pathlib.Path):
     shutil.copytree(input_folder, output_folder)
 
     jupytext_files = find_jupytext_files(folder=output_folder)
 
-    if jupytext_files < 134:
+    if len(jupytext_files) < 134:
         raise ValueError("Not enough jupytext files found!")
+
+    check_for_duplicate_solution_files(jupytext_files)
+
+    # Only use the last 5 for testing purposes for now.
+    jupytext_files = jupytext_files[-5:]
+    print(jupytext_files)
 
 
 if __name__ == "__main__":
