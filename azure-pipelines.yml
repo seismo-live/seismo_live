@@ -13,7 +13,8 @@ steps:
 
   - script: |
       pip --version
-      pip install numpy scipy matplotlib jupyter jupytext nbconvert obspy
+      pip install numpy
+      pip install scipy matplotlib jupyter jupytext nbconvert obspy
     displayName: "Install dependencies"
 
   - script: |
