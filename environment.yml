@@ -9,4 +9,19 @@ dependencies:
     - nbgitpuller
     - sphinx-gallery
     - pandas
-    - matplotlib
+    - matplotlib[version='<2.2']
+    - basemap
+    - basemap-data-hires
+    - flake8
+    - future
+    - instaseis
+    - jsonschema
+    - jupyter
+    - mock
+    - obspy
+    - pandas
+    - pytest
+    - requests
+    - seaborn
+    - tornado
+    - animatplot
