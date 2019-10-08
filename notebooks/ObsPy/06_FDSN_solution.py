@@ -32,7 +32,6 @@
 # ![](images/obspy_logo_full_524x179px.png)
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
