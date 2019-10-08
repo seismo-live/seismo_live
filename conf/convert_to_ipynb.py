@@ -177,12 +177,6 @@ def convert_folder(
 
     check_for_duplicate_solution_files(jupytext_files)
 
-    # Only use a few for testing purposes.
-    # XXX: REMOVE AT ONE POINT!!
-    jupytext_files = [
-        i for i in jupytext_files if "fourier_transform_solution" in str(i)
-    ]
-
     for filename in jupytext_files:
         convert_file(
             filename=filename,
