@@ -170,7 +170,28 @@ l1d = lagrange1st(N)   # Array with GLL as columns for each N+1 polynomial
 # #### Exercise 1 
 # Implements the mass matrix using the integration weights at GLL locations $w$, the jacobian $J$, and density $\rho$. Then, perform the global assembly of the mass matrix, compute its inverse, and display the inverse mass matrix to visually inspect how it looks like.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# PERFORM THE GLOBAL ASSEMBLY OF M HERE!
+#################################################################
+
+
+#################################################################
+# COMPUTE THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# DISPLAY THE INVERSE MASS MATRIX HERE!
+#################################################################
+   
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Elemental Mass matrix
 # ---------------------------------------------------------------
 for i in range(0, N+1):
@@ -216,7 +237,22 @@ plt.show()
 # #### Exercise 2 
 # Implements the stiffness matrix using the integration weights at GLL locations $w$, the jacobian $J$, and shear stress $\mu$. Then, perform the global assembly of the mass matrix and display the matrix to visually inspect how it looks like.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE STIFFNESS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# PERFORM THE GLOBAL ASSEMBLY OF K HERE!
+#################################################################
+
+    
+#################################################################
+# DISPLAY THE STIFFNESS MATRIX HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Elemental Stiffness Matrix
 # ---------------------------------------------------------------
 for i in range(0, N+1):
