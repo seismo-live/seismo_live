@@ -31,6 +31,7 @@
 # ![](images/obspy_logo_full_524x179px.png)
 
 # %matplotlib inline
+from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
@@ -230,6 +231,10 @@ st.write("output_file.mseed", format="MSEED")
 #  - Change the starttime of the trace to the start time of this session
 #  - Print the trace summary and plot the trace again
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 x = np.zeros(300)
 x[100] = 1.0
 tr = Trace(data=x)
@@ -238,51 +243,86 @@ tr.stats.sampling_rate = 20.0
 tr.stats.starttime = UTCDateTime(2014, 2, 24, 15, 0, 0)
 print(tr)
 tr.plot()
+# -
 
 # - Use **`tr.filter(...)`** and apply a lowpass filter with a corner frequency of 1 Hertz.
 # - Display the preview plot, there are a few seconds of zeros that we can cut off.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 tr.filter("lowpass", freq=1)
 tr.plot()
+# -
 
 # - Use **`tr.trim(...)`** to remove some of the zeros at start and at the end
 # - show the preview plot again
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 tr.trim(tr.stats.starttime + 3, tr.stats.endtime - 5)
 tr.plot()
+# -
 
 # - Scale up the amplitudes of the trace by a factor of 500
 # - Add standard normal gaussian noise to the trace (use [**`np.random.randn()`**](http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html))
 # - Display the preview plot again
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 tr.data = tr.data * 500
 tr.data = tr.data + np.random.randn(len(tr))
 tr.plot()
+# -
 
 # #### Stream Exercises
 #
 # - Read all Tohoku example earthquake data into a stream object ("./data/waveform\_\*")
 # - Print the stream summary
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st = read("./data/waveform_*")
 print(st)
+# -
 
 # - Use **`st.select()`** to only keep traces of station BFO in the stream. Show the preview plot.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st = st.select(station="BFO")
 st.plot()
+# -
 
 # - trim the data to a 10 minute time window around the first arrival (just roughly looking at the preview plot)
 # - display the preview plot and spectrograms for the stream (with logarithmic frequency scale, use `wlen=50` for the spectrogram plot)
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 t1 = UTCDateTime(2011, 3, 11, 5, 55)
 st.trim(t1, t1 + 10 * 60)
 st.plot()
 st.spectrogram(log=True, wlen=50);
+# -
 
 # - remove the linear trend from the data, apply a tapering and a lowpass at 0.1 Hertz
 # - show the preview plot again
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st.detrend("linear")
 st.filter("lowpass", freq=0.1)
 st.plot()

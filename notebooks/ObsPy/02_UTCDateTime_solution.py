@@ -42,6 +42,7 @@
 # ---
 
 # %matplotlib inline
+from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
@@ -91,11 +92,19 @@ print(time2 - time)
 #
 # Calculate the number of days passed since the Tohoku main shock (the timestamp used above).
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 print((UTCDateTime() - UTCDateTime("2011-03-11T05:46:23.200000Z")) / 86400)
+# -
 
 # Make a list of 10 UTCDateTime objects, starting today at 10:00 with a spacing of 90 minutes.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 t = UTCDateTime(2014, 2, 24, 10)
 
 times = []
@@ -127,7 +136,10 @@ times = ["2001-06-23T20:33:09",
          "2012-04-11T10:43:10",
          "2013-05-24T05:44:48"]
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 import matplotlib.pyplot as plt
 
 inter_event_times = []

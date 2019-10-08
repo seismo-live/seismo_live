@@ -35,6 +35,7 @@
 # **This notebook aims to give a quick introductions to ObsPy's core functions and classes. Everything here will be repeated in more detail in later notebooks.**
 
 # %matplotlib inline
+from __future__ import print_function
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rcParams['figure.figsize'] = 12, 8
