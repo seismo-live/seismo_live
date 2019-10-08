@@ -140,7 +140,31 @@ plt.show()
 # f^{\prime}(t)=\dfrac{\dfrac{1}{12}f(t-2dt)-\dfrac{2}{3}f(t-dt)+\dfrac{2}{3}f(t+dt)-\dfrac{1}{12}f(t+2dt)}{dt}
 # \end{equation}
 
-# + {"code_folding": []}
+# + {"tags": ["exercise"]}
+# First derivative with four points
+
+# Initiation of derivative
+ffder=np.zeros(nt) 
+
+# Type your code here:  
+for it in range (2, nt-2):
+    #ffder[it]=
+
+# Plotting 
+plt.figure()
+plt.plot (time, nder,label="Derivative, 2 points", lw=2, color="violet")
+plt.plot (time, ffder, label="Derivative, 4 points", lw=2, ls="--")
+plt.title('First derivative')
+plt.xlabel('Time, s')
+plt.ylabel('Amplitude')
+plt.legend()
+plt.grid()
+plt.show()
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"code_folding": [], "tags": ["solution"]}
 # First derivative with four points
 
 # Initiation of derivative
