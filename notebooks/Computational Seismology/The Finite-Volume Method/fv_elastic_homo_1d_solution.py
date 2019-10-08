@@ -151,7 +151,18 @@ Qa = np.zeros((2,nx))
 #
 # Then, visualize the initial condition in a given plot.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# INITIALIZE THE SOURCE TIME FUCTION HERE!
+#################################################################
+
+
+#################################################################
+# PLOT THE SOURCE TIME FUNCTION HERE!
+#################################################################
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Initial condition
 # --------------------------------------------------------------------------
 sx = np.exp(-1./sig**2 * (x-x0)**2)
@@ -214,7 +225,19 @@ plt.show()
 # #### Exercise 2
 # Initialize all relevant matrices, i.e $R$, $R^{-1}$, $\mathbf{\Lambda}^{+}$, $\mathbf{\Lambda}^{-}$, $\mathbf{A}^{+}$, $\mathbf{A}^{-}$, $\mathbf{A}$. 
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# INITIALIZE ALL MATRICES HERE!
+#################################################################
+# R =        
+# Rinv =                
+# Lp =        
+# Lm =       
+# Ap =                         
+# Am =                        
+# A =   
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Initialize all matrices
 # --------------------------------------------------------------------------
 
