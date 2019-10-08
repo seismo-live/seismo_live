@@ -174,7 +174,22 @@ pnew = np.zeros(nx)
 # #### Exercise 1 
 # Initialize a source time function called 'src'.  Use $\sigma = 20 dt$ as Gaussian width, and time shift $t_0 = 3\sigma$. Then, visualize the source in a given plot.
 
-# + {"code_folding": [], "solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# INITIALIZE THE SOURCE TIME FUCTION HERE!
+#################################################################
+
+# Source vector
+f = np.zeros(nx); f[isx:isx+1] = f[isx:isx+1] + 1.
+
+#################################################################
+# PLOT THE SOURCE TIME FUNCTION HERE!
+#################################################################
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"code_folding": [], "solution2": "hidden", "tags": ["solution"]}
 # Initialization of the source time function
 # ---------------------------------------------------------------
 pt  = 20*dt     # Gaussian width
@@ -221,7 +236,26 @@ plt.show()
 #
 # Compute the inverse mass matrix and display your result to visually inspect how it looks like
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# COMPUTE THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# DISPLAY THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # ---------------------------------------------------------------
 # Mass matrix M_ij (Eq 6.56)
 # ---------------------------------------------------------------
@@ -278,7 +312,20 @@ plt.show()
 #
 # Display the stiffness matrix to visually inspect how it looks like
 
-# + {"code_folding": [], "solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE STIFFNESS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# DISPLAY THE STIFFNESS MATRIX HERE!
+#################################################################
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions
+
+# + {"code_folding": [], "solution2": "hidden", "tags": ["solution"]}
 # ---------------------------------------------------------------
 # Stiffness matrix Kij (Eq 6.60)
 # ---------------------------------------------------------------
@@ -327,7 +374,22 @@ plt.show()
 #
 # Display both matrices to visually inspect how they look like
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# INITIALIZE FINITE DIFFERENCES HERE!
+#################################################################
+
+
+#################################################################
+# DISPLAY THE DIFFERENCES MATRICES HERE!
+#################################################################
+
+
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Initialize finite differences matrices (Eq 6.61)
 # ---------------------------------------------------------------
 Mf = np.zeros((nx,nx), dtype=float)
