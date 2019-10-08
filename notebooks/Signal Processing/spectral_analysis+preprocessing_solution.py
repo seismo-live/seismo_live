@@ -37,7 +37,6 @@
 # + {"code_folding": [0]}
 # Cell 0 - Preparation: load packages, set some basic options  
 # %matplotlib inline
-from __future__ import print_function
 import obspy
 from obspy.signal.invsim import cosine_taper 
 from obspy.signal.filter import lowpass
