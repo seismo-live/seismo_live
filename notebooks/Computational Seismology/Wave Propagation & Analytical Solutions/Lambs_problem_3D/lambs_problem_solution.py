@@ -201,7 +201,7 @@ plt.show()
 # #### Exercise
 # Compute the convolution of the source time function 'ricker' with the Green's function of a Vertical displacement due to vertical loads. Plot the resulting displacement.
 
-# + {"solution2": "hidden"}
+# +
 # call the source time function
 T = 1/5   # Period
 src = ricker(dt,T)
@@ -212,6 +212,18 @@ src = src/max(src)
 # Initialize source time function
 f = np.zeros(nt)
 f[0:int(2 * T/dt)] = src
+
+# + {"tags": ["exercise"]}
+#################################################################
+# COMPUTE THE CONVOLUTION HERE!
+#################################################################
+
+
+#################################################################
+# PLOT THE SEISMOGRAMS HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 
 # Compute convolution
 u = np.convolve(u_zz, f)
