@@ -48,7 +48,6 @@
 # Basic lines to set up the notebook and some paths.
 
 # %matplotlib inline
-from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import os
