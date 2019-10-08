@@ -76,7 +76,6 @@
 # Plots now appear in the notebook.
 # %matplotlib inline                       
 
-from __future__ import print_function, division    # Python 2 and 3 are now very similar
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')                            # Matplotlib style sheet - nicer plots!
 plt.rcParams['figure.figsize'] = 12, 8             # Slightly bigger plots by default
