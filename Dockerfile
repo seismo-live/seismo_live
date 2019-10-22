@@ -11,3 +11,7 @@ MAINTAINER Tobias Megies <megies@geophysik.uni-muenchen.de>
 
 # update notebooks
 RUN cd /home/jovyan/seismo_live && git fetch origin && git reset --hard origin/master
+
+# XXX ugly hack to try and work around proj env issues
+# XXX https://github.com/conda-forge/basemap-feedstock/issues/30
+ENV PROJ_LIB /opt/conda/share/proj/
