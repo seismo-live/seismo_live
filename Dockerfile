@@ -8,3 +8,6 @@ FROM obspy/seismo-live:latest
 #FROM obspy/seismo-live:9bcbfc7afe6e
 
 MAINTAINER Tobias Megies <megies@geophysik.uni-muenchen.de>
+
+# update notebooks
+RUN cd /home/jovyan/seismo_live && git fetch origin && git reset --hard origin/master
