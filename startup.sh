@@ -15,5 +15,6 @@ rm -rf $HOME/seismo_live
 # XXX https://github.com/conda-forge/basemap-feedstock/issues/30
 export PROJ_LIB=/opt/conda/share/proj/
 
-# This has to be here at the very end to continue with common binder startup
-exec "$@"
+# Continue with normal startup of jupyter
+# see https://github.com/jupyter/docker-stacks/blob/1386e20468332f32a028c6224bbd8439eb406ee4/base-notebook/Dockerfile#L120
+. /usr/local/bin/start-notebook.sh "$@"
