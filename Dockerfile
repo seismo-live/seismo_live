@@ -7,8 +7,3 @@
 FROM obspy/seismo-live:latest
 #FROM obspy/seismo-live:9bcbfc7afe6eaf29a24e878fe2d658bb46797eb522c190bc0f06f2339546ead5
 #FROM obspy/seismo-live:9bcbfc7afe6e
-
-# from https://success.docker.com/article/use-a-script-to-initialize-stateful-container-data
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
-ENTRYPOINT ["docker-entrypoint.sh"]

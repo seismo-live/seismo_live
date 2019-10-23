@@ -44,6 +44,10 @@ RUN git clone https://github.com/krischer/seismo_live.git /home/jovyan/seismo_li
 # A bit ugly but unfortunately necessary: https://github.com/docker/docker/issues/6119
 USER root
 RUN chown -R jovyan:users /home/jovyan
+# from https://success.docker.com/article/use-a-script-to-initialize-stateful-container-data
+RUN cp /home/jovyan/seismo_live/docker-entrypoint.sh /usr/local/bin/
+RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 USER jovyan
 
@@ -59,10 +63,6 @@ RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && 
 
 # Build the font cache so its already done in the notebooks.
 RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
-
-# XXX ugly hack to try and work around proj env issues
-# XXX https://github.com/conda-forge/basemap-feedstock/issues/30
-ENV PROJ_LIB /opt/conda/share/proj/
 
 # Test and report, for now continue even if errors are reported
 # XXX should add option '--all' later on to test network modules as well
