@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 #!/bin/bash
-# Code that runs before the user sessions starts
-# E.g. set env variables here
-# See: https://mybinder.readthedocs.io/en/latest/config_files.html#id15
 
 # update notebooks
 cd $HOME/seismo_live
@@ -18,5 +15,5 @@ rm -rf $HOME/seismo_live
 # XXX https://github.com/conda-forge/basemap-feedstock/issues/30
 export PROJ_LIB=/opt/conda/share/proj/
 
-# This has to be here to start the common binder startup at the end
+# This has to be here at the very end to continue with common binder startup
 exec "$@"
