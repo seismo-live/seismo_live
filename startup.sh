@@ -3,14 +3,18 @@
 
 # update notebooks
 cd $HOME/seismo_live
-git fetch origin
-git reset --hard origin/master
+#git fetch origin
+#git reset --hard origin/master
+git pull
 
 # only expose notebooks in the jupyter home dir
+ls -l *
 cd $HOME
 rm -rf $HOME/work
 mv $HOME/seismo_live/notebooks/* $HOME/
 rm -rf $HOME/seismo_live
+ls -l *
+ls -l $HOME
 
 # XXX ugly hack to try and work around proj env issues
 # XXX https://github.com/conda-forge/basemap-feedstock/issues/30
