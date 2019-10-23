@@ -7,6 +7,7 @@ git fetch origin
 git reset --hard origin/master
 
 # only expose notebooks in the jupyter home dir
+cd $HOME
 rm -rf $HOME/work
 mv $HOME/seismo_live/notebooks/* $HOME/
 rm -rf $HOME/seismo_live
