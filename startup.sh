@@ -1,7 +1,9 @@
 # final steps are supposed to be done as notebook user
-echo "$USER" > /tmp/whoami
-#echo `whoami` > /home/jovyan/whoami2
-#if [ "$USER" != 'jovyan' ]; then exit 1; fi
+echo "$USER" > /tmp/user
+echo `whoami` > /tmp/whoami
+echo "$HOME" > /tmp/home
+#if [ `whoami` != 'jovyan' ]; then exit 1; fi
+#if [ `whoami` != 'jovyan' ]; then exit 1; fi
 #
 ## update notebooks
 #cd $HOME/seismo_live
