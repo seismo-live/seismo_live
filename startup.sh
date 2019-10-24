@@ -2,6 +2,9 @@
 # bash scripts in /usr/local/bin/before-notebook.d/ get sourced as notebook
 # user
 
+exec > /tmp/output
+exec 2>&1
+
 # update notebooks
 cd $HOME/seismo_live
 git fetch origin
