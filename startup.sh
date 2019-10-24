@@ -3,6 +3,7 @@
 
 # final steps are supposed to be done as notebook user
 if [ "$USER" != 'jovyan' ]; then exit 1; fi
+echo `whoami` > $HOME/whoami
 
 # update notebooks
 cd $HOME/seismo_live
