@@ -7,4 +7,4 @@
 # caches the old base image and uses that.
 # Use the hash tag last used in `make build` for base image, as output after
 # running that build
-FROM obspy/seismo-live:94118afd4b0d61
+FROM obspy/seismo-live:cccfd7c0e1d0e9
