@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-#!/bin/bash
-
 # final steps are supposed to be done as notebook user
 echo "$USER" > /tmp/whoami
 #echo `whoami` > /home/jovyan/whoami2
