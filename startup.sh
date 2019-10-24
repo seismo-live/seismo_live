@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #!/bin/bash
 
-# final steps to be done as notebook user
-sudo -u jovyan -- -sh -c <<EOT
+# final steps are supposed to be done as notebook user
+if [ "$USER" != 'jovyan' ]; then exit 1; fi
 
 # update notebooks
 cd $HOME/seismo_live
@@ -21,7 +21,6 @@ ls -l $HOME
 
 # XXX just for testing
 touch $HOME/testfile
-EOT
 
 # XXX ugly hack to try and work around proj env issues
 # XXX https://github.com/conda-forge/basemap-feedstock/issues/30
