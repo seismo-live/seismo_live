@@ -1,7 +1,6 @@
 # final steps are supposed to be done as notebook user
 # bash scripts in /usr/local/bin/before-notebook.d/ get sourced as notebook
 # user
-if [ `whoami` != 'jovyan' ]; then exit 1; fi
 
 # update notebooks
 cd $HOME/seismo_live
