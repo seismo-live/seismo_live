@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # final steps to be done as notebook user
-su jovyan
+sudo -u jovyan -- -sh -c <<EOT
 
 # update notebooks
 cd $HOME/seismo_live
@@ -21,6 +21,7 @@ ls -l $HOME
 
 # XXX just for testing
 touch $HOME/testfile
+EOT
 
 # XXX ugly hack to try and work around proj env issues
 # XXX https://github.com/conda-forge/basemap-feedstock/issues/30
