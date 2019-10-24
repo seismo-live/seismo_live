@@ -45,10 +45,9 @@ RUN git clone https://github.com/krischer/seismo_live.git /home/jovyan/seismo_li
 USER root
 RUN chown -R jovyan:users /home/jovyan
 # from https://success.docker.com/article/use-a-script-to-initialize-stateful-container-data
-RUN cp /home/jovyan/seismo_live/docker-entrypoint.sh /usr/local/bin/
-RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
-ENTRYPOINT ["docker-entrypoint.sh"]
-
+RUN mkdir -p /usr/local/bin/before-notebook.d
+RUN cp /home/jovyan/seismo_live/startup.sh /usr/local/bin/before-notebook.d/
+RUN chmod u+x /usr/local/bin/before-notebook.d/startup.sh
 USER jovyan
 
 # This might exist locally and will thus be copied to the docker image...
