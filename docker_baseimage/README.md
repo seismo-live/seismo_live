@@ -1,7 +1,7 @@
 # Seismo-Live Docker Base Image Setup
 
 Binder recommends specifying the Python environment in the project in
-[one of the supportedways](https://mybinder.readthedocs.io/en/latest/config_files.html)
+[one of the supported ways](https://mybinder.readthedocs.io/en/latest/config_files.html)
 and then having binder create the docker image either on-the-fly or by reusing
 a cached, previously created base image. From the docs, it is unclear though,
 how long the cached docker images are preserved. Furthermore when relying on
@@ -384,6 +384,11 @@ modifying the `Dockerfile.seismo-live-base` and running `$ make build`.
 The test report can be viewed online in detail at
 [tests.obspy.org](https://test.obspy.org/?node=seismo-live-baseimage).
 
+When building a new base image for seismo-live, consider updating the jupyter
+base image as well, i.e. update the `FROM` command at the start of
+`Dockerfile.seismo-live-base` (see
+[here](https://hub.docker.com/r/jupyter/minimal-notebook/tags)).
+
 ## Pushing the Docker Base Image to Docker Hub
 
 The docker base image is currently pushed to the
@@ -425,8 +430,88 @@ and instructions on
 The dockerfile in the repository root only needs to base on the above base
 image and do final touches before starting the jupyterhub, e.g. pull in current
 seismo-live repository master (or other branch), rearrange home directory etc.
+(see below, docker caches any called commands, so updating content via the main
+Dockerfile is not possible, actually).
+The main dockerfile should always use an image tagged with a hash and not
+`"latest"` to ensure a specific docker image gets used.
 
 A certain repository and branch can be directly targeted via a URL based API:
 
     # https://mybinder.org/v2/gh/<github account>/<repository>/<branch etc.>
     https://mybinder.org/v2/gh/krischer/seismo_live/binder_dockerfile
+
+## Pitfalls
+
+#### Cached intermediate images when building new base image
+
+Docker locally caches intermediate images that might later be reused when
+building new base images. This can lead to files with outdated contents ending
+up in the base image (e.g. docker `COPY ...` commands). If in doubt, delete all
+locally stored docker images in `obspy/seismo-live` repository.
+
+## Final setup steps in docker
+
+The setup currently relies on pre-built docker images to ensure reproducibility
+and to ensure nothing breaks once a working setup is finalized. Therefore, the
+docker image has a full working setup that can directly be just started by the
+binder server.
+However we need to do some final steps, most importantly that is updating the
+notebook content in the docker image to the most recent version of [the
+seismo-live github repo](https://github.com/krischer/seismo_live), so that the
+notebooks hosted by binder reflect the current online version.
+
+There are different options to achieve this:
+
+##### Jupyter notebook startup hooks
+
+According to
+[jupyter docker stack docs](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html#startup-hooks),
+shell scripts to be sourced immediately before the jupyter notebook gets
+started in docker can be placed in the docker image. This seems like the ideal
+solution, since we can simply have binder start a fully pre-built docker image
+and last commands get executed in the running container and no other docker
+pushes/commits etc have to take place.
+This was tried in
+[commit b37e33b06](https://github.com/krischer/seismo_live/commit/b37e33b061509143041a69ef3162859a113399c5).
+However,
+[when starting that image](https://mybinder.org/v2/gh/krischer/seismo_live/b37e33b061509143041a69ef3162859a113399c5),
+actually these hooks do not get executed and it is hard to debug why. Executing
+that image locally (`$ docker run --rm -p 8888:8888 obspy/seismo-live:da87d3935739d3`),
+these hooks get executed just fine. We would have to find out how exectly the
+image is started by binder and why these hooks do not get executed.
+
+##### Modifying docker ENTRYPOINT
+
+To ensure these pre-startup scripts get executed, we could also replace the
+canonical entrypoint of the image when it gets started by binder. However this
+seems rather hackish and might break easier than other approaches outlined
+here.
+This option was tried earlier (around commit
+[e37772e58de](https://github.com/krischer/seismo_live/commit/e37772e58de779eade65ab1b58bec64dfbcf2f9f))
+but it did not seem like the best approach.
+
+##### Final setup steps in main Dockerfile
+
+Final setup steps could be placed in the main Dockerfile, however this gets
+cached, so it's not really feasible (and next option seems superior).
+
+##### nbgitpuller
+
+Could work but does not seem ideal
+
+##### Do not perform updates, static docker images
+
+We could also just simply update the docker base image with new notebook
+content, whenever necessary. This would mean somebody needs to build a new
+docker image when the online notebooks should get updated to reflect the
+current git repository.
+
+##### Manual updating of git content in the running binder instance
+
+Maintainers can simply start a terminal from inside the jupyter instance and
+call `$ cd seismo_live && git pull` or similar to update the notebook contents
+for debugging problems in notebooks.
+This might be a viable solution to be able to check specific notebook versions
+in a running binder, together with fully pre-built docker images with frozen
+repository state that have to be manually updated on notebook changes (see
+above).

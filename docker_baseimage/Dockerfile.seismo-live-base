@@ -1,6 +1,8 @@
 # Fork from a jupyter provided template. Its a minimal conda/jupyter
 # Python3 environment.
-FROM jupyter/minimal-notebook
+# Look up tags when updating the base image here:
+# https://hub.docker.com/r/jupyter/minimal-notebook/tags
+FROM jupyter/minimal-notebook:1386e2046833
 
 MAINTAINER Tobias Megies <megies@geophysik.uni-muenchen.de>
 
@@ -59,9 +61,12 @@ RUN mkdir -p ~/.config/matplotlib && touch ~/.config/matplotlib/matplotlibrc && 
 # Build the font cache so its already done in the notebooks.
 RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
 
+# XXX ugly hack to try and work around proj env issues
+# XXX https://github.com/conda-forge/basemap-feedstock/issues/30
+ENV PROJ_LIB=/opt/conda/share/proj/
+
 # Test and report, for now continue even if errors are reported
-# XXX should add option '--all' later on to test network modules as well
-RUN obspy-runtests --no-flake8 -r -n seismo-live-baseimage || true
+RUN obspy-runtests --all --no-flake8 -r -n seismo-live-baseimage || true
 
 # Ignore all Python warnings because they look ugly in the docs.
 ENV PYTHONWARNINGS ignore
