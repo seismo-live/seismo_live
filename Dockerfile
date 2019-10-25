@@ -8,3 +8,13 @@
 # Use the hash tag last used in `make build` for base image, as output after
 # running that build
 FROM obspy/seismo-live:da87d3935739d3
+
+USER jovyan
+# update notebooks to current master
+RUN cd $HOME/seismo_live && git fetch origin && git reset --hard origin/master
+# only expose notebooks in the jupyter home dir, delete everything else
+RUN cd $HOME && rm -rf $HOME/work && mv $HOME/seismo_live/notebooks/* $HOME/ && rm -rf $HOME/seismo_live
+
+# XXX ugly hack to try and work around proj env issues
+# XXX https://github.com/conda-forge/basemap-feedstock/issues/30
+ENV PROJ_LIB=/opt/conda/share/proj/
