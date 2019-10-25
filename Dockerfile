@@ -7,7 +7,7 @@
 # caches the old base image and uses that.
 # Use the hash tag last used in `make build` for base image, as output after
 # running that build
-FROM obspy/seismo-live:da87d3935739d3
+FROM obspy/seismo-live:aa9c9f57d71272
 
 USER jovyan
 # update notebooks to current master
