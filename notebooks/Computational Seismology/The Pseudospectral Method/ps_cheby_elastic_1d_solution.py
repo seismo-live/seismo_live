@@ -91,7 +91,21 @@ from ricker import ricker
 # #### Exercise
 # Define a python function call "get_cheby_matrix(nx)" that initializes the Chebyshev derivative matrix $D_{ij}$, call this function and display the Chebyshev derivative matrix. 
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE CHEBYSHEV DERIVATIVE MATRIX METHOD HERE!
+################################################################# 
+
+# Call the chebyshev differentiation matrix
+# ---------------------------------------------------------------
+#D_ij = 
+
+# ---------------------------------------------------------------
+# Display Differentiation Matrix
+# ---------------------------------------------------------------
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 def get_cheby_matrix(nx):
     cx = np.zeros(nx+1)
     x = np.zeros(nx+1)

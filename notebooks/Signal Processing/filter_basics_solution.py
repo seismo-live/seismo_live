@@ -35,7 +35,7 @@
 # <br>
 
 # + {"code_folding": [0]}
-# Cell 0 - Preparation: load packages, set some basic options
+# Cell 0 - Preparation: load packages, set some basic options  
 # %matplotlib inline
 from obspy import *
 from obspy.clients.fdsn import Client
@@ -52,9 +52,9 @@ plt.rcParams['lines.linewidth'] = 0.5
 #
 # > _Filters or systems are, in the most general sense, devices (in the physical world) or algorithms (in the mathematical world) which act on some input signal to produce a - possibly different - output signal_
 #
-# In seismology, filters are used to correct for the instrument response, avoid aliasing effects, separate 'wanted' from 'unwanted' frequencies, identify harmonic signals, model a specific recording instrument, and much more ...
+# In seismology, filters are used to correct for the instrument response, avoid aliasing effects, separate 'wanted' from 'unwanted' frequencies, identify harmonic signals, model a specific recording instrument, and much more ...   
 #
-# There is no clear classification of filters. Roughly speaking, we can distinguish linear vs. non-linear, analog (circuits, resistors, conductors) vs. digital (logical components), and continuous vs. discrete filters. In seismology, we generally avoid non-linear filters, because their output contains frequencies which are not in the input signal. Analog filters can be continuous or discrete, while digital filters are always discrete. Discrete filters can be subdivided into infinite impulse response (IIR) filters, which are recursive and causal, and finite impulse response (FIR) filters, which are non-recursive and causal or acausal. We will explain more about these types of filters below.
+# There is no clear classification of filters. Roughly speaking, we can distinguish linear vs. non-linear, analog (circuits, resistors, conductors) vs. digital (logical components), and continuous vs. discrete filters. In seismology, we generally avoid non-linear filters, because their output contains frequencies which are not in the input signal. Analog filters can be continuous or discrete, while digital filters are always discrete. Discrete filters can be subdivided into infinite impulse response (IIR) filters, which are recursive and causal, and finite impulse response (FIR) filters, which are non-recursive and causal or acausal. We will explain more about these types of filters below.   
 # Some filters have a special name, such as Butterworth, Chebyshev or Bessel filters, but they can also be integrated in the classification described above.
 #
 # A filter is characterised by its *frequency response function* which is the [Fourier transformation](fourier_transform.ipynb) of the output signal divided by the Fourier transformation of the input signal:
@@ -65,23 +65,23 @@ plt.rcParams['lines.linewidth'] = 0.5
 #
 # $$ |T(j\omega)| = \sqrt{ \frac{1}{1+(\frac{\omega}{\omega_c})^{2n}} } $$
 #
-# with $\omega$ indicating the frequency samples, $\omega_c$ the corner frequency of the filter, and $n$ the order of the filter (also called the number of corners of the filter). For a lowpass filter, all frequencies lower than the corner frequency are allowed to pass the filter. This is the *pass band* of the filter. On the other hand, the range of frequencies above the corner frequency is called *stop band*. In between lies the *transition band*, a small band of frequencies in which the passed amplitudes are gradually decreased to zero. The steepness of the slope of this *transition band* is defined by the order of the filter: the higher the order, the steeper the slope, the more effectively 'unwanted' frequencies get removed.
+# with $\omega$ indicating the frequency samples, $\omega_c$ the corner frequency of the filter, and $n$ the order of the filter (also called the number of corners of the filter). For a lowpass filter, all frequencies lower than the corner frequency are allowed to pass the filter. This is the *pass band* of the filter. On the other hand, the range of frequencies above the corner frequency is called *stop band*. In between lies the *transition band*, a small band of frequencies in which the passed amplitudes are gradually decreased to zero. The steepness of the slope of this *transition band* is defined by the order of the filter: the higher the order, the steeper the slope, the more effectively 'unwanted' frequencies get removed. 
 #
 # In the time domain, filtering means to [convolve](convolution.ipynb) the data with the *impulse response function* of the filter. Doing this operation in the time domain is mathematically complex, computationally expensive and slow. Therefore, the digital application of filters is almost always done in the frequency domain, where it simplifies to a much faster multiplication between data and filter response. The procedure is as follows: transfer the signal into the frequency domain via FFT, multiply it with the filter's *frequency response function* (i.e. the FFT of the *impulse response function*), and transfer the result back to the time-domain. As a consequence, when filtering, we have to be aware of the characteristics and pit-falls of the [Fourier transformation](fourier_transform.ipynb).
 
 # ---
 # ### Filter types
 #
-# There are 4 main types of filters: a lowpass, a highpass, a bandpass, and a bandstop filter. Low- and highpass filters only have one corner frequency, allowing frequencies below and above this corner frequency to pass the filter, respectively. In contrast, bandpass and bandstop filters have two corner frequencies, defining a frequency band to pass and to stop, respectively.
-# Here, we want to see how exactly these filters act on the input signal. In Cell 1, the vertical component of the M$_w\,$9.1 Tohoku earthquake, recorded at Wettzell - Germany, is downloaded and [pre-processed](spectral_analysis+preprocessing.ipynb). In Cell 2, the four basic filters are applied to these data and plotted together with the filter functions and the resulting amplitude spectrum.
+# There are 4 main types of filters: a lowpass, a highpass, a bandpass, and a bandstop filter. Low- and highpass filters only have one corner frequency, allowing frequencies below and above this corner frequency to pass the filter, respectively. In contrast, bandpass and bandstop filters have two corner frequencies, defining a frequency band to pass and to stop, respectively.   
+# Here, we want to see how exactly these filters act on the input signal. In Cell 1, the vertical component of the M$_w\,$9.1 Tohoku earthquake, recorded at Wettzell - Germany, is downloaded and [pre-processed](spectral_analysis+preprocessing.ipynb). In Cell 2, the four basic filters are applied to these data and plotted together with the filter functions and the resulting amplitude spectrum. 
 #
-# 1) Look at the figure and explain what the different filters do.
-# 2) Change the order of the filter (i.e the number of corners). What happens and why?
+# 1) Look at the figure and explain what the different filters do.   
+# 2) Change the order of the filter (i.e the number of corners). What happens and why?  
 
-# Cell 1: prepare data from Tohoku earthquake.
+# Cell 1: prepare data from Tohoku earthquake. 
 client = Client("BGR")
 t1 = UTCDateTime("2011-03-11T05:00:00.000")
-st = client.get_waveforms("GR", "WET", "", "BHZ", t1, t1 + 6 * 60 * 60,
+st = client.get_waveforms("GR", "WET", "", "BHZ", t1, t1 + 6 * 60 * 60, 
                           attach_response = True)
 st.remove_response(output="VEL")
 st.detrend('linear')
@@ -235,7 +235,7 @@ plt.show()
 #
 # Filters can be causal or acausal. The output of a causal filter depends only on past and present input, while the output also depends on future input. Thus, an acausal filter is always symmetric and a causal one not. In this exercise, we want to see the effects of such filters on the signal. In Cell 3, the example seismogram of `ObsPy` is loaded and lowpass filtered several times with different filter order $n$ and causality.
 #
-# 3) Explain the effects of the different filters. You can also play with the order of the filter (variable $ncorners$).
+# 3) Explain the effects of the different filters. You can also play with the order of the filter (variable $ncorners$).   
 # 4) Zoom into a small window around the first onset (change the variables $start$, $end$ and $amp$). Which filter would you use for which purpose?
 
 # +
@@ -251,7 +251,7 @@ t = tr.times()                 # time vector for x axis
 f = 15.0                       # frequency for filters (intial: 10 Hz)
 start = 4                      # start time to plot in sec (initial: 4)
 end = 8                        # end time to plot in sec (initial: 8)
-amp = 1500                     # amplitude range for plotting (initial: 1500)
+amp = 1500                     # amplitude range for plotting (initial: 1500)  
 ncorners = 4                   # number of corners/order of the filter (initial: 4)
 
 tr_filt = tr.copy()            # causal filter / not zero phase. Order = 2
@@ -269,7 +269,7 @@ plt.plot(t, tr_filt2.data, 'r', label='causal, n=%s' % ncorners, linewidth=1.2)
 plt.plot(t, tr_filt3.data, 'g', label='acausal, n=%s' % ncorners, linewidth=1.2)
 
 plt.xlabel('time [s]')
-plt.xlim(start, end)
+plt.xlim(start, end)    
 plt.ylim(-amp, amp)
 plt.ylabel('amplitude [arbitrary]')
 plt.legend(loc='lower right')
@@ -282,8 +282,8 @@ plt.show()
 #
 # We will now look at an event which took place in Kazakhstan on July 8, 1989. We want to see how filtering helps to derive information from a signal. The signal has been recorded by a Chinese station and is bandpassed in several different frequency bands.
 #
-# 5) What do you see in the different frequency bands?
-# 6) Play with the channel used for filtering in Cell 5. What do you not see? Can you guess what kind of event it is?
+# 5) What do you see in the different frequency bands?   
+# 6) Play with the channel used for filtering in Cell 5. What do you not see? Can you guess what kind of event it is?   
 
 # Cell 4 - get + preprocess data
 c = Client("IRIS")
@@ -367,18 +367,18 @@ plt.xlabel('time [sec]')
 plt.ylabel('amplitude \n [m/s]')
 plt.subplots_adjust(hspace=0.3)
 plt.show()
-# -
 
+# + {"tags": ["solution"], "cell_type": "markdown"}
 # ---
 #
 # #### Answers
-# 1) The lowpass removes frequencies *below* the corner frequency of the filter, while a highpass removes all frequencies *above* the corner frequency. The bandpass allows all frequencies *within* the two corner frequencies, while a bandstop allows all frequencies *outside* this range.
-# In the filtered signals not only the frequency content is changed (see plot of spectrum) but also the maximum amplitudes (see scaling of y-axis in time-domain plot.) In the frequency-domain plot, we see that each frequency contributes with a distinct amount of amplitude to the final signal. Depending on which frequencies remain after filtering, we have altered the amplitudes as well as the frequencies of the filtered signal.
-# **Be aware:** "high-" and "low-"pass refers to the unit 'frequency'! When you think in terms of 'period', you have to switch your mind.
-# 2) When setting the order of the filter very high, the slopes of the filter functions turn into steps and the amplitude spectra stop abruptly. Due to the harsh steps in the filter functions, we risk [Gibbs effects](fourier_transform.ipynb) during filtering. However, when setting the order of the filter lower, the slopes become too gentle and the unwanted frequencies are not removed effectively. Thus, we always have to balance between minimizing the Gibbs effects (low order) and maximizing the effective removal of frequencies (high order).
+# 1) The lowpass removes frequencies *below* the corner frequency of the filter, while a highpass removes all frequencies *above* the corner frequency. The bandpass allows all frequencies *within* the two corner frequencies, while a bandstop allows all frequencies *outside* this range.   
+# In the filtered signals not only the frequency content is changed (see plot of spectrum) but also the maximum amplitudes (see scaling of y-axis in time-domain plot.) In the frequency-domain plot, we see that each frequency contributes with a distinct amount of amplitude to the final signal. Depending on which frequencies remain after filtering, we have altered the amplitudes as well as the frequencies of the filtered signal.     
+# **Be aware:** "high-" and "low-"pass refers to the unit 'frequency'! When you think in terms of 'period', you have to switch your mind.   
+# 2) When setting the order of the filter very high, the slopes of the filter functions turn into steps and the amplitude spectra stop abruptly. Due to the harsh steps in the filter functions, we risk [Gibbs effects](fourier_transform.ipynb) during filtering. However, when setting the order of the filter lower, the slopes become too gentle and the unwanted frequencies are not removed effectively. Thus, we always have to balance between minimizing the Gibbs effects (low order) and maximizing the effective removal of frequencies (high order).  
 #
-# 3) The difference between the two causal filters (red and blue) are minor, even when the order of the filter is increased. But the acausal filter (green) shows a phase shift relative to the original data. This phase shift increases drastically when increasing the order of the filter.
-# 4) Zooming into a time window from 4.5 s to 5 s and setting the maximum amplitude to 400, we see that the phase shift is also shifting the first onset. We would pick it incorrectly. Therefore, whenever the scientific task involves the correct time picking of phases, we have to work with causal filters. When only the frequency content is important, we can also work with acausal filters.
+# 3) The difference between the two causal filters (red and blue) are minor, even when the order of the filter is increased. But the acausal filter (green) shows a phase shift relative to the original data. This phase shift increases drastically when increasing the order of the filter.      
+# 4) Zooming into a time window from 4.5 s to 5 s and setting the maximum amplitude to 400, we see that the phase shift is also shifting the first onset. We would pick it incorrectly. Therefore, whenever the scientific task involves the correct time picking of phases, we have to work with causal filters. When only the frequency content is important, we can also work with acausal filters.  
 #
-# 5) In the first two bands (0.01-0.05 Hz) we see Love waves with different amplitudes between 200 and 400 seconds. At 0.1-0.5 Hz we see Rayleigh waves after around 350 seconds and some scatter in the earlier times. At 0.5-1 Hz it is nearly all scattered energy. At 1-5 Hz we see a clear P-wave at around 25 seconds and some later scatter. The last band between 5 and 10 Hz removes the scatter completely with a very nice P-wave coda remaining. We can even distinguish the P-wave of a much smaller event at around 390 seconds.
+# 5) In the first two bands (0.01-0.05 Hz) we see Love waves with different amplitudes between 200 and 400 seconds. At 0.1-0.5 Hz we see Rayleigh waves after around 350 seconds and some scatter in the earlier times. At 0.5-1 Hz it is nearly all scattered energy. At 1-5 Hz we see a clear P-wave at around 25 seconds and some later scatter. The last band between 5 and 10 Hz removes the scatter completely with a very nice P-wave coda remaining. We can even distinguish the P-wave of a much smaller event at around 390 seconds.  
 # 6) There is no clear S-wave visible. Also in the horizontal components (channel 0 and 1) almost no S-wave energy is visible. This is a clear hint for an explosive type of event. Indeed, this is the recording of a nuclear test explosion. The recording with exactly these bandpass filters was used as cover figure for the book 'Quantitative Seismology' by Keiiti Aki and Paul G. Richards, 2nd edition.

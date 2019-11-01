@@ -41,7 +41,7 @@
 # 3. The `get_seismograms()` method has a couple of extra arguments:
 #   * `kind`: `displacement`, `velocity`, `acceleration`
 #   * `remove_source_shift`, `reconvolve_stf`, `dt`,
-#
+#   
 #   ... see the [documentation](http://www.instaseis.net/instaseis.html#instaseis.base_instaseis_db.BaseInstaseisDB.get_seismograms) for details.
 # 4. You can use the properties of the Receiver and Source objects to create usefull filenames.
 
@@ -98,7 +98,7 @@ import glob # provides iterator to loop over files
 
 for filename in glob.iglob('data/events/quakeml/*.xml'):
      cat += obspy.read_events(filename)
-
+        
 print(cat)
 print(instaseis.Source.parse(cat.events[0]))
 cat.plot();
@@ -111,7 +111,7 @@ sources = []
 
 for filename in glob.iglob('data/events/quakeml/*.xml'):
     sources.append(instaseis.Source.parse(filename))
-
+    
 print(sources[0])
 
 for filename in glob.iglob('data/events/cmtsolutions/*'):
@@ -124,7 +124,7 @@ print(sources[0])
 
 # For the first solution using a ObsPy event catalog:
 
-# +
+# + {"tags": ["exercise"]}
 dt = 1.0
 
 for event in cat:
@@ -135,10 +135,32 @@ for event in cat:
         recname = '%s_%s' % (rec.network, rec.station)
         filename = '%s_%s' % (recname, srcname)
         filename = filename.replace('.', '_')
+        
+        # extract seismograms using instaseis
+        
+        
+        # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
+        # component support.
+        
 
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"tags": ["solution"]}
+dt = 1.0
+
+for event in cat:
+    src = instaseis.Source.parse(event)
+    srcname = '%s_Mw_%3.1f' % (src.origin_time.date, src.moment_magnitude)
+    for rec in receivers:
+        # create a usefull filename
+        recname = '%s_%s' % (rec.network, rec.station)
+        filename = '%s_%s' % (recname, srcname)
+        filename = filename.replace('.', '_')
+        
         # extract seismograms using instaseis
         st = db.get_seismograms(source=src, receiver=rec, dt=dt)
-
+        
         # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
         # component support.
         st.write(os.path.join('data_out', filename + '.mseed'), format='mseed')
@@ -146,7 +168,7 @@ for event in cat:
 
 # For the second solution use a list of sources:
 
-# +
+# + {"tags": ["exercise"]}
 dt = 1.0
 
 for src in sources:
@@ -156,10 +178,31 @@ for src in sources:
         recname = '%s_%s' % (rec.network, rec.station)
         filename = '%s_%s' % (recname, srcname)
         filename = filename.replace('.', '_')
+        
+        # extract seismograms using instaseis
+        
+        
+        # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
+        # component support.
+        
 
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"tags": ["solution"]}
+dt = 1.0
+
+for src in sources:
+    srcname = '%s_Mw_%3.1f' % (src.origin_time.date, src.moment_magnitude)
+    for rec in receivers:
+        # create a usefull filename
+        recname = '%s_%s' % (rec.network, rec.station)
+        filename = '%s_%s' % (recname, srcname)
+        filename = filename.replace('.', '_')
+        
         # extract seismograms using instaseis
         st = db.get_seismograms(source=src, receiver=rec, dt=dt)
-
+        
         # write to miniseed files in the data_out folder. Write as MiniSEED due to multi
         # component support.
         st.write(os.path.join('data_out', filename + '.mseed'), format='mseed')

@@ -66,6 +66,28 @@ def strip_solution_content(
 
     with open(no_solution_filename, "w") as fh:
         json.dump(nb, fh)
+        
+def strip_exercise_content(
+    ipynb_filename: pathlib.Path, no_exercise_filename: pathlib.Path
+):
+    with open(ipynb_filename, "r") as fh:
+        nb = json.load(fh)
+    stripped_cell_count = 0
+    for cell in nb["cells"]:
+        if (
+            not "metadata" in cell
+            or not "tags" in cell["metadata"]
+            or not "exercise" in cell["metadata"]["tags"]
+        ):
+            continue
+        cell["source"] = []
+        stripped_cell_count += 1
+
+    print(f"Stripped the exercise in {stripped_cell_count} cells.")
+
+    with open(no_exercise_filename, "w") as fh:
+        json.dump(nb, fh)
+        
 
 
 def get_html_folder(
@@ -88,6 +110,7 @@ def convert_file(
     (2) Deletes the jupytext file.
     (3) If the file ends with "_solution":
         * Creates a version of that file with stripped "solution" tags.
+        * Creates a version of that file with stripped "exercise" tags.
     (4) Executes the file and saves the output
     (5) Renders HTML version of all files.
     """
@@ -113,9 +136,12 @@ def convert_file(
         no_solution_filename = ipynb_filename.parent / (
             ipynb_filename.stem[: -len("_solution")] + ".ipynb"
         )
+        no_exercise_filename = ipynb_filename.parent / (
+            ipynb_filename.stem[: -len("_solution")] + "_exercise.ipynb"
         print(f"Creating no-solution file: {no_solution_filename}")
+        print(f"Creating no-exercise file: {no_exercise_filename}")    
         strip_solution_content(ipynb_filename, no_solution_filename)
-
+        strip_exercise_content(ipynb_filename, no_exercise_filename)
         print(f"Converting to HTML: {no_solution_filename}")
         subprocess.run(
             [
@@ -176,12 +202,6 @@ def convert_folder(
         raise ValueError("Not enough jupytext files found!")
 
     check_for_duplicate_solution_files(jupytext_files)
-
-    # Only use a few for testing purposes.
-    # XXX: REMOVE AT ONE POINT!!
-    jupytext_files = [
-        i for i in jupytext_files if "fourier_transform_solution" in str(i)
-    ]
 
     for filename in jupytext_files:
         convert_file(

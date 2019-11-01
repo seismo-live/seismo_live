@@ -64,7 +64,10 @@
 #
 # Request information on stations recording close to the event from IRIS using the [`obspy.fdsn Client`](http://docs.obspy.org/packages/obspy.fdsn.html), print the requested station information.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 from obspy import UTCDateTime
 from obspy.clients.fdsn import Client
 
@@ -82,48 +85,73 @@ print(inventory)
 
 # Download waveform data for the mainshock for one of the stations using the FDSN client (if you get an error, maybe try a different station and/or ask for help). Make the preview plot using obspy.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st = client.get_waveforms("NM", "USIN", "*", "HH*", t, t+50)
 st.plot()
+# -
 
 # Visualize a Spectrogram (if you got time, you can play around with the different parameters for the spectrogram). Working on a copy of the donwloaded data, apply a filter, then trim the requested data to some interesting parts of the earthquake and plot the data again.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st.spectrogram(wlen=1.5, per_lap=0.9, mult=5, log=True)
 
 st2 = st.copy()
 st2.filter(type="bandpass", freqmin=1, freqmax=20)
 st2.trim(t+3, t+25)
 st2.plot()
-
-
 # -
 
 # Define a function `plot_data(t)` that fetches waveform data for this station and that shows a preview plot of 20 seconds of data starting at a given time. It should take a UTCDateTime object as the single argument.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 def plot_data(time):
     st = client.get_waveforms("NM", "USIN", "*", "HH*", time, time+20)
     st.plot()
-
+# -
 
 # Test your function by calling it for the time of the main shock
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 plot_data(t)
+# -
 
 # ## 2. Visualize aftershock and estimate magnitude
 #
 # Read file "`./data/mtcarmel.mseed`". It contains data of stations from an aftershock network that was set up shortly after the main shock. Print the stream information and have a look at the network/station information, channel names time span of the data etc.. Make a preview plot. 
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 from obspy import read, UTCDateTime
 st = read("./data/mtcarmel.mseed")
 print(st)
 st.plot()
+# -
 
 # The strongest aftershock you see in the given recordings is at `2008-04-21T05:38:30`. Trim the data to this aftershock and make a preview plot and a spectrogram plot of it.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 t = UTCDateTime("2008-04-21T05:38:30")
 st.trim(t, t+15)
 st.plot()
 st.spectrogram()
+# -
 
 # Make a very simple approximation of the magnitude. Use the function provided below (after you execute the code box with the function you can call it anywhere in your code boxes).
 #
@@ -155,15 +183,20 @@ def mag_approx(peak_value, frequency, hypo_dist=20):
     ml = estimate_magnitude(paz, peak_value, 0.5 / frequency, hypo_dist)
     return ml
 
+# + {"tags": ["exercise"]}
 
-# -
 
+# + {"tags": ["solution"]}
 peak = st[0].data.max()
 print(mag_approx(peak, 5))
+# -
 
 # Do the magnitude approximation in a for-loop for all stations in the Stream. Calculate a network magnitude as the average of all three stations.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 import numpy as np
 
 magnitudes = []
@@ -172,12 +205,14 @@ for tr in st:
     magnitudes.append(station_mag)
 mag = np.mean(magnitudes)
 print(mag)
-
-
 # -
 
 # Define a function `netmag(st)` that returns a network magnitude approximation. It should take a Stream object (which is assumed to be trimmed to an event) as only argument. Use the provided `mag_approx` function and calculate the mean of all traces in the stream internally.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 def netmag(st):
     magnitudes = []
     for tr in st:
@@ -185,11 +220,16 @@ def netmag(st):
         magnitudes.append(station_mag)
     mag = np.mean(magnitudes)
     return mag
-
+# -
 
 # Test your function on the cut out Stream object of the large aftershock from before.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 print(netmag(st))
+# -
 
 # #### Advanced
 # You can also download the station metadata using the FDSN client and extract poles and zeros information and directly use the `estimate_magnitude` function without using the hard-coded response information. 
@@ -202,10 +242,15 @@ print(netmag(st))
 #
 # (play around with different values and check out the resulting characteristic function)
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st = read("./data/mtcarmel.mseed")
 st.filter("bandpass", freqmin=2, freqmax=10)
 st.trigger(type="classicstalta", sta=1, lta=30)
 st.plot()
+# -
 
 # We could now manually compare trigger values on the different stations to find small aftershocks, termed a network coincidence trigger. However, there is a convenience function in ObsPy's signal toolbox to do just that in only a few lines of code.
 #
@@ -213,12 +258,17 @@ st.plot()
 #
 # Print the first trigger in the list to show information on the suspected event.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st = read("./data/mtcarmel.mseed")
 from obspy.signal.trigger import coincidence_trigger
 st.filter("bandpass", freqmin=2, freqmax=10)
 triggers = coincidence_trigger("recstalta", 10, 2, st, 3, sta=1, lta=20)
 print(len(triggers))
 print(triggers[0])
+# -
 
 # Go over the list of triggers in a for-loop. For each trigger/suspected event:
 #
@@ -229,12 +279,17 @@ print(triggers[0])
 #
 # If you're curious you can compare the crude magnitude estimates with the [table of aftershocks](http://www.seismosoc.org/publications/srl/SRL_82/srl_82-5_hamburger_et_al-esupp/Table_S2.txt) provided by the scientists that analyzed the aftershock sequence. The paper with details can be found here: ["Aftershocks of the 2008 Mt. Carmel, Illinois, Earthquake: Evidence for Conjugate Faulting near the Termination of the Wabash Valley Fault System" by M. W. Hamburger, K. Shoemaker, S. Horton, H. DeShon, M. Withers, G. L. Pavlis and E. Sherrill, SRL 2011](http://srl.geoscienceworld.org/content/82/5/735.short).
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 for trig in triggers:
     t = trig['time']
     st = read("./data/mtcarmel.mseed", starttime=t-3, endtime=t+15)
     st.detrend("demean")
     print(netmag(st))
     st.plot()
+# -
 
 # #### Advanced:
 # You can also use event templates of some good signal-noise-ratio aftershocks to detect more weaker aftershocks and select from weak triggers based on waveform similarities like shown in the ObsPy tutorial. 
@@ -253,7 +308,10 @@ pick_times = ["2008-04-19T13:08:59.19",
               "2008-04-19T19:03:38.72",
               "2008-04-19T19:28:53.54"]
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 from obspy import read, UTCDateTime
 from obspy.signal.cross_correlation import xcorr_pick_correction
 
@@ -287,7 +345,7 @@ print("Bandpass prefiltering:")
 print("  Time correction for pick 2: %.6f" % dt)
 print("  Correlation coefficient: %.2f" % coeff)
 
-# +
+# + {"tags": ["solution"]}
 from obspy import read, UTCDateTime
 from obspy.signal.cross_correlation import xcorr_pick_correction
 

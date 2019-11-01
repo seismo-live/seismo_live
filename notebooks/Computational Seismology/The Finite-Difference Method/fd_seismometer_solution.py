@@ -199,8 +199,8 @@ for i in range(nt):
         
 plt.ioff()
 plt.show()
-# -
 
+# + {"tags": ["solution"], "cell_type": "markdown"}
 # ## Solutions
 # **Part 1**
 #

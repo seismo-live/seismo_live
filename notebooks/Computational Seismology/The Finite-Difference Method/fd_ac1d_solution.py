@@ -16,11 +16,12 @@
 #     <div style="float: right ; margin: 50px ; padding: 20px ; background: rgba(255 , 255 , 255 , 0.7) ; width: 50% ; height: 150px">
 #         <div style="position: relative ; top: 50% ; transform: translatey(-50%)">
 #             <div style="font-size: xx-large ; font-weight: 900 ; color: rgba(0 , 0 , 0 , 0.8) ; line-height: 100%">Computational Seismology</div>
-#             <div style="font-size: large ; padding-top: 20px ; color: rgba(0 , 0 , 0 , 0.5)">Finite Differences Method - Acoustic Waves in 2D</div>
+#             <div style="font-size: large ; padding-top: 20px ; color: rgba(0 , 0 , 0 , 0.5)">Finite Differences Method - Acoustic Waves in 1D</div>
 #         </div>
 #     </div>
 # </div>
 
+#
 # <p style="width:20%;float:right;padding-left:50px">
 # <img src=../../share/images/book.jpg>
 # <span style="font-size:smaller">
@@ -34,7 +35,6 @@
 # to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#), 
 # Oxford University Press, 2016.
 #
-#
 # ##### Authors:
 # * Heiner Igel ([@heinerigel](https://github.com/heinerigel))
 # * Lion Krischer ([@krischer](https://github.com/krischer))
@@ -44,7 +44,7 @@
 
 # This notebook covers the following aspects:
 #
-# * implementation of the 2D acoustic wave equation 
+# * implementation of the 1D acoustic wave equation 
 # * understanding the input parameters for the simulation and the plots that are generated
 # * understanding the concepts of stability (Courant criterion)
 # * modifying source and receiver locations and observing the effects on the seismograms
@@ -125,57 +125,64 @@
 # \right.
 # $$
 #
-# The Heaviside function is the integral of the $\delta-$function (and vice-versa the $\delta$-function is defined as the derivative of the Heaviside function). In 2D case, the Green's function is
+# The Heaviside function is the integral of the $\delta-$function (and vice-versa the $\delta$-function is defined as the derivative of the Heaviside function). In 1D case, the Greens function is proportional to a Heaviside function. 
 #
 # $$
-# G = \frac{1}{2\pi c^2}\frac{H(t-\frac{|r|}{c})}{\sqrt{t^2-\frac{r^2}{c^2}}}
+# G=\frac{1}{2c}H(t-\frac{|r|}{c})
 # $$
 #
 # $$
-# r = \sqrt{x^2+y^2}
+# r=x
 # $$
 #
-# A special situation occurs in 2D. An impulsive source leads to a waveform with a coda that decreases with time. This is a consequence of the fact that the source actually is a line source. From a computational point of view this is extremely important. Numerical solutions in 2D Cartesian coordinates cannot directly be compared to observations in which we usually have point sources.
+# As the response to an arbitrary source time function can be obtained by convolution this implies that the propagating waveform is the integral of the source time function. The response is shown for a source time function with a 1st derivative of a Gaussian.
 #
 # ### Numerical Solution (Finite Differences Method)
 #
-# In 2D the constant-density acoustic wave equation is given by
+# The acoustic wave equation in 1D with constant density 
 #
 # $$
-# \ddot{p}(x,z,t) \ = \ c(x,z)^2 (\partial_x^2 p(x,z,t) + \partial_z^2 p(x,z,t)) \ + s(x,z,t)
+# \partial^2_t p(x,t) \ = \ c(x)^2 \partial_x^2 p(x,t) + s(x,t)
 # $$
 #
-# where the $z$-coordinate is chosen because in many applications the $x-z$ plane is considered a vertical plane with $z$ as depth coordinate. In accordance with the above developments we discretise space-time using
+# with pressure $p$, acoustic velocity $c$, and source term $s$ contains two second derivatives that can be approximated with a difference formula such as
 #
 # $$
-# p(x,z,t) \ \rightarrow \ p^n_{i,j} \ = \ p(n dt, i dx, j dz) \ .
+# \partial^2_t p(x,t) \ \approx \ \frac{p(x,t+dt) - 2 p(x,t) + p(x,t-dt)}{dt^2} 
 # $$
 #
-# Using the 3-point operator for the 2nd derivatives in time leads us to the extrapolation scheme
+# and equivalently for the space derivative. Injecting these approximations into the wave equation allows us to formulate the pressure p(x) for the time step $t+dt$ (the future) as a function of the pressure at time $t$ (now) and $t-dt$ (the past). This is called an explicit scheme allowing the $extrapolation$ of the space-dependent field into the future only looking at the nearest neighbourhood.
+#
+# We replace the time-dependent (upper index time, lower indices space) part by
 #
 # $$
-#  \frac{p_{i,j}^{n+1} - 2 p_{i,j}^n + p_{i,j}^{n-1}}{dt^2} \ = \ c^2 ( \partial_x^2 p + \partial_z^2 p) \ + s_{i,j}^n
+#  \frac{p_{i}^{n+1} - 2 p_{i}^n + p_{i}^{n-1}}{\mathrm{d}t^2} \ = \ c^2 ( \partial_x^2 p) \ + s_{i}^n
 # $$
 #
-# where on the r.h.s. the space and time dependencies are implicitly assumed and the partial derivatives are approximated by
+# solving for $p_{i}^{n+1}$.
 #
-# \begin{equation}
-# \begin{split}
-# \partial_x^2 p \ &= \ \frac{p_{i+1,j}^{n} - 2 p_{i,j}^n + p_{i-1,j}^{n}}{dx^2} \\ 
-# \partial_z^2 p \ &= \ \frac{p_{i,j+1}^{n} - 2 p_{i,j}^n + p_{i,j-1}^{n}}{dz^2}  \ . 
-# \end{split}
-# \end{equation}
-# Note that for a regular 2D grid $dz=dx$ 
+# The extrapolation scheme is
+#
+# $$
+# p_{i}^{n+1} \ = \ c_i^2 \mathrm{d}t^2 \left[ \partial_x^2 p \right]
+# + 2p_{i}^n - p_{i}^{n-1} + \mathrm{d}t^2 s_{i}^n
+# $$
+#
+# The  space derivatives are determined by 
+#
+# $$
+# \partial_x^2 p \ = \ \frac{p_{i+1}^{n} - 2 p_{i}^n + p_{i-1}^{n}}{\mathrm{d}x^2}
+# $$
 #
 # ### Analytical and Numerical Comparisons
-# The code below is given with a 3-point difference operator. Compare the results from numerical simulation with the 3-point operator with the analytical solution.
+# The code below is given with a 3-point difference operator. Compare the results from the numerical simulation with the 3-point operator with the analytical solution.
 #
 # ### High-order operators
-# Extend the code by adding the option to use a 5-point difference operator. The 5-pt weights are: 
+# Extend the code to higher order by adding the option to use a 5-point difference operator. The 5-pt weights are: 
 # $
-# [-1/12, 4/3, -5/2, 4/3, -1/12]/dx^2
+# [-1/12, 4/3, -5/2, 4/3, -1/12] / dx^2
 # $. 
-# Compare simulations with the 3-point and 5-point operators.
+# Compare simulations of the 3-point and 5-point operators.
 #
 # ---
 
@@ -191,7 +198,6 @@ import matplotlib.pyplot as plt
 # Sub-plot Configuration
 # ----------------------
 from matplotlib import gridspec 
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # Ignore Warning Messages
 # -----------------------
@@ -202,17 +208,12 @@ warnings.filterwarnings("ignore")
 # Parameter Configuration 
 # -----------------------
 
-nx   = 500          # number of grid points in x-direction
-nz   = nx           # number of grid points in z-direction
-# Note: regular 2D grid, dz = dx
-dx   = 1.           # grid point distance in x-direction
-dz   = dx           # grid point distance in z-direction
-c0   = 580.         # wave velocity in medium (m/s)
-isx  = 250          # source location in grid in x-direction
-isz  = isx          # source location in grid in z-direction
-irx  = 330          # receiver location in grid in x-direction
-irz  = isz          # receiver location in grid in z-direction
-nt   = 502          # maximum number of time steps
+nx   = 1000         # number of grid points in x-direction
+dx   = 0.5          # grid point distance in x-direction
+c0   = 333.         # wave speed in medium (m/s)
+isrc = 500          # source location in grid in x-direction
+ir   = 730          # receiver location in grid in x-direction
+nt   = 1001         # maximum number of time steps
 dt   = 0.0010       # time step
 
 # CFL Stability Criterion
@@ -225,7 +226,7 @@ print('Stability criterion =', eps)
 # Plot Source Time Function 
 # -------------------------
 
-f0   = 40. # dominant frequency of the source (Hz)
+f0   = 25. # dominant frequency of the source (Hz)
 t0   = 4. / f0 # source time shift
 
 print('Source frequency =', f0, 'Hz')
@@ -237,13 +238,13 @@ time = np.linspace(0 * dt, nt * dt, nt)
 # 1st derivative of a Gaussian
 src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) ** 2))
 
-# Plot Position Configuration
+# Plot position configuration
 # ---------------------------
 plt.ion()
 fig1 = plt.figure(figsize=(12, 6))
 gs1  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
-# Plot Source Time Function
+# Plot source time function
 # -------------------------
 ax1  = plt.subplot(gs1[0])
 ax1.plot(time, src) # plot source time function
@@ -252,7 +253,7 @@ ax1.set_xlim(time[0], time[-1])
 ax1.set_xlabel('Time (s)')
 ax1.set_ylabel('Amplitude')
 
-# Plot Source Spectrum
+# Plot source spectrum
 # --------------------
 ax2  = plt.subplot(gs1[1])
 spec = np.fft.fft(src) # source time function in frequency domain
@@ -261,6 +262,7 @@ ax2.plot(np.abs(freq), np.abs(spec)) # plot frequency and amplitude
 ax2.set_xlim(0, 250) # only display frequency from 0 to 250 Hz
 ax2.set_title('Source Spectrum')
 ax2.set_xlabel('Frequency (Hz)')
+ax2.set_ylabel('Amplitude')
 
 ax2.yaxis.tick_right()
 ax2.yaxis.set_label_position("right")
@@ -271,191 +273,174 @@ plt.show()
 # Plot Snapshot & Seismogram (PLEASE RERUN THIS CODE AGAIN AFTER SIMULATION!) 
 # ---------------------------------------------------------------------------
 
-# Initialize Empty Pressure
+# Initialize empty pressure
 # -------------------------
-p    = np.zeros((nz, nx)) # p at time n (now)
-pold = np.zeros((nz, nx)) # p at time n-1 (past)
-pnew = np.zeros((nz, nx)) # p at time n+1 (present)
-d2px = np.zeros((nz, nx)) # 2nd space derivative of p in x-direction
-d2pz = np.zeros((nz, nx)) # 2nd space derivative of p in z-direction
+p    = np.zeros(nx) # p at time n (now)
+pold = np.zeros(nx) # p at time n-1 (past)
+pnew = np.zeros(nx) # p at time n+1 (present)
+d2px = np.zeros(nx) # 2nd space derivative of p
 
-# Initialize Velocity Model (assume homogeneous model)
-# ----------------------------------------------------
-c    = np.zeros((nz, nx))
-c    = c + c0             # initialize wave velocity in model
+# Initialize model (assume homogeneous model)
+# -------------------------------------------
+c    = np.zeros(nx)
+c    = c + c0       # initialize wave velocity in model
 
-# Initialize Grid
+# Initialize coordinate
+# ---------------------
 x    = np.arange(nx)
-x    = x * dx             # coordinate in x-direction
-z    = np.arange(nz)
-z    = z * dz             # coordinate in z-direction
+x    = x * dx       # coordinate in x-direction
 
-# Initialize Empty Seismogram
+# Initialize empty seismogram
 # ---------------------------
-seis = np.zeros(nt)
+seis = np.zeros(nt) 
 
-# Analytical Solution 
+# Analytical solution
 # -------------------
 G    = time * 0.
-r    = np.sqrt((x[isx] - x[irx]) ** 2 + (z[isz] - z[irz]) ** 2)
-
-for it in range(nt): # Calculate Green's function
-    if ((time[it] - np.abs(x[irx] - x[isx]) / c0) >= 0):
-        G[it] = (1. / (2 * np.pi * c0 ** 2)) \
-        * (1. / np.sqrt((time[it] ** 2) - (r ** 2 / (c0 ** 2))))
+for it in range(nt): # Calculate Green's function (Heaviside function)
+    if (time[it] - np.abs(x[ir] - x[isrc]) / c0) >= 0:
+        G[it] = 1. / (2 * c0)
 Gc   = np.convolve(G, src * dt)
 Gc   = Gc[0:nt]
-lim  = Gc.max() # get limit value from maximum amplitude of analytical solution
+lim  = Gc.max() # get limit value from the maximum amplitude
 
-# Plot Position Configuration
+# Plot position configuration
 # ---------------------------
 plt.ion()
-fig2 = plt.figure(figsize=(12, 6))
-gs2  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
+fig2  = plt.figure(figsize=(12, 6))
+gs2   = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
-# Plot 2D Wave Propagation
+# Plot 1D wave propagation
 # ------------------------
 # Note: comma is needed to update the variable
 ax3  = plt.subplot(gs2[0])
-leg1,= ax3.plot(isx, isz, 'r*', markersize=11) # plot position of the source in model
-leg2,= ax3.plot(irx, irz, 'k^', markersize=8)  # plot position of the receiver in model
-im3  = ax3.imshow(p, vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
-div  = make_axes_locatable(ax3)
-cax  = div.append_axes("right", size="5%", pad=0.05) # size & position of colorbar
-fig2.colorbar(im3, cax=cax) # plot colorbar
-ax3.set_title('Time Step (nt) = 0')
+leg1,= ax3.plot(isrc, 0, 'r*', markersize=11) # plot position of the source in snapshot
+leg2,= ax3.plot(ir, 0, 'k^', markersize=8) # plot position of the receiver in snapshot
+up31,= ax3.plot(p) # plot pressure update each time step
 ax3.set_xlim(0, nx)
-ax3.set_ylim(0, nz)
+ax3.set_ylim(-lim, lim)
+ax3.set_title('Time Step (nt) = 0')
 ax3.set_xlabel('nx')
-ax3.set_ylabel('nz')
+ax3.set_ylabel('Amplitude')
 ax3.legend((leg1, leg2), ('Source', 'Receiver'), loc='upper right', fontsize=10, numpoints=1)
 
-# Plot Seismogram 
+# Plot seismogram 
 # ---------------
 # Note: comma is needed to update the variable
 ax4  = plt.subplot(gs2[1])
-up41,= ax4.plot(time, seis) # update seismogram each time step
+leg3,= ax4.plot(0,0,'r--',markersize=1) # plot analytical solution marker
+leg4,= ax4.plot(0,0,'b-',markersize=1) # plot numerical solution marker
+up41,= ax4.plot(time, seis) # update recorded seismogram each time step
 up42,= ax4.plot([0], [0], 'r|', markersize=15) # update time step position
-ax4.set_xlim(time[0], time[-1])
-ax4.set_title('Seismogram')
-ax4.set_xlabel('Time [s]')
-ax4.set_ylabel('Amplitude')
-leg3,= ax4.plot(0,0,'r--',markersize=1)
-leg4,= ax4.plot(0,0,'b-',markersize=1)
-ax4.legend((leg3, leg4), ('Analytical', 'FD'), loc='upper right', fontsize=10, numpoints=1)
-
 ax4.yaxis.tick_right()
 ax4.yaxis.set_label_position("right")
+ax4.set_xlim(time[0], time[-1])
+ax4.set_title('Seismogram')
+ax4.set_xlabel('Time (s)')
+ax4.set_ylabel('Amplitude')
+ax4.legend((leg3, leg4), ('Analytical', 'FD'), loc='upper right', fontsize=10, numpoints=1)
 
-plt.plot(time,Gc,'r--')
+plt.plot(time,Gc,'r--') # plot analytical solution
 plt.show()
 
 # + {"tags": ["exercise"]}
-# 2D Wave Propagation (Finite Difference Solution) 
+# 1D Wave Propagation (Finite Difference Solution) 
 # ------------------------------------------------
 
-# Point Operator (choose 3 or 5 point operator)
-# ---------------------------------------------
+# FD Point Operator (choose 3 or 5 point operator)
+# ------------------------------------------------
 op   = 3
 print(op, '- point operator')
 
 # Calculate Partial Derivatives
 # -----------------------------
 for it in range(nt):
-    if op == 3: # use 3 point operator FD scheme
+    if op==3: # use 3 point operator FD scheme
         for i in range(1, nx - 1):
-                d2px[i, :] = (p[i - 1, :] - 2 * p[i, :] + p[i + 1, :]) / dx ** 2 
-        for j in range(1, nz - 1):
-                d2pz[:, j] = (p[:, j - 1] - 2 * p[:, j] + p[:, j + 1]) / dz ** 2 
-    
-    if op == 5: # use 5 point operator FD scheme
+            d2px[i] = (p[i + 1] - 2 * p[i] + p[i - 1]) / dx ** 2
+
+    if op==5: # use 5 point operator FD scheme
         #-----------------------------------------------#
         #     IMPLEMENT 5 POINT OPERATOR CODE HERE!     #
         #-----------------------------------------------#
         pass
-    
+
     # Time Extrapolation
     # ------------------
-    pnew = 2 * p - pold + (c ** 2) * (dt ** 2) * (d2pz + d2px)
-    
-    # Add Source Term at isz and isx
-    # ------------------------------
+    pnew = 2 * p - pold + c ** 2 * dt ** 2 * d2px
+
+    # Add Source Term at isrc
+    # -----------------------
     # Absolute pressure w.r.t analytical solution
-    pnew[isz, isx] = pnew[isz, isx] + src[it] / (dx * dz) * (dt ** 2) 
+    pnew[isrc] = pnew[isrc] + src[it] / (dx) * dt ** 2
     
+            
     # Remap Time Levels
     # -----------------
     pold, p = p, pnew
     
     # Output Seismogram
     # -----------------
-    seis[it] = p[irz, irx]
+    seis[it] = p[ir]
     
     # Update Data for Wave Propagation Plot
     # -------------------------------------
     idisp = 5 # display frequency
     if (it % idisp) == 0:
         ax3.set_title('Time Step (nt) = %d' % it)
-        ax3.imshow(p,vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
+        up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
         plt.gcf().canvas.draw()
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
-# #### Solutions:
+# #### Solution:
 
-# + {"code_folding": [], "tags": ["solution"]}
-# 2D Wave Propagation (Finite Difference Solution) 
+# + {"code_folding": [41], "tags": ["solution"]}
+# 1D Wave Propagation (Finite Difference Solution) 
 # ------------------------------------------------
 
-# Point Operator (choose 3 or 5 point operator)
-# ---------------------------------------------
-op   = 5 
+# FD Point Operator (choose 3 or 5 point operator)
+# ------------------------------------------------
+op   = 5
 print(op, '- point operator')
 
 # Calculate Partial Derivatives
 # -----------------------------
 for it in range(nt):
-    if op == 3: # use 3 point operator FD scheme
+    if op==3: # use 3 point operator FD scheme
         for i in range(1, nx - 1):
-                d2px[i, :] = (p[i - 1, :] - 2 * p[i, :] + p[i + 1, :]) / dx ** 2 
-        for j in range(1, nz - 1):
-                d2pz[:, j] = (p[:, j - 1] - 2 * p[:, j] + p[:, j + 1]) / dz ** 2 
-    
-    if op == 5: # use 5 point operator FD scheme
+            d2px[i] = (p[i + 1] - 2 * p[i] + p[i - 1]) / dx ** 2
+
+    if op==5: # use 5 point operator FD scheme
         for i in range(2, nx - 2):
-                d2px[i, :] = (-1./12 * p[i + 2,:] +4./3  * p[i + 1,:] -5./2 * p[i,:] \
-                              +4./3  * p[i - 1,:] -1./12 * p[i - 2,:]) / dx ** 2 
-        for j in range(2, nz - 2):
-                d2pz[:, j] = (-1./12 * p[:,j + 2] +4./3  * p[:,j + 1] -5./2 * p[:,j] \
-                              +4./3  * p[:,j - 1] -1./12 * p[:,j - 2]) / dz ** 2 
-    
+            d2px[i] = (-1./12 * p[i + 2] + 4./3  * p[i + 1] - 5./2 * p[i] \
+                       +4./3  * p[i - 1] - 1./12 * p[i - 2]) / dx ** 2
+
     # Time Extrapolation
     # ------------------
-    pnew = 2 * p - pold + (c ** 2) * (dt ** 2) * (d2pz + d2px)
-    
-    # Add Source Term at isz and isx
-    # ------------------------------
+    pnew = 2 * p - pold + c ** 2 * dt ** 2 * d2px
+
+    # Add Source Term at isrc
+    # -----------------------
     # Absolute pressure w.r.t analytical solution
-    pnew[isz, isx] = pnew[isz, isx] + src[it] / (dx * dz) * (dt ** 2) 
+    pnew[isrc] = pnew[isrc] + src[it] / (dx) * dt ** 2
     
+            
     # Remap Time Levels
     # -----------------
     pold, p = p, pnew
     
     # Output Seismogram
     # -----------------
-    seis[it] = p[irz, irx]
+    seis[it] = p[ir]
     
     # Update Data for Wave Propagation Plot
     # -------------------------------------
     idisp = 5 # display frequency
     if (it % idisp) == 0:
         ax3.set_title('Time Step (nt) = %d' % it)
-        ax3.imshow(p,vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
+        up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
         plt.gcf().canvas.draw()
-# -
-
-

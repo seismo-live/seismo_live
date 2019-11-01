@@ -34,7 +34,7 @@
 #
 # For earthquakes with Magnitude up to about 5 recorded at teleseismic distances, approximating the fault by a point source is a reasonable approach. However, for larger earthquakes with longer rupture duration this approximation is not valid anymore. In this exercise, you will compare the point source approximation with finite source solutions to understand its limitations.
 #
-# For three of the earthquakes we use in this tutorial, USGS provides finite fault solutions:
+# For three of the earthquakes we use in this tutorial, USGS provides finite fault solutions: 
 # the recent event in [Nepal](http://earthquake.usgs.gov/earthquakes/eventpage/us20002926#scientific_finitefault),
 # the largest [aftershock](http://earthquake.usgs.gov/earthquakes/eventpage/us20002ejl#scientific_finitefault)
 # and the one in [Chile](http://earthquake.usgs.gov/earthquakes/eventpage/usc000nzvd#scientific_finitefault). This is the fault solution and slip as a function of time for the Nepal M7.9 event:
@@ -78,7 +78,7 @@ print('hypocenter latitude:', finite_source.hypocenter_latitude,
       'longitude:', finite_source.hypocenter_longitude,
       'depth:', finite_source.hypocenter_depth_in_m / 1e3)
 
-# **Task:** Compare the seismograms for three different representations of the source:
+# **Task:** Compare the seismograms for three different representations of the source: 
 #
 # * A point source with simple gaussian source time function (using CMTSOLUTION or quakeml files),
 # * the CMT solution using the more complex source time function provided by `finite_source.CMT`
@@ -101,11 +101,37 @@ finite_source.lp_sliprate(freq=1.0/db.info.period)
 finite_source.resample_sliprate(dt=db.info.dt, nsamp=db.info.npts)
 
 finite_source.compute_centroid()
-# -
 
+# + {"tags": ["exercise"]}
+# load receivers from stations xml file
+receivers = instaseis.Receiver.parse('data/stations/all_stations.xml')
+
+simple_source = instaseis.Source.parse(
+    'data/events/quakeml/GCMT_2015_04_25__Mw_7_9.xml')
+
+# compute seismogram with CMT solution and no simple source time function (gaussian):
+tr_simple = 
+
+# compute seismogram with CMT solution and source time function computed as the 
+# sum of all source time functions in the finite source (reconvolve_stf=True):
+tr_cmt = 
+
+# compute seismogram for finite source
+tr_finite = 
+
+plt.plot(tr_simple.times(), tr_simple.data, label='simple')
+plt.plot(...)
+plt.plot(...)
+ 
+plt.legend()
+plt.xlim(0, tr_simple.times()[-1])
+
+plt.show()
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
 # **Solution**
 
-# +
+# + {"tags": ["solution"]}
 # load receivers from stations xml file
 receivers = instaseis.Receiver.parse('data/stations/all_stations.xml')
 
@@ -116,7 +142,7 @@ simple_source = instaseis.Source.parse(
 tr_simple = db.get_seismograms(
     simple_source, receivers[0], components=('Z'), dt=1.0)[0]
 
-# compute seismogram with CMT solution and source time function computed as the
+# compute seismogram with CMT solution and source time function computed as the 
 # sum of all source time functions in the finite source (reconvolve_stf=True):
 tr_cmt = db.get_seismograms(
     finite_source.CMT, receivers[0], components=('Z'),
@@ -129,7 +155,7 @@ tr_finite = db.get_seismograms_finite_source(
 plt.plot(tr_simple.times(), tr_simple.data, label='simple')
 plt.plot(tr_cmt.times(), tr_cmt.data, label='cmt')
 plt.plot(tr_finite.times(), tr_finite.data, label='finite')
-
+ 
 plt.legend()
 plt.xlim(0, tr_simple.times()[-1])
 

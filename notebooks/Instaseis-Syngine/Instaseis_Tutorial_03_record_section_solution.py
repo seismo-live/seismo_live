@@ -62,9 +62,9 @@ db = instaseis.open_db("data/database")
 
 # -----
 
-# ## Examplary Solution
+# ## Solution
 
-# +
+# + {"tags": ["solution"]}
 from obspy.taup import TauPyModel
 from collections import defaultdict
 
@@ -102,7 +102,7 @@ for dist in np.linspace(mindist, maxdist, numrec):
     tr.filter('lowpass', freq=fmax)
     tr.normalize()
     plt.plot(tr.times(), tr.data * 5 + dist, color="black")
-
+    
     # get traveltimes
     arrivals = m.get_travel_times(distance_in_degree=dist,
                                   source_depth_in_km=depth_in_km,

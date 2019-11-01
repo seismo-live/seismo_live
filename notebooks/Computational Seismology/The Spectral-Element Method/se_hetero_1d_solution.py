@@ -168,7 +168,18 @@ l1d = lagrange1st(N)   # Array with GLL as columns for each N+1 polynomial
 # #### Exercise 1 
 # Introduce a low-velocity zone (-40%) at the center of the model spanning 50 elements. Then, visualize your model. Additionally, you can try different velocity and density models by defining new python methods.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# INTRODUCE A LOW VELOCITY ZONE HERE!
+#################################################################
+
+
+#################################################################
+# PLOT YOUR VELOCITY MODEL HERE!
+#################################################################
+  
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Elastic parameters, Low velocity zone(-40%)
 # ----------------------------------------------------------------
 el_span = 50                     # Number of elements spanning the Low velocity zone
@@ -205,7 +216,23 @@ plt.show()
 # #### Exercise 2 
 # Implements the mass matrix at each element using the integration weights at GLL locations $w$, the Jacobian $J$, and density $\rho$. Then, perform the global assembly of the mass matrix, compute its inverse, and display the inverse mass matrix to visually inspect how it looks like.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE GLOBAL ASSEMBLY OF M HERE!
+#################################################################
+
+
+#################################################################
+# COMPUTE THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# DISPLAY THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Global Mass matrix
 # --------------------------------------------------------------- 
 k = -1
@@ -255,7 +282,18 @@ plt.show()
 # #### Exercise 3 
 # Implements the stiffness matrix at each element using the integration weights at GLL locations $w$, the Jacobian $J$, and shear stress $\mu$. Then, perform the global assembly of the mass matrix and display the matrix to visually inspect how it looks like.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE GLOBAL ASSEMBLY OF K HERE!
+#################################################################
+
+    
+#################################################################
+# DISPLAY THE STIFFNESS MATRIX HERE!
+#################################################################
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Global Stiffness Matrix
 # --------------------------------------------------------------- 
 K = np.zeros([ng, ng])

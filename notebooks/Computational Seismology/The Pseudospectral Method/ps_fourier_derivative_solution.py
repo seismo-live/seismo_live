@@ -71,7 +71,12 @@ import matplotlib.pyplot as plt
 #
 # Define a python function call "fourier_derivative(f, dx)" that compute the first derivative of a function $f$ using the Fourier transform properties. 
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE FOURIER DERIVATIVE METHOD HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 def fourier_derivative(f, dx):
     # Length of vector f
     nx = np.size(f)
@@ -92,7 +97,20 @@ def fourier_derivative(f, dx):
 #
 # Calculate the numerical derivative based on the Fourier transform to show that the derivative is exact. Define an arbitrary function (e.g. a Gaussian) and initialize its analytical derivative on the same spatial grid. Calculate the numerical derivative and the difference to the analytical solution. Vary the wavenumber content of the analytical function. Does it make a difference? Why is the numerical result not entirely exact?
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+# Basic parameters
+# ---------------------------------------------------------------
+nx = 128
+x, dx = np.linspace(2*np.pi/nx, 2*np.pi, nx, retstep=True) 
+sigma = 0.5
+xo = np.pi
+
+#################################################################
+# IMPLEMENT YOUR SOLUTION HERE!
+#################################################################
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Basic parameters
 # ---------------------------------------------------------------
 nx = 128
@@ -122,7 +140,12 @@ print('Error: %s' %err)
 #
 # Now that the numerical derivative is available, we can visually inspect our results. Make a plot of both, the analytical and numerical derivatives together with the difference error.   
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# PLOT YOUR SOLUTION HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Plot analytical and numerical derivatives
 # ---------------------------------------------------------------
 

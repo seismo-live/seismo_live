@@ -389,7 +389,64 @@ ax6.yaxis.set_label_position("right")
 plt.plot(time,Gc,'r--')
 plt.show()
 
-# + {"code_folding": []}
+# + {"tags": ["exercise"]}
+# 3D Wave Propagation (Finite Difference Solution) 
+# ------------------------------------------------
+
+# Point Operator (choose 3 or 5 point operator)
+# ---------------------------------------------
+op   = 3 
+print(op, '- point operator')
+
+# Calculate Partial Derivatives
+# -----------------------------
+for it in range(nt):
+    if op == 3: # use 3 point operator FD scheme
+        for i in range(1, nz - 1):
+                d2pz[:, :, i] = (p[:, :, i + 1] - 2 * p[:, :, i] + p[:, :, i - 1]) / dz ** 2
+        for j in range(1, ny - 1):
+                d2py[:, j, :] = (p[:, j + 1, :] - 2 * p[:, j, :] + p[:, j - 1, :]) / dy ** 2
+        for k in range(1, nx - 1):
+                d2px[k, :, :] = (p[k + 1, :, :] - 2 * p[k, :, :] + p[k - 1, :, :]) / dx ** 2
+    
+    if op == 5: # use 5 point operator FD scheme
+        #-----------------------------------------------#
+        #     IMPLEMENT 5 POINT OPERATOR CODE HERE!     #
+        #-----------------------------------------------#
+        pass
+
+    # Time Extrapolation
+    # ------------------
+    pnew = 2 * p - pold + (c ** 2) * (dt ** 2) * (d2px + d2py + d2pz)
+    
+    # Add Source Term at isx, isy and isz
+    # -----------------------------------
+    pnew[isx, isy, isz] = pnew[isx, isy, isz] + src[it] / (dx * dy * dz) * (dt ** 2)
+    
+    # Remap Time Levels
+    # -----------------
+    pold, p = p, pnew
+    
+    # Output Seismogram
+    # -----------------
+    seis[it] = p[irx, iry, irz]
+    
+    # Update data for Wave Propagation Plot
+    # -------------------------------------
+    idisp = 5 # display frequency
+    if (it % idisp) == 0:
+        ax3.imshow(p[:, :, isx],vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
+        ax4.imshow(p[irx, :, :],vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
+        ax5.imshow(p[:, irx, :],vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
+        ax6.set_title('Seismogram - Time Step (nt) = %d' % it)
+        up61.set_ydata(seis)
+        up62.set_data(time[it], seis[it])
+        fig2.canvas.draw()
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solutions:
+
+# + {"code_folding": [], "tags": ["solution"]}
 # 3D Wave Propagation (Finite Difference Solution) 
 # ------------------------------------------------
 

@@ -45,7 +45,10 @@ plt.rcParams['figure.figsize'] = 12, 8
 # 2. Waveform information for a certain station. Choose your favorite one! If you have no preference, use `II.BFO` which is available for example from IRIS. Use the `get_waveforms()` method.
 # 3. Download the associated station/instrument information with the `get_stations()` method.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 import obspy
 from obspy.clients.fdsn import Client
 
@@ -75,10 +78,15 @@ print(st)
 
 # Have a look at the just downloaded data.
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 inv.plot()
 inv.plot_response(0.001)
 cat.plot()
 st.plot()
+# -
 
 # ## Exercise
 #
@@ -87,19 +95,32 @@ st.plot()
 #
 # #### Step 1: Determine Coordinates of Station
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 coords = inv.get_coordinates("II.BFO.00.BHE")
 coords
+# -
 
 # #### Step 2: Determine Coordinates of Event
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 origin = cat[0].preferred_origin()
 print(origin)
+# -
 
 # #### Step 3: Calculate distance of event and station.
 #
 # Use `obspy.geodetics.locations2degree`.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 from obspy.geodetics import locations2degrees
 
 distance = locations2degrees(origin.latitude, origin.longitude,
@@ -116,7 +137,10 @@ print(distance)
 # arrivals.plot()
 # ```
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 from obspy.taup import TauPyModel
 
 m = TauPyModel(model="ak135")
@@ -130,7 +154,10 @@ arrivals.plot();
 
 # #### Step 5: Calculate absolute time of the first arrivals at the station
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 first_arrival = origin.time + arrivals[0].time
 
 print(first_arrival)
@@ -138,8 +165,13 @@ print(first_arrival)
 
 # #### Step 6:  Cut to 1 minute before and 5 minutes after the first arrival
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 st.trim(first_arrival - 60, first_arrival + 300)
 st.plot();
+# -
 
 # #### Step 7: Remove the instrument response
 #
@@ -149,10 +181,15 @@ st.plot();
 #
 # ![taper](images/cos_taper.png)
 
-st.remove_response(inventory=inv,
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
+st.remove_response(inventory=inv, 
                    pre_filt=(1.0 / 100.0, 1.0 / 50.0, 10.0, 20.0),
                    output="VEL")
 st.plot()
+# -
 
 # ## Bonus: Interactive IPython widgets
 
@@ -174,6 +211,6 @@ def plot_raypaths(distance, depth, wavetype):
     m.get_ray_paths(distance_in_degree=distance,
                     source_depth_in_km=depth,
                     phase_list=phases).plot();
-
+    
 interact(plot_raypaths, distance=[0, 180],
          depth=[0, 700], wavetype=["ttall", "diff"]);

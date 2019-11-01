@@ -170,7 +170,23 @@ l1d = lagrange1st(N)
 # #### Exercise 1 
 # Now we have all the ingredients to calculate the mass and stiffness matrix, initialize these matrices in the following cell. Compute the inverse mass matrix, keep in mind that it is diagonal.
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE ELEMENTAL MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# COMPUTE THE INVERSE MASS MATRIX HERE!
+#################################################################
+
+
+#################################################################
+# IMPLEMENT THE ELEMENTAL STIFFNESS MATRIX HERE!
+#################################################################
+
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Initialization of system matrices
 # -----------------------------------------------------------------
 # Elemental Mass matrix
@@ -249,8 +265,24 @@ for i in range(0, N+1):
 # #### Exercise 2
 # Initialize all relevant matrices, i.e $R$, $R^{-1}$, $\mathbf{\Lambda}^{+}$, $\mathbf{\Lambda}^{-}$, $\mathbf{A}^{+}$, $\mathbf{A}^{-}$, $\mathbf{A}$.
 
-# + {"solution2": "hidden"}
-# Inialize Flux relates matrices
+# + {"tags": ["exercise"]}
+#################################################################
+# INITIALIZE ALL MATRICES HERE!
+#################################################################
+# Z = 
+# R = 
+# Rinv = 
+
+# Lm = 
+# Lp = 
+
+# Ap = 
+# Am = 
+
+# A = 
+
+# + {"solution2": "hidden", "tags": ["solution"]}
+# Inialize Flux related matrices
 # ---------------------------------------------------------------
 Z = rho*vs
 R = np.array([[Z, -Z], [1, 1]])
@@ -303,7 +335,107 @@ A = np.array([[0, -mu], [-1/rho, 0]])
 # #### Exercise 3
 # In order to validate our numerical solution, we ask to compare with the corresponding analytical solution as we did in the finite volumes implementation. Implement the analytical solution for the 1D elastic wave equation in homogeneous media and plot it together with the discontinuous Galerkin numerical solution.
 
-# + {"code_folding": [70]}
+# + {"tags": ["exercise"]}
+# DG Solution, Time extrapolation
+# ---------------------------------------------------------------
+
+# Initalize solution vectors
+Q    = np.zeros([ne, N+1, 2])
+Qnew = np.zeros([ne, N+1, 2])
+
+k1 = np.zeros([ne, N+1, 2])
+k2 = np.zeros([ne, N+1, 2])
+
+Q[:,:,0] = np.exp(-1/sig**2*((x-x0))**2)
+Qs = np.zeros(xg.size)  # for plotting
+Qv = np.zeros(xg.size)  # for plotting 
+Qa = np.zeros((2, xg.size))  # for analytical solution
+
+# Initialize animated plot
+# ---------------------------------------------------------------
+fig = plt.figure(figsize=(10,6))
+ax1 = fig.add_subplot(2,1,1)
+ax2 = fig.add_subplot(2,1,2)
+line1 = ax1.plot(xg, Qs, 'k', xg, Qa[0,:], 'r--', lw=1.5)
+line2 = ax2.plot(xg, Qv, 'k', xg, Qa[1,:], 'r--', lw=1.5) 
+ax1.set_ylabel('Stress')
+ax2.set_ylabel('Velocity')
+ax2.set_xlabel(' x ')
+plt.suptitle('Homogeneous Disc. Galerkin  - %s method'%imethod, size=16)
+
+plt.ion()   # set interective mode
+plt.show()
+
+# ---------------------------------------------------------------
+# Time extrapolation
+# ---------------------------------------------------------------
+for it in range(nt):            
+    if imethod == 'Euler': # Euler    
+        # Calculate Fluxes 
+        Flux = flux(Q, N, ne, Ap, Am)        
+        # Extrapolate each element using flux F 
+        for i in range(1,ne-1):
+            Qnew[i,:,0] = dt * Minv @ (-mu * K @ Q[i,:,1].T - Flux[i,:,0].T) + Q[i,:,0].T
+            Qnew[i,:,1] = dt * Minv @ (-1/rho * K @ Q[i,:,0].T - Flux[i,:,1].T) + Q[i,:,1].T                
+
+    elif imethod == 'RK':                  
+        # Calculate Fluxes
+        Flux = flux(Q, N, ne, Ap, Am)
+        # Extrapolate each element using flux F 
+        for i in range(1,ne-1):
+            k1[i,:,0] = Minv @ (-mu * K @ Q[i,:,1].T - Flux[i,:,0].T)
+            k1[i,:,1] = Minv @ (-1/rho * K @ Q[i,:,0].T - Flux[i,:,1].T)   
+
+        for i in range(1,ne-1):
+            Qnew[i,:,0] = dt * Minv @ (-mu * K @ Q[i,:,1].T - Flux[i,:,0].T) + Q[i,:,0].T 
+            Qnew[i,:,1] = dt * Minv @ (-1/rho * K @ Q[i,:,0].T - Flux[i,:,1].T) + Q[i,:,1].T    
+
+        Flux = flux(Qnew,N,ne,Ap,Am)
+
+        for i in range(1,ne-1):
+            k2[i,:,0] = Minv @ (-mu * K @ Qnew[i,:,1].T - Flux[i,:,0].T)
+            k2[i,:,1] = Minv @ (-1/rho * K @ Qnew[i,:,0].T - Flux[i,:,1].T) 
+            
+        # Extrapolate       
+        Qnew = Q + (dt/2) * (k1 + k2)
+    else:
+        raise NotImplementedError
+
+    Q, Qnew = Qnew, Q
+
+    # --------------------------------------   
+    # Animation plot. Display solution            
+    if not it % iplot: 
+        for l in line1:
+            l.remove()
+            del l               
+        for l in line2:
+            l.remove()
+            del l 
+
+        # stretch for plotting
+        k = 0
+        for i in range(ne):
+            for j in range(N+1):
+                Qs[k] = Q[i,j,0]
+                Qv[k] = Q[i,j,1] 
+                k = k + 1
+                
+        #################################################################
+        # IMPLEMENT THE ANALYTICAL SOLUTION HERE!
+        #################################################################
+        
+        # -------------------------------------- 
+        # Display lines
+        line1 = ax1.plot(xg, Qs, 'k', xg, Qa[0,:], 'r--', lw=1.5)
+        line2 = ax2.plot(xg, Qv, 'k', xg, Qa[1,:], 'r--', lw=1.5)
+        plt.legend(iter(line2), ('D. Galerkin', 'Analytic'))
+        plt.gcf().canvas.draw()
+
+# + {"tags": ["solution"], "cell_type": "markdown"}
+# #### Solution to Exercise 3:
+
+# + {"code_folding": [70], "tags": ["solution"]}
 # DG Solution, Time extrapolation
 # ---------------------------------------------------------------
 
@@ -404,6 +536,3 @@ for it in range(nt):
         line2 = ax2.plot(xg, Qv, 'k', xg, Qa[1,:], 'r--', lw=1.5)
         plt.legend(iter(line2), ('D. Galerkin', 'Analytic'))
         plt.gcf().canvas.draw()
-# -
-
-

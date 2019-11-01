@@ -325,7 +325,87 @@ ax3.legend((up31, up32, up33, up34),\
 
 plt.show()
 
-# + {"code_folding": []}
+# + {"tags": ["exercise"]}
+# 1D Wave Simulation (RUN THIS CODE TO BEGIN SIMULATION!) 
+# -------------------------------------------------------
+
+# Calculate Partial Derivatives
+# -----------------------------
+for it in range(nt):
+    
+    # 3 Point Operator FD scheme
+    # --------------------------
+    for i in range(3, nx - 2):
+        d2p[i] = (1. * p[i + 1] - 2. * p[i] + 1. * p[i - 1]) / dx ** 2
+    # Time Extrapolation
+    pnew = 2. * p - pold + c**2 * d2p * dt**2
+    # Add Source Term at xs
+    pnew[xs] = pnew[xs] + src[it] * (dx) * (dt**2) / rho
+    # Remap Time Levels
+    pold, p = p, pnew
+    # Set Boundaries Pressure Free
+    p[0] = 0.
+    p[nx-1] = 0.
+    # Seismogram
+    sp[it] = p[xr]
+    
+    # 5 Point Operator FD scheme
+    # --------------------------
+    for i in range(3, nx - 2):
+        md2p[i] = (-1./12. * mp[i + 2] + 4./3.  * mp[i + 1] - 5./2. * mp[i]\
+                   +4./3.  * mp[i - 1] - 1./12. * mp[i - 2]) / dx ** 2
+    # Time Extrapolation
+    mpnew = 2. * mp - mpold + c**2 * md2p * dt**2 
+    # Add Source Term at xs
+    mpnew[xs] = mpnew[xs] + src[it] * (dx) * (dt**2) / rho
+    # Remap Time Levels
+    mpold, mp = mp, mpnew
+    # Set Boundaries Pressure Free
+    mp[0] = 0.
+    mp[nx-1] = 0.
+    # Seismogram
+    smp[it] = mp[xr]
+    
+    # Optimal Operator Scheme
+    # -----------------------
+    for i in range(3, nx - 2):
+        od2p[i] = (1. * op[i + 1] - 2. * op[i] + 1. * op[i - 1]) / dx ** 2
+    # Time Extrapolation
+    opnew = 2. * op - opold + c**2 * od2p * dt**2
+    # Calculate Corrector
+    odp = op * 0.
+    # Corrector at x-dx, x and x+dx
+    for i in range(3, nx - 2): 
+        odp[i] = opold[i - 1: i + 2] * d0[:, 0]\
+               +    op[i - 1: i + 2] * d0[:, 1]\
+               + opnew[i - 1: i + 2] * d0[:, 2]
+    opnew = opnew + odp
+    # Add Source Term at xs
+    opnew[xs] = opnew[xs] + src[it] * (dx) * (dt**2) / rho
+    # Remap Time Levels
+    opold, op = op, opnew
+    # Set Boundaries Pressure Free
+    op[0] = 0.
+    op[nx-1] = 0.
+    # Seismogram
+    sop[it] = op[xr]
+    
+    #####################################
+    # Insert the Analytical Solution
+    #####################################
+    
+    # Update Data For Wave Propagation Plot
+    # -------------------------------------
+    idisp = 2 # display frequency
+    if (it % idisp) == 0:
+        ax3.set_title('Time Step (nt) = %d' % it)
+        up31.set_ydata(p)
+        up32.set_ydata(mp)
+        up33.set_ydata(op)
+        
+        plt.gcf().canvas.draw()
+
+# + {"code_folding": [], "tags": ["solution"]}
 # 1D Wave Simulation (RUN THIS CODE TO BEGIN SIMULATION!) 
 # -------------------------------------------------------
 

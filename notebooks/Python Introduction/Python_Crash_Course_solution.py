@@ -61,7 +61,7 @@
 #
 # First things first: In many notebooks you will find a cell similar to the following one. **Always execute it!** They do a couple of things:
 # * Make plots appear in the browser (otherwise a window pops up)
-# * Printing things works like this:
+# * Printing things works like this: 
 #
 # ```python
 # print("Hello")
@@ -74,7 +74,7 @@
 
 # +
 # Plots now appear in the notebook.
-# %matplotlib inline
+# %matplotlib inline                       
 
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')                            # Matplotlib style sheet - nicer plots!
@@ -88,30 +88,30 @@ plt.rcParams['figure.figsize'] = 12, 8             # Slightly bigger plots by de
 # Here is collection of resources regarding the scientific Python ecosystem. They cover a number of different packages and topics; way more than we will manage today.
 #
 # If you have any question regarding some specific Python functionality you can consult the official [Python documenation](http://docs.python.org/).
-#
+#  
 # Furthermore a large number of Python tutorials, introductions, and books are available online. Here are some examples for those interested in learning more.
-#
+#  
 # * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)
 # * [Dive Into Python](http://www.diveintopython.net/)
 # * [The Official Python Tutorial](http://docs.python.org/2/tutorial/index.html)
 # * [Think Python Book](http://www.greenteapress.com/thinkpython/thinkpython.html)
-#
+#  
 # Some people might be used to Matlab - this helps:
-#
+#  
 # * [NumPy for Matlab Users Introdution](http://wiki.scipy.org/NumPy_for_Matlab_Users)
 # * [NumPy for Matlab Users Cheatsheet](http://mathesaurus.sourceforge.net/matlab-numpy.html)
-#
-#
+#  
+#  
 # Additionally there is an abundance of resources introducing and teaching parts of the scientific Python ecosystem.
-#
+#  
 # * [NumPy Tutorial](http://wiki.scipy.org/Tentative_NumPy_Tutorial)
 # * [Probabilistic Programming and Bayesian Methods for Hackers](http://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/): Great ebook introducing Bayesian methods from an understanding-first point of view with the examples done in Python.
 # * [Python Scientific Lecture Notes](http://scipy-lectures.github.io/): Introduces the basics of scientific Python with lots of examples.
 # * [Python for Signal Processing](http://python-for-signal-processing.blogspot.de/): Free blog which is the basis of a proper book written on the subject.
 # * [Another NumPy Tutorial](http://www.loria.fr/~rougier/teaching/numpy/numpy.html), [Matplotlib Tutorial](http://www.loria.fr/~rougier/teaching/matplotlib/matplotlib.html)
-#
+#  
 # You might eventually have a need to create some custom plots. The quickest way to success is usually to start from some example that is somewhat similar to what you want to achieve and just modify it. These websites are good starting points:
-#
+#  
 # * [Matplotlib Gallery](http://matplotlib.org/gallery.html)
 # * [ObsPy Gallery](http://docs.obspy.org/gallery.html)
 # * [Basemap Gallery](http://matplotlib.org/basemap/users/examples.html)
@@ -175,8 +175,13 @@ print(location[4:])
 #
 # Save your name in all lower-case letters to a variable, and print a capitalized version of it. Protip: [Google for "How to capitalize a string in python"](http://www.google.com/search?q=how+to+capitalize+a+string+in+python). This works for almost any programming problem - someone will have had the same issue before!
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 name = "lion"
 print(name.capitalize())
+# -
 
 # ### 3. Lists
 
@@ -248,7 +253,7 @@ def do_more_stuff(a, b, power=1):
 print(do_more_stuff(2, 3))
 print(do_more_stuff(2, 3, power=3))
 
-# For more complex function it is oftentimes a good idea to
+# For more complex function it is oftentimes a good idea to 
 #explicitly name the arguments. This is easier to read and less error-prone.
 print(do_more_stuff(a=2, b=3, power=3))
 # -
@@ -300,8 +305,8 @@ for item in temp:
     # Everything with the same indentation is part of the loop.
     new_item = item + " " + item
     print(new_item)
-
-print("No more part of the loop.")
+    
+print("No more part of the loop.")    
 # -
 
 # Useful to know is the range() function.
@@ -315,11 +320,11 @@ for i in range(5):
 age = 77
 
 if age >= 0 and age < 10:
-    print("Younger ten.")
+    print("Younger than ten.")
 elif age >= 10:
     print("Older than ten.")
 else:
-    print("wait what?")
+    print("Wait what?")
 
 # +
 # List comprehensions are a nice way to write compact loops.
@@ -345,10 +350,10 @@ print(b)
 # You will eventually run into some error messages. Learn to read them! The last line is often the one that matters - reading upwards traces the error back in time and shows what calls led to it. If stuck: just google the error message!
 
 # +
-def do_something(a, b):
+def do_something(a, b): 
     print(a + b + something_else)
-
-do_something(1, 2)
+    
+do_something(1, 2)    
 # -
 
 # ## The Scientific Python Ecosystem
@@ -423,7 +428,10 @@ plt.show()
 #
 # B. Plot the result of that function with matplotlib.
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -451,9 +459,14 @@ plt.show()
 # Your task here is write a Python program capable of generating all the verses of the song.
 #
 
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 print("99 bottles of beer on the wall, 99 bottles of beer.")
 for i in range(98, -1, -1):
     print("Take one down, pass it around, %i bottles of beer on the wall." % i)
+# -
 
 # #### Ceasar Cipher
 #
@@ -462,12 +475,12 @@ for i in range(98, -1, -1):
 # In cryptography, a Caesar cipher is a very simple encryption techniques in which each letter in the plain text is replaced by a letter some fixed number of positions down the alphabet. For example, with a shift of 3, A would be replaced by D, B would become E, and so on. The method is named after Julius Caesar, who used it to communicate with his generals. ROT-13 ("rotate by 13 places") is a widely used example of a Caesar cipher where the shift is 13. In Python, the key for ROT-13 may be represented by means of the following dictionary:
 #
 # ```python
-# key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u',
-#        'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c',
+# key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u', 
+#        'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c', 
 #        'q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k',
-#        'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S',
-#        'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A',
-#        'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I',
+#        'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S', 
+#        'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A', 
+#        'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I', 
 #        'W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
 # ```
 #
@@ -479,15 +492,18 @@ for i in range(98, -1, -1):
 #
 # **BONUS:** Write an encoder!
 
-# +
+# + {"tags": ["exercise"]}
+
+
+# + {"tags": ["solution"]}
 sentence = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
 
-key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u',
-       'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c',
+key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u', 
+       'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c', 
        'q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k',
-       'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S',
-       'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A',
-       'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I',
+       'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S', 
+       'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A', 
+       'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I', 
        'W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
 
 result = ""

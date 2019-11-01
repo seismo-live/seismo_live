@@ -75,7 +75,12 @@ import matplotlib.pyplot as plt
 #
 # Define a python function call "get_cheby_matrix(nx)" that initializes the Chebyshev derivative matrix $D_{ij}$ 
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT THE CHEBYSHEV DERIVATIVE MATRIX METHOD HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Function for setting up the Chebyshev derivative matrix
 def get_cheby_matrix(nx):
     cx = np.zeros(nx+1)
@@ -105,7 +110,12 @@ def get_cheby_matrix(nx):
 #
 # Calculate the numerical derivative by applying the differentiation matrix $D_{ij}$. Define an arbitrary function (e.g. a Gaussian) and initialize its analytical derivative on the Chebyshev collocation points. Calculate the numerical derivative and the difference to the analytical solution. Vary the wavenumber content of the analytical function. Does it make a difference? Why is the numerical result not entirely exact?
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# IMPLEMENT YOUR SOLUTION HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Initialize arbitrary test function on Chebyshev collocation points
 nx = 200     # Number of grid points
 x = np.zeros(nx+1)
@@ -141,7 +151,12 @@ print('Error: %s' %err)
 #
 # Now that the numerical derivative is available, we can visually inspect our results. Make a plot of both, the analytical and numerical derivatives together with the difference error. 
 
-# + {"solution2": "hidden"}
+# + {"tags": ["exercise"]}
+#################################################################
+# PLOT YOUR SOLUTION HERE!
+#################################################################
+
+# + {"solution2": "hidden", "tags": ["solution"]}
 # Plot analytical and numerical derivatives
 # ---------------------------------------------------------------
 

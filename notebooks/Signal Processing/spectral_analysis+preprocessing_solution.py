@@ -35,10 +35,10 @@
 # <br>
 
 # + {"code_folding": [0]}
-# Cell 0 - Preparation: load packages, set some basic options
+# Cell 0 - Preparation: load packages, set some basic options  
 # %matplotlib inline
 import obspy
-from obspy.signal.invsim import cosine_taper
+from obspy.signal.invsim import cosine_taper 
 from obspy.signal.filter import lowpass
 from obspy.clients.fdsn import Client
 from obspy.core import UTCDateTime
@@ -52,10 +52,10 @@ rcParams["figure.subplot.hspace"] = (0.5)
 
 # ## The sampling theorem
 #
-# In the digital world, we have neither continuous nor periodic signals. We always work with sampled signals. Therefore, we need to define some terms characterising the sampling:
-# * The *sampling interval* is the temporal distance $\Delta t$ between the single sample values. The position on the time axis of one sample $k$ of the signal is thus given as $t = k\Delta t$ with $k=[1,2, ..., N]$ and $N$ being the maximum number of samples within the signal.
+# In the digital world, we have neither continuous nor periodic signals. We always work with sampled signals. Therefore, we need to define some terms characterising the sampling:   
+# * The *sampling interval* is the temporal distance $\Delta t$ between the single sample values. The position on the time axis of one sample $k$ of the signal is thus given as $t = k\Delta t$ with $k=[1,2, ..., N]$ and $N$ being the maximum number of samples within the signal.  
 # * The *period* of the signal is then given as $T = N\Delta t$.
-# * The *sampling rate* - also called the *sampling frequency* - is $\Delta f = 1/T$.
+# * The *sampling rate* - also called the *sampling frequency* - is $\Delta f = 1/T$.   
 #
 # The *sampling theorem* states that at least 2 samples per period are needed to correctly reproduce the highest frequency of a signal. Or in other words: A signal can only reproduced properly when it does not contain frequency components above one-half of the sampling frequency. This is the definition of the *Nyquist frequency*:
 #
@@ -63,18 +63,18 @@ rcParams["figure.subplot.hspace"] = (0.5)
 #
 # An important consequence of this theorem is the necessity to low-pass data *before* resampling them to a lower sample rate. The corner frequency of the low-pass filter is maximum the Nyquist frequency of the *new* sample rate. If this necessity is not considered, we obtain *aliasing* effects.
 #
-# When dealing with spectral analysis, it should be clear that it is fundamentally based on the characterisitics and properties of the *[Fourier series/Fourier transformation](fourier_transform.ipynb)*. Make sure, that you have understood this lecture as well.
+# When dealing with spectral analysis, it should be clear that it is fundamentally based on the characterisitics and properties of the *[Fourier series/Fourier transformation](fourier_transform.ipynb)*. Make sure, that you have understood this lecture as well. 
 #
 #
 # ---
 
 # ### Nyquist frequency and aliasing
 #
-# In the following cell, we first create a signal made of two different frequencies (4 and 8 Hz) and sampled at 20 Hz (black). Then, we downsample it to 10 Hz in two ways: first, we just reduce the sample rate (red); second, we low-pass filter the data before downsampling (green). Finally, all three signals are plotted in the time- and frequency-domain to see the effects.
+# In the following cell, we first create a signal made of two different frequencies (4 and 8 Hz) and sampled at 20 Hz (black). Then, we downsample it to 10 Hz in two ways: first, we just reduce the sample rate (red); second, we low-pass filter the data before downsampling (green). Finally, all three signals are plotted in the time- and frequency-domain to see the effects.   
 #
-# 1) What are the Nyquist frequencies for the original and the downsampled data?
-# 2) Comparing the original (black) with the purely downsampled data (red), what do you observe and can you explain it?
-# 3) Comparing the original (black) with the low-passed and downsampled signal, what do you observe now?
+# 1) What are the Nyquist frequencies for the original and the downsampled data?   
+# 2) Comparing the original (black) with the purely downsampled data (red), what do you observe and can you explain it?   
+# 3) Comparing the original (black) with the low-passed and downsampled signal, what do you observe now? 
 
 # +
 # Cell 1: downsampling + Nyquist
@@ -87,7 +87,7 @@ fg2 = 4                                 # generator frequency 2 (initial: 4 Hz)
 time = np.linspace(0,nsec,(nsec*df)+1)  # time axis for plotting
 
 y  = np.sin(2 * np.pi * fg1 * time)     # set up a test signal from two frequencies
-y += np.sin(2 * np.pi * fg2 * time)
+y += np.sin(2 * np.pi * fg2 * time) 
 
 # downsample to 10 Hz by taking every second element
 y_2 = y[::2]
@@ -96,7 +96,7 @@ y_2 = y[::2]
 y_l = lowpass(y, 5.0, df=df, corners=4, zerophase=False)
 y_new = y_l[::2]
 
-y_f = np.fft.rfft(y)                    # transform all 3 signals into frequency domain
+y_f = np.fft.rfft(y)                    # transform all 3 signals into frequency domain 
 y_f2 = np.fft.rfft(y_2)                 # applying Fourier transformation via FFT
 y_fnew = np.fft.rfft(y_l)
 freq = np.linspace(0, fNy, len(y_f))    # frequency axis for plotting
@@ -129,10 +129,10 @@ plt.show()
 #
 # ### Spectral leakage
 #
-# Now, we create a sinusoid with frequency 4 Hz sampled at 100 Hz, transfer it in the frequency-domain via FFT and plot both.
+# Now, we create a sinusoid with frequency 4 Hz sampled at 100 Hz, transfer it in the frequency-domain via FFT and plot both. 
 #
-# 4) What would you expect theoretically for the frequency-domain plot.
-# 5) Enlarge the length of the time-domain signal by setting the variable $leng$ step by step higher. What do you observe in the plot for the frequency domain? Can you explain it?
+# 4) What would you expect theoretically for the frequency-domain plot.   
+# 5) Enlarge the length of the time-domain signal by setting the variable $leng$ step by step higher. What do you observe in the plot for the frequency domain? Can you explain it?   
 # 6) In reality we cannot just enlarge the length of our signal. Can you think about a way to still get the same effect?
 
 # +
@@ -164,18 +164,18 @@ plt.ylabel('Amplitude')
 plt.show()
 # -
 
-# ### Time-frequency plots - spectrograms
+# ### Time-frequency plots - spectrograms 
 #
-# So far, we analysed the data only in either time- or frequency-domain. Sometimes it is helpful to look at both dimensions together. Such a time-frequency plot is called *spectrogram*. In cell 3, we first download and prepare data from the $M_w$ 9.1 Tohoku earthquake from 11 March 2011. In cell 4, we then create a spectrogram from these data.
+# So far, we analysed the data only in either time- or frequency-domain. Sometimes it is helpful to look at both dimensions together. Such a time-frequency plot is called *spectrogram*. In cell 3, we first download and prepare data from the $M_w$ 9.1 Tohoku earthquake from 11 March 2011. In cell 4, we then create a spectrogram from these data.    
 #
-# 7) What happens when you increase the number of sampe points $NFFT$ in cell 4 and why?
-# 8) Zoom in to the start of the signal by changing $xstart$ and $xend$. Does a longer or shorter window length allow you to identify the start of the signal more easily? Why?
-# 9) Now adapt the time limits to look at the surface waves, what do you observe?
+# 7) What happens when you increase the number of sampe points $NFFT$ in cell 4 and why?     
+# 8) Zoom in to the start of the signal by changing $xstart$ and $xend$. Does a longer or shorter window length allow you to identify the start of the signal more easily? Why?     
+# 9) Now adapt the time limits to look at the surface waves, what do you observe? 
 
-# Cell 3: prepare data from Tohoku earthquake.
+# Cell 3: prepare data from Tohoku earthquake. 
 client = Client("BGR")
 t1 = UTCDateTime("2011-03-11T05:00:00.000")
-st = client.get_waveforms("GR", "WET", "", "BHZ", t1, t1 + 6 * 60 * 60,
+st = client.get_waveforms("GR", "WET", "", "BHZ", t1, t1 + 6 * 60 * 60, 
                           attach_response = True)
 st.remove_response(output="VEL")
 st.detrend('linear')
@@ -187,7 +187,7 @@ st.plot()
 tr = st[0]
 NFFT = 256    # length of spectrogram window in sample points (initial: 256)
 # number of sample points that the sliding window overlaps, must be less than NFFT
-noverlap = 50
+noverlap = 50  
 xstart = 0    # x axis limits in the plot
 xend = 21627  # max. length of signal: 21627 sec
 
@@ -200,7 +200,7 @@ plt.ylabel('velocity [m/s]')
 plt.subplot(212, sharex=ax1)
 plt.title('spectrogram, window length %s pts' % NFFT)
 Pxx, freqs, bins, im = plt.specgram(
-    tr.data, NFFT=NFFT, Fs=tr.stats.sampling_rate,
+    tr.data, NFFT=NFFT, Fs=tr.stats.sampling_rate, 
     noverlap=noverlap,cmap=plt.cm.gist_heat)
 
 # Pxx is the segments x freqs array of instantaneous power, freqs is
@@ -222,7 +222,7 @@ plt.show()
 #
 # The basics of the spectral analysis are the foundation for *preprocessing data*. Preprocessing data is an essential task before the data can be used for any scientific analysis. First, the instrument characteristic needs to be removed from the data and second, we need to make sure that the data are in the ideal shape for the specific task. The 'good-practise rules' for preprocessing depend on the characteristics/properties of spectral analysis. They include the following steps in more or less this order:
 #
-# - Restitution, also called decomposition or instrument correction
+# - Restitution, also called decomposition or instrument correction   
 # - Low-pass filtering
 # - Downsample/resample the data
 # - Cut the data to a specific window
@@ -237,16 +237,16 @@ plt.show()
 
 # ### Windows and Tapers
 #
-# Sometimes, we have a very long signal but only need a small portion of it, e.g. a recording of an earthquake in a file covering the entire day. Then, to speed up processing and make plots more clear, we need to cut that part, we are interested in. This is also called *windowing* the signal because it is similar to applying a boxcar/window function to the data in the frequency-domain (see the [notebook on filter basics](...ipynb) for more details).
+# Sometimes, we have a very long signal but only need a small portion of it, e.g. a recording of an earthquake in a file covering the entire day. Then, to speed up processing and make plots more clear, we need to cut that part, we are interested in. This is also called *windowing* the signal because it is similar to applying a boxcar/window function to the data in the frequency-domain (see the [notebook on filter basics](...ipynb) for more details).  
 #
-# In Cell 5, you have several possibilities to set-up an inital signal. Just comment/uncomment the lines in the second code block as you want. In the fourth code block the taper is defined. Here, we use a simple $cos$ to taper. Working on real data using `ObsPy` you have several [taper windows](https://docs.obspy.org/master/packages/autogen/obspy.core.trace.Trace.taper.html) to chose from. In general, the percentage of taper applied has a much larger effect then the choosen window.
+# In Cell 5, you have several possibilities to set-up an inital signal. Just comment/uncomment the lines in the second code block as you want. In the fourth code block the taper is defined. Here, we use a simple $cos$ to taper. Working on real data using `ObsPy` you have several [taper windows](https://docs.obspy.org/master/packages/autogen/obspy.core.trace.Trace.taper.html) to chose from. In general, the percentage of taper applied has a much larger effect then the choosen window. 
 #
-# 10) Why do we apply a taper to the data and what is a taper actually?
-# 11) What happens at the beginning and end of the taper and what happens in the middle part?
-# 12) What happens when you increase the percentage of tappering?
+# 10) Why do we apply a taper to the data and what is a taper actually?   
+# 11) What happens at the beginning and end of the taper and what happens in the middle part?    
+# 12) What happens when you increase the percentage of tappering?    
 
 # +
-# Cell 5 - tapers
+# Cell 5 - tapers  
 samp = 200                                # number of sample point (initial: 200)
 delta = 0.05                              # sample spacing (initial: 0.05)
 freq1 = 2.15                              # generator freq to create signal (initial: 2.15)
@@ -261,7 +261,7 @@ dat = np.sin(freq1 * 2.0 * np.pi * temp + np.pi/3)
 #dat = dat + np.sin(freq2 * 2.0 * np.pi * temp + np.pi/3)
 #noise_amplitude = 0.7
 ## add noise to the signal
-#dat = dat + np.random.randn(len(dat)) * noise_amplitude
+#dat = dat + np.random.randn(len(dat)) * noise_amplitude 
 # determine max. amplitude of data (for plotting)
 maximum = max(dat)
 
@@ -312,10 +312,10 @@ plt.show()
 #
 # ### Deman / detrend
 #
-# Real data are definitely not perfect. Worse luck! So, they can have jumps, trends, offsets, spikes, etc. ... Luckily, the most common ones are easy to handle.
+# Real data are definitely not perfect. Worse luck! So, they can have jumps, trends, offsets, spikes, etc. ... Luckily, the most common ones are easy to handle.    
 # In Cell 6 we load a stream which is uncluded in the `ObsPy` installation as an example to start with. In the following cells, we artifically introduce some data errors and see how they blow-up our processing. As an example, we use a bandpass filter. `ObsPy` provide us with the right [tool](http://docs.obspy.org/packages/autogen/obspy.core.trace.Trace.detrend.html#obspy.core.trace.Trace.detrend) to correct our data before further (pre-)processing.
-#
-# 13) Run the cells and describe what effects you can see. Then uncomment the line *correction* and run the cells again. What do you observe.
+#      
+# 13) Run the cells and describe what effects you can see. Then uncomment the line *correction* and run the cells again. What do you observe.    
 # 14) Can you explain, why all these spoilers blow-up the further processing?
 
 # Cell 6 - load the data
@@ -329,7 +329,7 @@ tr.plot()
 tr_safe = tr.copy()           # safety copy to not override our data
 
 # +
-# Cell 7 - offsets
+# Cell 7 - offsets 
 
 tr = tr_safe.copy()       # load a fresh version of the data
 tr.data += 500            # creating an offset
@@ -339,7 +339,7 @@ tr.filter('bandpass', freqmin=0.01, freqmax=5)
 tr.plot()
 
 # +
-# Cell 8 - linear trend
+# Cell 8 - linear trend 
 
 tr = tr_safe.copy()         # load a fresh version of the data
 tr.data += 50. * tr.times() # creating a linear trend
@@ -365,42 +365,42 @@ tmp.filter('bandpass', freqmin=0.01, freqmax=5)
 tmp.plot()
 
 # taking the data as array out of trace container
-data = tr.data
+data = tr.data                                           
 # correct the spoiled data and plot+print it
-obspy.signal.detrend.polynomial(data, order=3, plot=True)
-# -
+obspy.signal.detrend.polynomial(data, order=3, plot=True) 
 
+# + {"tags": ["solution"], "cell_type": "markdown"}
 # ---
 #
 # #### Answers to the questions
 #
-# __Sampling theorem, Nyquist frequency, and aliasing__
-# 1) The original Nyquist frequency is 10 Hz. The new on is 5 Hz.
-# 2) In the time-domain the downsampled signal (red) is much more long-periodic (low frequencies) but the maximum amplitude remains the same. In the frequency-domain, the original data show two peaks at 4 and 8 Hz, which are the generator frequencies used to create the signal.
-# The downsampled data also show two peaks but at 2 and 4 Hz and with much smaller amplitude. The peak at 8 Hz cannot be resolved anymore because it is higher than the new Nyquist frequency of 5 Hz. Because we have not removed the 8 Hz energy from the data before downsampling, it is "mapped" to the bogus frequency of 2 Hz. We also loose the energy/amplitude of the 8 Hz peak. Therefore, the bogus frequency of the 2 Hz peak is "feeded" by the 4 Hz peak. Thus, we cannot resolve the complete amplitude for the 4 Hz peak. We not only have distorted the frequency content of our signal but also the amplitudes.
-# This effect is called aliasing. It is **NOT** possible to distinguish this mistake in real data and it is **NOT** reversible. Once you have downsampled your data without low-pass filter them before, they are spoiled and you will not even realize it. This can lead to completely wrong interpretation.
-# 3) We have removed all energy above the new Nyquist frequency. Therefore, in the frequency-domain, we only see one peak at the remaining, original frequency of 4 Hz with its full original amplitude.
+# __Sampling theorem, Nyquist frequency, and aliasing__     
+# 1) The original Nyquist frequency is 10 Hz. The new on is 5 Hz.  
+# 2) In the time-domain the downsampled signal (red) is much more long-periodic (low frequencies) but the maximum amplitude remains the same. In the frequency-domain, the original data show two peaks at 4 and 8 Hz, which are the generator frequencies used to create the signal.   
+# The downsampled data also show two peaks but at 2 and 4 Hz and with much smaller amplitude. The peak at 8 Hz cannot be resolved anymore because it is higher than the new Nyquist frequency of 5 Hz. Because we have not removed the 8 Hz energy from the data before downsampling, it is "mapped" to the bogus frequency of 2 Hz. We also loose the energy/amplitude of the 8 Hz peak. Therefore, the bogus frequency of the 2 Hz peak is "feeded" by the 4 Hz peak. Thus, we cannot resolve the complete amplitude for the 4 Hz peak. We not only have distorted the frequency content of our signal but also the amplitudes.    
+# This effect is called aliasing. It is **NOT** possible to distinguish this mistake in real data and it is **NOT** reversible. Once you have downsampled your data without low-pass filter them before, they are spoiled and you will not even realize it. This can lead to completely wrong interpretation.    
+# 3) We have removed all energy above the new Nyquist frequency. Therefore, in the frequency-domain, we only see one peak at the remaining, original frequency of 4 Hz with its full original amplitude. 
 #
-# __Spectral leakage__
-# 4) Because the signal is made from a single frequency, we should obtain a delta pulse at this frequency in the plot. Instead, we get a triangular shape indicating that part of the energy/amplitude is distributed around the central frequency of 4 Hz. This is called spectral leakage, the "smearing out" of the central frequency. The reason lie in the *Fourier transformation*, which assumes an infinite signal. The finite length of the signal limits the frequency spacing: $\Delta f = 1/T$.
-# 5) The longer the time-domain signal, the more distinct becomes the frequency peak. Long signals in time-domain mean good resolution in frequency-domain and vice versa. This is also called the *uncertainty principle*.
+# __Spectral leakage__   
+# 4) Because the signal is made from a single frequency, we should obtain a delta pulse at this frequency in the plot. Instead, we get a triangular shape indicating that part of the energy/amplitude is distributed around the central frequency of 4 Hz. This is called spectral leakage, the "smearing out" of the central frequency. The reason lie in the *Fourier transformation*, which assumes an infinite signal. The finite length of the signal limits the frequency spacing: $\Delta f = 1/T$.  
+# 5) The longer the time-domain signal, the more distinct becomes the frequency peak. Long signals in time-domain mean good resolution in frequency-domain and vice versa. This is also called the *uncertainty principle*.    
 # 6) Artifically enlarge the length of the signal in time-domain by *zero-padding*, i.e. adding additional samples to the beginning and end of the signal with amplitude zero. Thus, we do not add information (other frequencies) but just length to the signal and can therefore increase the frequency resolution.
 #
-# __Time-frequency plots, spectrograms__
-# 7) With the starting value of 256 samples we only see vertical lines and thus can only determine the moment in time where high amplitudes are to expect. We cannot say at which fequencies these high amplitudes occur. When we increase the number of sample points to, let's say $NFFT = 32768$, it is vice versa. We now see horizontal lines, i.e. we can clearly define the frequencies but not the moments in time, at which they occur.
-# This is again the *uncertainty principle*. By increasing the number of samples for the FFT to produce the spectrogram and keeping the time length of the signal constant, we have decreased $\Delta f$ und thus increase the resolution in the frequency-domain.
-# 8) The longer the time window, the more clear we see the start time of the first arrival. To get $\Delta f$ small, i.e. to get a good resolution in the frequency domain, we need a high period $T$, i.e. we need a long signal in the time-domain.
-# 9) When we set the time-window around e.g. 3500 to 8500 sec and increase the number of samples to e.g. 2048, we can see that the highest amplitudes change their frequencies. We obtain a curve from lower to higher frequencies. This is the dispersion of the surface waves and just one application where spectrograms are helpful.
+# __Time-frequency plots, spectrograms__    
+# 7) With the starting value of 256 samples we only see vertical lines and thus can only determine the moment in time where high amplitudes are to expect. We cannot say at which fequencies these high amplitudes occur. When we increase the number of sample points to, let's say $NFFT = 32768$, it is vice versa. We now see horizontal lines, i.e. we can clearly define the frequencies but not the moments in time, at which they occur.   
+# This is again the *uncertainty principle*. By increasing the number of samples for the FFT to produce the spectrogram and keeping the time length of the signal constant, we have decreased $\Delta f$ und thus increase the resolution in the frequency-domain.     
+# 8) The longer the time window, the more clear we see the start time of the first arrival. To get $\Delta f$ small, i.e. to get a good resolution in the frequency domain, we need a high period $T$, i.e. we need a long signal in the time-domain.    
+# 9) When we set the time-window around e.g. 3500 to 8500 sec and increase the number of samples to e.g. 2048, we can see that the highest amplitudes change their frequencies. We obtain a curve from lower to higher frequencies. This is the dispersion of the surface waves and just one application where spectrograms are helpful.   
 #
-# __Windows and taper__
-# 10) Real data usually do not end with the same sample amplitude as they start with. Latest when cutting the data, this is the case. When converting the data into the [frequency-domain](fourier_transform.ipynb), we thus have a discontinuity which produces a Gibb's effect. It also makes problems when filtering the data afterwards. Therefore, we need to adjust the last sample amplitude to the same value as the first one, traditionally to zero.
-# This is what the taper does: decreasing the first and last few samples gradually to zero. The taper is a kind of window function applied in the time domain, i.e. just multiplied to the data sample by sample.
-# 11) The percentage of the taper defines how many samples at the beginning and at the end of the signal are influenced by the taper. For example when a signal with 100 samples is tapered by 10%, the first and last 10 samples are gradually decreased in their amplitude until they reach zero. In the middle the taper value is one and thus do not alter the sample amplitudes at all. In the middle the signal remains unchanged.
-# 12) The slope of the taper becomes shallower and more samples are effected by the taper. That also means, we are "throwing away" part of our signal and therefore loose information.
-# Applying a taper is always a balancing act between keeping as much information as possible (low taper percentage) and making the decrease in amplitude as gently as possible (high taper percentage). If the deacrease is not gently enough, we may run into troubles later again e.g. when we want to filter the data. The reason is due to the fact that filtering is done in the frequency domain. A rough amplitude decrease to zero is similar to a discontinuity in the data and we end up with Gibb's phenomenon again.
+# __Windows and taper__    
+# 10) Real data usually do not end with the same sample amplitude as they start with. Latest when cutting the data, this is the case. When converting the data into the [frequency-domain](fourier_transform.ipynb), we thus have a discontinuity which produces a Gibb's effect. It also makes problems when filtering the data afterwards. Therefore, we need to adjust the last sample amplitude to the same value as the first one, traditionally to zero.   
+# This is what the taper does: decreasing the first and last few samples gradually to zero. The taper is a kind of window function applied in the time domain, i.e. just multiplied to the data sample by sample.    
+# 11) The percentage of the taper defines how many samples at the beginning and at the end of the signal are influenced by the taper. For example when a signal with 100 samples is tapered by 10%, the first and last 10 samples are gradually decreased in their amplitude until they reach zero. In the middle the taper value is one and thus do not alter the sample amplitudes at all. In the middle the signal remains unchanged.    
+# 12) The slope of the taper becomes shallower and more samples are effected by the taper. That also means, we are "throwing away" part of our signal and therefore loose information.   
+# Applying a taper is always a balancing act between keeping as much information as possible (low taper percentage) and making the decrease in amplitude as gently as possible (high taper percentage). If the deacrease is not gently enough, we may run into troubles later again e.g. when we want to filter the data. The reason is due to the fact that filtering is done in the frequency domain. A rough amplitude decrease to zero is similar to a discontinuity in the data and we end up with Gibb's phenomenon again.    
 #
-# __Demean / detrend__
-# 13) In cell 7 the data have an offset, their medium amplitude is not leveled at zero. When filtering the data this introduces a jump at the beginning of the trace and then an exponential decay in the entire trace. With `demean` we substract the offset from the data and the filtered trace looks pretty.
-# In cell 8, the data show a linear trend which causes a bow of the data during filtering.
-# In cell 9, the data are spoiled with a more complex trend of polynomial shape.
+# __Demean / detrend__  
+# 13) In cell 7 the data have an offset, their medium amplitude is not leveled at zero. When filtering the data this introduces a jump at the beginning of the trace and then an exponential decay in the entire trace. With `demean` we substract the offset from the data and the filtered trace looks pretty.   
+# In cell 8, the data show a linear trend which causes a bow of the data during filtering.   
+# In cell 9, the data are spoiled with a more complex trend of polynomial shape.    
 # 14) Almost always (pre-)processing includes steps which are performed in the frequency-domain and the data need to be transformed via [Fourier transformation](fourier_transform.ipynb). We need to make sure, that we have no discontinuities in our data (Gibb's effect!) and that our data is long enough to match the properties of this transformation.
