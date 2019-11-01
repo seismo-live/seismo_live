@@ -287,11 +287,15 @@ print(dir(math))
 
 # Typing the dot and the TAB will kick off tab-completion.
 
-math.
+# +
+# math.
+# -
 
 # In the IPython framework you can also use a question mark to view the documentation of modules and functions.
 
-math.cos?
+# +
+# math.cos?
+# -
 
 # ### 7. Control Flow
 #
@@ -353,7 +357,9 @@ print(b)
 def do_something(a, b):
     print(a + b + something_else)
 
-do_something(1, 2)
+# do_something(1, 2)
+
+
 # -
 
 # ## The Scientific Python Ecosystem
