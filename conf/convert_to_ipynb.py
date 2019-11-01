@@ -119,6 +119,17 @@ def convert_file(
         jupytext_filename.stem + ".ipynb"
     )
 
+    # Use the HTML filename to figure out if something has to be run again.
+    # The rest until that point is pretty cheap.
+    html_filename = get_html_folder(
+        ipynb_filename, notebook_folder, html_folder
+    ) / (ipynb_filename.stem + ".html")
+
+    if html_filename.exists():
+        print("Already executed - does not need to happen again.")
+        return
+
+
     print("Convert to .ipynb file.")
     subprocess.run(
         [
@@ -196,7 +207,8 @@ def convert_folder(
     notebook_folder: pathlib.Path,
     html_folder: pathlib.Path,
 ):
-    shutil.copytree(input_folder, notebook_folder)
+    if not notebook_folder.exists():
+        shutil.copytree(input_folder, notebook_folder)
 
     jupytext_files = find_jupytext_files(folder=notebook_folder)
 
@@ -228,8 +240,6 @@ if __name__ == "__main__":
 
     if not input_folder.exists():
         raise ValueError("Input folder does not exist.")
-    if output_folder.exists():
-        raise ValueError("Output folder must not yet exist.")
 
     notebook_folder = output_folder / "notebooks"
     html_folder = output_folder / "html"
