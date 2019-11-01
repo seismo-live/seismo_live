@@ -66,7 +66,8 @@ def strip_solution_content(
 
     with open(no_solution_filename, "w") as fh:
         json.dump(nb, fh)
-        
+
+
 def strip_exercise_content(
     ipynb_filename: pathlib.Path, no_exercise_filename: pathlib.Path
 ):
@@ -87,7 +88,6 @@ def strip_exercise_content(
 
     with open(no_exercise_filename, "w") as fh:
         json.dump(nb, fh)
-        
 
 
 def get_html_folder(
@@ -138,8 +138,9 @@ def convert_file(
         )
         no_exercise_filename = ipynb_filename.parent / (
             ipynb_filename.stem[: -len("_solution")] + "_exercise.ipynb"
+        )
         print(f"Creating no-solution file: {no_solution_filename}")
-        print(f"Creating no-exercise file: {no_exercise_filename}")    
+        print(f"Creating no-exercise file: {no_exercise_filename}")
         strip_solution_content(ipynb_filename, no_solution_filename)
         strip_exercise_content(ipynb_filename, no_exercise_filename)
         print(f"Converting to HTML: {no_solution_filename}")
@@ -167,6 +168,7 @@ def convert_file(
             "nbconvert",
             "--to",
             "notebook",
+            "--ExecutePreprocessor.timeout=600",
             "--execute",
             "--inplace",
             str(ipynb_filename),
@@ -198,7 +200,7 @@ def convert_folder(
 
     jupytext_files = find_jupytext_files(folder=notebook_folder)
 
-    if len(jupytext_files) < 92:
+    if len(jupytext_files) < 90:
         raise ValueError("Not enough jupytext files found!")
 
     check_for_duplicate_solution_files(jupytext_files)

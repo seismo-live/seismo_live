@@ -12,7 +12,6 @@
 #     name: python3
 # ---
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # <div style='background-image: url("../share/images/header.svg") ; padding: 0px ; background-size: cover ; border-radius: 5px ; height: 250px'>
 #     <div style="float: right ; margin: 50px ; padding: 20px ; background: rgba(255 , 255 , 255 , 0.7) ; width: 50% ; height: 150px">
 #         <div style="position: relative ; top: 50% ; transform: translatey(-50%)">
@@ -22,7 +21,6 @@
 #     </div>
 # </div>
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # Seismo-Live: http://seismo-live.org
 #
 # ##### Authors:
@@ -30,7 +28,6 @@
 #
 # ---
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1 Basic Webservice Usage
 # ## 1.1 Introduction
 # EIDA webservices are designed to provide programmatic access to waveform data and instrument metadata from EIDA. FDSN standerdised webservices are running since 2015 and are scheduled to replace Arclink and other deprecated procotols in the near future. Because webservices requests are URLs It is possible to communicate directly with the webservice APIs in a browser, command-line tools (e.g. curl; wget) or through abstracted clients (e.g. [ObsPy](http://obspy.org), [fdsnws-fetch](https://github.com/andres-h/fdsnws_scripts/blob/master/fdsnws_fetch.py)).
@@ -45,14 +42,15 @@
 #
 # In this notebook we will practise direct communication with the webservice APIs in addition to recommended and more convenient workflows using ObsPy.
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1.2 FDSNWS-Dataselect
 # ### 1.2.1 Interacting with the API
 # The following example makes a request to the FDSNWS-Dataselect API hosted at ORFEUS Data Center (http://orfeus-eu.org). We will request a 10-minute window of miniSEED data from a single station. The data will be read and plotted using ObsPy. Alternatively, we could save the data to disk. The service label for FDSNWS-Dataselect is:
 #
 # > fdsnws/dataselect/1/query
 
-# + {"deletable": true, "editable": true}
+# +
+# %matplotlib inline
+
 # Import the read module from ObsPy
 from obspy import read
 
@@ -83,15 +81,15 @@ queryString = "&".join([
 st = read("%s/%s?%s" % (SERVICE_DOMAIN, LABEL, queryString))
 
 # Plot the data returned by the webservice
-st.plot()
+st.plot();
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ### 1.2.2 Waveforms through ObsPy (recommended usage)
 # Alternatively we can use the ObsPy library to communicate with the API through an abstracted client. All we need to do is call an ObsPy function with our time window constraint and SEED identifiers. This function will do all the work of the previous exercise for us internally and make the result available for use within ObsPy.
 #
 # **Note:** Instead of building the URL yourself in the previous exercise, when working with ObsPy it is recommended that the client class is used.
 
-# + {"deletable": true, "editable": true}
+# +
 # Include the Client class from ObsPy
 from obspy.clients.fdsn import Client
 
@@ -102,16 +100,16 @@ client = Client("ODC")
 st = client.get_waveforms(network, station, location, channel, starttime, endtime)
 
 # Plot identical result
-st.plot()  
+st.plot();
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1.3 FDSNWS-Station
 # ### 1.3.1 Interacting with the API
 # The fdsnws-station service works similar to the fdsnws-dataselect but has a service different label (*station* instead of *dataselect*). The response of this webservice is StationXML by default. In the following example we will however request the output formatted as text for clarity. The label for this webservice is:
 #
 # > fdsnws/station/1/query
 
-# + {"deletable": true, "editable": true}
+# +
 # Import a library to make a HTTP request to the webservice
 import requests
 
@@ -140,15 +138,14 @@ r = requests.get("%s/%s?%s" % (SERVICE_DOMAIN, LABEL, queryString))
 
 # This will print station information for all stations in network NL
 print(r.text)
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # Practically, the data would be requested in StatonXML format and saved to file, to be further used during data processing. In the following exercise we will read the data directly into ObsPy. Note again that when working with ObsPy, using the client class is the best solution.
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ### 1.3.2 Station Metadata through ObsPy (recommended usage)
 # Alternatively, we use an ObsPy client to be able to directly manipulate the data in ObsPy. In the following example we request the instrument response for a single channel and print the response information. In combination with the raw waveform data returned from dataselect service we can deconvolve the frequency response for this sensor.
 
-# + {"deletable": true, "editable": true}
+# +
 # We will request instrument metadata for a single trace
 network, station, location, channel = "NL", "HGN", "02", "BH*"
 
@@ -171,9 +168,9 @@ for network in inv:
 st.remove_response(inventory=inv)
 
 # Plot the data (output units = velocity)
-st.plot()
+st.plot();
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1.4 EIDAWS-Routing
 # The seismic archive of EIDA is distributed across 11 different data centers, called EIDA Nodes. EIDAWS-routing helps you to find data within this federated data archive. If you don't know which EIDA node holds your data of interest the routing service will provide you with the appropriate EIDA node and corresponding webservice URL to be queried.
 #
@@ -183,7 +180,7 @@ st.plot()
 #
 # **Note:** routing and communication with all EIDA nodes individually can be omitted by using the EIDA Mediator in federated mode (see section 1.6).
 
-# + {"deletable": true, "editable": true}
+# +
 # The URL that points to the routing service (notice the different eidaws label)
 SERVICE_DOMAIN = "http://www.orfeus-eu.org"
 LABEL = "eidaws/routing/1/query"
@@ -210,8 +207,8 @@ r = requests.get("%s/%s?%s" % (SERVICE_DOMAIN, LABEL, queryString))
 for line in r.text.split("\n"):
     r = requests.get(line)
     print("[%i] %s" % (r.status_code, line))
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1.5 EIDAWS-WFCatalog
 # The WFCatalog is a catalogue of seismic waveform metadata. This is not to be confused with station metadata but contains purely metadata describing the waveforms. These metadata include availability information (e.g. gaps), sample metrics (e.g. mean, standard deviations, median values) and miniSEED header flags.
 #
@@ -219,7 +216,7 @@ for line in r.text.split("\n"):
 #
 # > eidaws/wfcatalog/1/query
 
-# + {"deletable": true, "editable": true}
+# +
 # The URL that points to the routing service (notice the different eidaws label)
 SERVICE_DOMAIN = "http://www.orfeus-eu.org"
 LABEL = "eidaws/wfcatalog/1/query"
@@ -252,12 +249,12 @@ r = requests.get("%s/%s?%s" % (SERVICE_DOMAIN, LABEL, queryString))
 
 # Should print JSON response of quality metrics for three days.
 r.json()
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 1.6 EIDA Mediator
 # The EIDA mediator (beta) can automatically route and retrieve requests federated between EIDA nodes. This prevents using from having to query the routing service before making data requests. There is a single entry poiny to the entire archive available within EIDA as demonstrated below. Currently there is supported for federated mode between **station** and **dataselect**. Federation of **WFCatalog** requests will be supported in the future.
 
-# + {"deletable": true, "editable": true}
+# +
 # The URL that points to the routing service (the EIDA mediator is hosted by ETHZ)
 SERVICE_DOMAIN = "http://mediator-devel.ethz.ch"
 LABEL = "fdsnws/station/1/query"
@@ -275,23 +272,23 @@ queryString = "&".join([
 
 # Try this in your browser:
 # http://mediator-devel.ethz.ch/fdsnws/station/1/query?network=HL,GE,NL&level=network
-r = requests.get("%s/%s?%s" %(SERVICE_DOMAIN, LABEL, queryString))
+##### This currently does not seem to work.
+# r = requests.get("%s/%s?%s" %(SERVICE_DOMAIN, LABEL, queryString))
 
 # StationXML for all four networks
-print(r.text)
+# print(r.text)
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## Graphical user interfaces
 # The following tools are available on orfeus-eu.org and are built on top of the discussed webservices. Please note that these interfaces currently only work for data archived at ORFEUS Data Center.
 #
 # > http://www.orfeus-eu.org/data/odc/quality
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # # 2 Advanced Example - Webservices pipeline
 # ## 2.1 Introduction
 # This example demonstrates the use of FDSN webservices in a processing pipeline. The goal of this exercise is to download raw waveform data from stations surrounding an earthquake. This pipeline is based on functionality provided with ObsPy.
 
-# + {"deletable": true, "editable": true}
+# +
 # Define the module imports
 import requests
 import math
@@ -304,12 +301,12 @@ import datetime
 import dateutil.parser
 
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
+# -
+
 # ## 2.2 FDSNWS-Event
 #
 # We define a function that collects event information from fdsnws-event. We pass an event identifier to the webservice, parse the response and return an Event class that has **location**, **origin time**, and **depth** attributes. The event data is requested from the seismicportal webservice provided by the EMSC.
 
-# + {"deletable": true, "editable": true}
 def getEvent(identifier):
 
     # Try in your browser:
@@ -341,17 +338,14 @@ def getEvent(identifier):
     return list(map(Event, lines))[0]
 
 
-# + {"deletable": true, "editable": true}
 # Should print a single Event instance
 print(getEvent("20170720_0000091"))
 
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 2.3 FDSNWS-Station
 #
 # Define a function that can find the stations around an event. We pass the Event instance to the function and call the station webservice to return stations within 20 degrees arc-distance of this event location. We parse the response and return a map of station instances with attributes network, station, and location.
 
-# + {"deletable": true, "editable": true}
 def getStations(event):
 
     # Try it in your browser:
@@ -385,16 +379,14 @@ def getStations(event):
     return map(Station, lines)
 
 
-# + {"deletable": true, "editable": true}
 # Should print a map (array) of Station instances
 print(getStations(getEvent("20170720_0000091")))
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 2.4 Theoretical Arrival Times
 #
 # Define a function that calculates the theoretical P arrival time at a station location using the TauP module in ObsPy. The function takes an Event and Station instance. The arc-distance in degrees between the source and receiver is calculated using the *haversine function* (see below).
 
-# + {"deletable": true, "editable": true}
+# +
 # We use the iasp91 reference model
 TAUP_MODEL = TauPyModel(model="iasp91")
 
@@ -419,10 +411,10 @@ def getPArrival(event, station):
     return UTCDateTime(event.time) + arrivals[0].time
 
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
+# -
+
 # Definition of the havesine function, we pass two latitudes and longitudes and return the arc-distance in degrees. This is a supplementary function.
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## 2.5 FDSNWS-Dataselect
 #
 # The main body of the script that collects an event with event identifier 20170720_0000091. We loop over all the stations returned by the getStations function within 20 degrees arc-distance of the event. In each iteration, we make a call to fdsnws-dataselect to collect the waveform data for all stations between 300 seconds before, and 1200 seconds after the theoretical P-arrival time.
@@ -430,7 +422,7 @@ def getPArrival(event, station):
 # This data (channel BH?) is loaded in to ObsPy using the read function, filtered and plotted. After the first iteration the loop is broken. Alternatively, all data can be saved to disk.
 #
 
-# + {"deletable": true, "editable": true}
+# +
 FDSN_DATASELECT = "http://orfeus-eu.org/fdsnws/dataselect/1/query"
 EVENT_IDENTIFIER = "20170720_0000091"
 
@@ -467,7 +459,7 @@ for station in getStations(event):
 
     # Break after the first result
     break
+# -
 
-# + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## Acknowledgements
 # Thanks to Lion Krischer and Seismo-Live for hosting this notebook.
