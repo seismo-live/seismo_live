@@ -31,8 +31,8 @@
 #
 # ---
 #
-# This notebook is part of the supplementary material 
-# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#), 
+# This notebook is part of the supplementary material
+# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#),
 # Oxford University Press, 2016.
 #
 #
@@ -49,7 +49,7 @@
 #
 # As interpolating functions we use the Lagrange polynomials $l_i$ and obtain the following integration scheme for an arbitrary function $f(x)$ defined on the interval $[-1,1]$ :
 # \begin{eqnarray*} \int_{-1}^1 f(x) \ dx \approx \int _{-1}^1 P_N(x) dx = \sum_{i=1}^{N+1} w_i f(x_i) \end{eqnarray*}
-# with 
+# with
 # \begin{eqnarray*}
 #     P_N(x)= \sum_{i=1}^{N+1} f(x_i) \ l_i^{(N)}(x).
 # \end{eqnarray*}
@@ -60,12 +60,12 @@
 # We want to investigate the performance of
 # the numerical integration scheme. You can use the `gll()` routine to
 # obtain the differentiation weights $w_i$ for an
-# arbitrary function f(x) and the relevant integration points $x_i$. 
+# arbitrary function f(x) and the relevant integration points $x_i$.
 #
 # ### 1. Numerical integration of an arbritrary function:
 # Define a function $f(x)$
 # of your choice and calculate analytically the
-# integral $\int f(x) \ dx$ for the interval $[−1, 1]$. Perform the integration numerically and compare the results. 
+# integral $\int f(x) \ dx$ for the interval $[−1, 1]$. Perform the integration numerically and compare the results.
 #
 # ### 2. The order of integration
 # Modify the function and
@@ -90,17 +90,19 @@ plt.style.use('ggplot')
 # +
 # Exercise for Gauss integration
 
-n = 1000 
+n = 1000
 x = np.linspace(-1, 1, n)
 
 # MODIFY f and intf to test different functions!
-f = np.sin(x * np.pi) 
+f = np.sin(x * np.pi)
 
 # Analytical value of the DEFINITE integral from -1 to 1
 intf = 1.0 / np.pi * (-np.cos(1.0 * np.pi) + np.cos(-1.0 * np.pi))
 
 # Choose order
-N =int(input('Give order of integration: '))
+N = 4
+# Uncomment for interactivity.
+# N =int(input('Give order of integration: '))
 
 # Get integration points and weights from the gll routine
 xi, w = gll(N)
@@ -119,9 +121,9 @@ for i in range(0, len(x)):
     for j in range(-1, N):
         lp[j + 1, i] = lagrange2(N, j, x[i], xi)
 s = np.zeros_like(x)
-for j in range(0, N + 1):   
+for j in range(0, N + 1):
     s = s + lp[j, :] * fi[j]
-    
+
 print('Solution of the analytical integral: %g' % intf)
 print('Solution of the numerical integral: %g' % intfn)
 

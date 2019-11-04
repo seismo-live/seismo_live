@@ -31,8 +31,8 @@
 #
 # ---
 #
-# This notebook is part of the supplementary material 
-# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#), 
+# This notebook is part of the supplementary material
+# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#),
 # Oxford University Press, 2016.
 #
 #
@@ -121,10 +121,10 @@ if exercise == 1:
     # Initialize space in the interval [-1, 1]
     nx = 1000
     x = np.linspace(-1, 1, nx)
-    
+
     # CHANGE FUNCTION HERE. Currently a simple sine function.
     f = np.sin(np.pi * x)
-    
+
 # Exercise 2
 elif exercise == 2:
     # Initialize space in the interval [-5, 5]
@@ -134,18 +134,20 @@ elif exercise == 2:
     f = 1/(1 + x ** 2)
 
 # Get order of Lagrange polynomial
-N = int(input(' Give polynomials degree (N): '))
+# Uncomment for interactive use.
+# N = int(input(' Give polynomials degree (N): '))
+N = 5
 
 
 if exercise == 1:
-    # Get collocation points xi from gll routine   
+    # Get collocation points xi from gll routine
     [xi, w] = gll(N)
-    fi = np.interp(xi, x, f) 
+    fi = np.interp(xi, x, f)
 elif exercise == 2:
     xi = np.linspace(-5, 5, N+1)
     fi = np.interp(xi, x, f)
 
-    
+
 # Initialize Lagrange polynomials on the defined grid
 lp = np.zeros((N + 1, len(x)))
 for i in range(0, len(x)):
@@ -153,15 +155,15 @@ for i in range(0, len(x)):
         lp[j + 1, i] = lagrange2(N, j, x[i], xi)
 
 
-# Calculate interpolating polynomials by multiplying 
+# Calculate interpolating polynomials by multiplying
 # Lagrange polynomials with function values at xi
 s = x * 0
-for j in range(0, N + 1):   
+for j in range(0, N + 1):
     s = s + lp[j, :] * fi[j]
 
 error = np.sum((np.abs(f - s))) / np.sum(np.abs(f)) * 100
 
-# Plot results  
+# Plot results
 plt.figure()
 plt.plot(x, s, 'k-', color='green', label='Interpolating function')
 plt.plot(x, f, 'k--', label='Original function')
