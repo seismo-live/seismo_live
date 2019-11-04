@@ -144,8 +144,8 @@ nrl = NRL()
 # http://docs.obspy.org/packages/obspy.clients.nrl.html
 # Here we assume that the end point of data logger and sensor are already
 # known:
-response = nrl.get_response( # doctest: +SKIP
-    sensor_keys=['Nanometrics', 'Trillium Compact', '120 s'],
+response = nrl.get_response(
+    sensor_keys=['Nanometrics', 'Trillium Compact 120 (Vault, Posthole, OBS)', '1500 V/m/s'],
     datalogger_keys=['REF TEK', 'RT 130 & 130-SMA', '1', '200'])
 
 
