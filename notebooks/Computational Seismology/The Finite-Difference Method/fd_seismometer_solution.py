@@ -30,8 +30,8 @@
 #
 # ---
 #
-# This notebook is part of the supplementary material 
-# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#), 
+# This notebook is part of the supplementary material
+# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#),
 # Oxford University Press, 2016.
 #
 #
@@ -85,7 +85,7 @@
 #
 # ** Part 1**
 #
-# While running the following cells frequency of forcing (the frequency of ground motion) and the damping parameter will be asked to enter. First try using undamped seismometer (i.e. h = 0) for some forcing frequency (eg. 0.1 Hz, 1 Hz, 2Hz, 3Hz, 4Hz, 5Hz, etc.) and interpret the results. 
+# While running the following cells frequency of forcing (the frequency of ground motion) and the damping parameter will be asked to enter. First try using undamped seismometer (i.e. h = 0) for some forcing frequency (eg. 0.1 Hz, 1 Hz, 2Hz, 3Hz, 4Hz, 5Hz, etc.) and interpret the results.
 #
 # ** Part 2**
 #
@@ -113,10 +113,14 @@ dt = .01                                                      # time increment f
 isnap = 2                                                     # snapshot frequency for visualization
 
 # Central frequency of forcing or ground motion (will be asked)
-fu0 = float(input('Give frequency of forcing (e.g. f=1 Hz) : '))
+fu0 = 1.0
+# Uncomment for interactivity.
+# fu0 = float(input('Give frequency of forcing (e.g. f=1 Hz) : '))
 
 # Damping parameter of seismometer (will be asked)
-h = float(input('Give damping parameter (e.g. h=0.5) : '))
+h = 0.5
+# Uncomment for interactivity.
+# h = float(input('Give damping parameter (e.g. h=0.5) : '))
 
 # Initialize ground motion
 
@@ -175,8 +179,8 @@ for i in range(nt):
         xold = xnow
 
     xnew = (-src[i] * dt ** 2 + (2 - w ** 2 * dt ** 2) * xnow + (eps * dt - 1) * xold) / (1 + eps * dt)
-  
-    xold = xnow                                               # for next loop present will be past    
+
+    xold = xnow                                               # for next loop present will be past
     xnow = xnew                                               # for next step future will be present
     x[i] = xnow
     x_vector[i] = x[i]
@@ -189,14 +193,14 @@ for i in range(nt):
         for k in lines2:
             k.remove()
             del k
-        
+
         lines1  = plt.plot(np.dot((np.arange (1, i+1)), dt), x_vector[0:i] /
                           np.max(np.abs (x[0:nt])),color = "red",lw = 1.5, label="Seismometer response")
-        lines2 = plt.plot(np.dot((np.arange (1, i+1)), dt), src[0:i] / 
+        lines2 = plt.plot(np.dot((np.arange (1, i+1)), dt), src[0:i] /
                           np.max(src[0:nt]), color = 'blue',lw = 1.5, label="Ground Acceleration")
     plt.title("F0 = 1Hz, SRC = %.2f Hz, h = %.2f " % (fu0, h))
-    plt.gcf().canvas.draw()      
-        
+    plt.gcf().canvas.draw()
+
 plt.ioff()
 plt.show()
 
@@ -204,7 +208,7 @@ plt.show()
 # ## Solutions
 # **Part 1**
 #
-# Let us try frequency of forcing 1 Hz and damping parameter h = 0. Then we see that response of seismometer doesn't come to rest even after the ground motion comes to rest. 
+# Let us try frequency of forcing 1 Hz and damping parameter h = 0. Then we see that response of seismometer doesn't come to rest even after the ground motion comes to rest.
 #
 # ** Part 2**
 #

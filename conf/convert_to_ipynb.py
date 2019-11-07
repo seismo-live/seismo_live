@@ -147,13 +147,13 @@ def convert_file(
         no_solution_filename = ipynb_filename.parent / (
             ipynb_filename.stem[: -len("_solution")] + ".ipynb"
         )
-        no_exercise_filename = ipynb_filename.parent / (
-            ipynb_filename.stem[: -len("_solution")] + "_exercise.ipynb"
-        )
+
         print(f"Creating no-solution file: {no_solution_filename}")
-        print(f"Creating no-exercise file: {no_exercise_filename}")
+        print(f"Creating no-exercise file: {ipynb_filename}")
+
         strip_solution_content(ipynb_filename, no_solution_filename)
-        strip_exercise_content(ipynb_filename, no_exercise_filename)
+        strip_exercise_content(ipynb_filename, ipynb_filename)
+
         print(f"Converting to HTML: {no_solution_filename}")
         subprocess.run(
             [

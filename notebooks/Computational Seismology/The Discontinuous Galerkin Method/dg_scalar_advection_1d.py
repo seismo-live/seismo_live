@@ -30,8 +30,8 @@
 #
 # ---
 #
-# This notebook is part of the supplementary material 
-# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#), 
+# This notebook is part of the supplementary material
+# to [Computational Seismology: A Practical Introduction](https://global.oup.com/academic/product/computational-seismology-9780198717416?cc=de&lang=en&#),
 # Oxford University Press, 2016.
 #
 #
@@ -67,7 +67,7 @@
 #
 # $$  M^k \cdot \partial_{t} u_h^k(t) -  \mu \ (S^k)^T \cdot u_h^k(t)= -[(\mu \ u)^*(t) \ l_j^k(x)]_{x^{k}_l}^{x^{k}_r}$$
 #
-# <div style="clear:both"></div> 
+# <div style="clear:both"></div>
 #
 # ---
 #
@@ -91,7 +91,7 @@
 # ### 2. Time schemes ###
 #
 # Formulate the analytical solution to the advection problem and plot it along with the numerical solution each time step you visualize it during extrapolation.
-# Formulate an error between analytical and numerical result. 
+# Formulate an error between analytical and numerical result.
 # Analyze the solution error as a function of propagation distance for the Euler scheme and the predictor-corrector scheme. <br>
 # (You find the implementation already in the code using exercice = 2).
 #
@@ -108,7 +108,7 @@
 #
 # ---
 
-# ### The Code 
+# ### The Code
 
 # + {"code_folding": [0]}
 # This is a configuration step. Please run it before the simulation code!
@@ -138,10 +138,10 @@ from legendre import legendre
 # ---------------------------------------------------------------
 # Initialization of setup
 # ---------------------------------------------------------------
-nt = 800        # number of time steps   
+nt = 800        # number of time steps
 xmax = 30.      # Length of domain
 rho = 1         # Density for homogeneous model, if you change the density, take that into account for a analytical solution!
-mu = 20         # Speed of the wave, positive=propagating to the right, negative=propagating to the left 
+mu = 20         # Speed of the wave, positive=propagating to the right, negative=propagating to the left
 N = 6           # Order of Lagrange polynomials
 ne = 100        # Number of elements
 
@@ -151,7 +151,7 @@ ne = 100        # Number of elements
 # Initialization of GLL points integration weights
 [xi, w] = gll(N)  # xi -> N+1 coordinates [-1 1] of GLL points
                   # w integration weights at GLL locations
-    
+
 # Space domain
 le = xmax / ne  # Length of elements for regular grid points
 
@@ -204,8 +204,8 @@ l1d = lagrange1st(N)  # Array with GLL as columns for each N+1 polynomial
 #
 # $$ M_{ij}^k=\int_{-1}^1 l_i^k(\xi)  l_j^k(\xi) \ J \ d\xi = \sum_{m=1}^{N_p} w_m \ l_i^k (x_m)  l_j^k(x_m)\ J =\sum_{m=1}^{N_p} w_m \delta_{im}\ \delta_{jm} \ J= \begin{cases} w_i \ J \ \ \text{ if } i=j \\ 0 \ \ \ \ \ \ \ \text{   if } i \neq j\end{cases}$$
 #  **Note** : We have a diagonal mass matrix!
-#  
-#  
+#
+#
 #  $$ S_{i,j}= \int_{-1}^1 l_i^k(\xi) \cdot \partial _x  l_j^k(\xi) \ d\xi= \sum_{m=1}^{N_p} w_m \ l_i^k(x_m)\cdot \partial_x l_j^k(x_m)= \sum_{m=1}^{N_p} w_m \delta_{im}\cdot \partial_xl_j^k(x_m)= w_i \cdot \partial_x l_j^k(x_i) $$
 # We already calculated the Lagrange polynomials. They will be used to calculate the first derivatives of the Lagrange polynomials in the function "Lagrange1st". Now we have all the ingredients to calculate the mass and stiffness matrix:
 
@@ -250,8 +250,8 @@ for i in range(-1, N):
 # The big difference to the Spectral Element Method is the communication between the element neighbors using a flux term $(\mu \ u)^*$. <br>
 # For the 1D advection equation we can derive the general formula for a numerical upwind flux
 # $$ (\mu \ u )^*= \frac{\mu}{2}(u^++u^-) +\frac{|\mu|}{2}(\hat n^+u^++\hat n^-u^-)$$
-# with $u^-$ as the interior information, 
-# $u^+$ the exterior information and 
+# with $u^-$ as the interior information,
+# $u^+$ the exterior information and
 # $\hat n$ the corresponding outer pointing normal vectors. <br>
 # This leads to the update on the right boundary of an element
 # $$ \frac{\mu}{2}\big(u_h^k(x_r^k)+u_h^{k+1}(x_l^{k+1})\big )+ \frac{|\mu|}{2}\big(u_h^k(x_r^k)-u_h^{k+1}(x_l^{k+1})\big )$$
@@ -267,14 +267,14 @@ for i in range(-1, N):
 #element i
 #Flux matrix du
 def flux(alpha, u, N, ne, mu): #What kind of flux do we get for alpha=1 or alpha=0?
-    
+
 #impose boundary conditions at x=0 and x=end
-    ubd1 = 0 
-    ubd2 = 0 
-        
+    ubd1 = 0
+    ubd2 = 0
+
     du = np.zeros((N+1, ne)) # for every element we have 2 faces to other elements (left and right)
     for i in range(0, ne):
-    
+
 
         if i==0: # left boundary of the domain
             du[0,i] = -mu / 2 * (u[0,i] + ubd1) - (1 - alpha) * abs(mu) / 2 * (ubd1 - u[0,i]) #left flux
@@ -283,7 +283,7 @@ def flux(alpha, u, N, ne, mu): #What kind of flux do we get for alpha=1 or alpha
         elif i==ne-1:  # right boundary of the domain
             du[0,i] = -mu / 2 * (u[0,i] + u[N,i-1]) - (1-alpha) * abs(mu) / 2 * (-u[0,i] + u[N,i-1])
             du[N,i] = mu/2 * (u[N,i] + ubd2) + (1-alpha) * abs(mu) / 2 * (u[N,i] - ubd2)
-            
+
         else: # in the middle of the domain
             du[0,i] = -mu / 2 * (u[0,i] + u[N,i-1]) - (1-alpha)*abs(mu) / 2 * (-u[0,i] + u[N,i-1])
             du[N,i] = +mu / 2 * (u[N,i] + u[0,i+1]) + (1-alpha)*abs(mu) / 2 * (u[N,i] - u[0,i+1])
@@ -301,7 +301,7 @@ def flux(alpha, u, N, ne, mu): #What kind of flux do we get for alpha=1 or alpha
 # \begin{eqnarray*}
 # \partial_{t} u_h^k(t)= \underbrace{(M^k)^{-1} \left( \mu \ (S^k) \cdot u_h^k(t) -\text{flux}^k \right )}_{\text{RHS(u(t))}}
 # \end{eqnarray*}
-# **Note:** If we have a homogenuous medium and a constant advection velocity for every element we can also formulate the equation above as matrix-vector products since $M^k$ and $S^k$ are the same for every element $k$. 
+# **Note:** If we have a homogenuous medium and a constant advection velocity for every element we can also formulate the equation above as matrix-vector products since $M^k$ and $S^k$ are the same for every element $k$.
 # In the code below we implemented two different time extrapolation schemes:
 #
 # 1. The Euler scheme in time with the update
@@ -312,7 +312,7 @@ def flux(alpha, u, N, ne, mu): #What kind of flux do we get for alpha=1 or alpha
 #
 # 2. and a second-order Runge-Kutta method (also called predictor-corrector scheme) with the follwing steps
 #
-# \begin{eqnarray*} 
+# \begin{eqnarray*}
 # k1(t)&=&RHS(u(t)) \\
 # k2(t)&=&RHS(u(t)+dt\cdot k1(t)) \\
 # & & \\
@@ -340,11 +340,11 @@ if exercise==2: #exercise 2, error between analytical and numerical solution
    ua = np.zeros(((N+1),ne))
    error = np.zeros((nt+1,(N+1)*ne)) #error array such that we can plot the error as a function of propagation distance
    ua = uold
-    
+
 elif exercise==4:# exercise 4: how discontinuous is the dg method?
     udiff = np.zeros((nt+1,ne))
 
-    
+
 ############### Time extrapolation ####################################
 #
 # Choose between the Euler scheme and the second order Runge-Kutta scheme
@@ -358,22 +358,22 @@ u = uold
 if exercise==2:
     uplot = np.reshape(u,((N+1)*ne),1) #u is reshaped to a vector in order to plot it against xg=vector with all the gll points
     uaplot = np.reshape(ua,((N+1)*ne),1)
-    
+
     fig = plt.figure()
     ax1 = fig.add_subplot(2,1,1)
     ax2 = fig.add_subplot(2,1,2)
 
     line, = ax1.plot(xg,uplot,color="blue",lw=1.5)
     line2, = ax1.plot(xg,uplot,color="red",lw=0.5)
-    
+
     line3, = ax2.plot(error[0,:], color='green', lw=1.5)
 
     plt.ylim(0,0.7)
     plt.xlabel(' x (m)')
     plt.ylabel(' Amplitude ')
     fig.show();
-       
-    
+
+
 elif exercise==1 or exercise==3:
     uplot = np.reshape(u,((N+1)*ne),1)
     fig = plt.figure()
@@ -390,23 +390,23 @@ alpha = 1 #you can choose alpha between [0,1] to get different flux concepts
 ##-------Time loop
 
 for it in range(1, nt+1):
-    
+
     if method==0: #Euler scheme
         Flux=flux(alpha,u,N,ne,mu) #calculates the flux at the boundaries of an element
-        
+
         # Extrapolation for every element
         for k in range(0,ne):
                unew[:,k] = dt* (np.dot(Minv, np.dot(Ke, u[:,k]) - Flux[:,k])) + u[:,k]
         u = unew
 
-    
+
     else: #RK scheme
             Flux = flux(alpha,u,N,ne,mu) #calculates the flux at the boundaries of an element,
             k1 = np.dot(Minv, np.dot(Ke, u) - Flux)
             Flux = flux(alpha, u + dt * k1, N, ne, mu) #for a second order scheme this needs to be done twice in every iteration
             k2 = np.dot(Minv, np.dot(Ke, u+dt*k1)-Flux)
             u = u + 0.5 * dt * (k1 + k2)
-    
+
 ##--Plotting section--###
 
     if not it % iplot:
@@ -415,7 +415,7 @@ for it in range(1, nt+1):
 
             ua = 0.5*np.exp(-0.4*(x - (x0 + it * dt * mu)) ** 2)#analytical solution of the advection equation
             uaplot = np.reshape(ua,((N+1) * ne),1)
-        
+
             line.set_ydata(uplot)
             line2.set_ydata(uaplot)
             error[it,:] = np.abs(uplot - uaplot)
@@ -425,38 +425,40 @@ for it in range(1, nt+1):
             ax1.set_title('Time step : %g ' %it)
             ax1.set_ylim([0.,0.7])
             fig.canvas.draw()
-        
+
             lyaxis = np.max(np.abs(error)) #length of y-axis
             ax2.set_ylim([0,lyaxis])
-    
+
             line3.set_ydata(error[it,:])
             distance = it * dt * mu
             ax2.set_title('Error (numerical-analytical) solution')
 
-        
+
         elif exercise==4: #calculate the differences at the boundary points between two elements in every time step
             udiff[it,0:ne-1] = np.abs(u[0,1:ne] - u[N,0:ne-1])
-        
-        
+
+
         else: #plots only the solution u, for exercises 1,3
             uplot=np.reshape(u,((N+1)*ne),1)
             line.set_ydata(uplot)
             plt.title('Time step : %g ' %it)
             fig.canvas.draw()
-        
-### end of time loop        
+
+### end of time loop
 ####################
 
 
 ## Exercise 4: visualize the difference at the boundaries of an element at a given iteration step it
 if exercise==4:
-    itplot = input('Give a iteration step between 1 and %g: ' %nt)
+    itplot = 10
+    # Uncomment for interactivity.
+    # itplot = input('Give a iteration step between 1 and %g: ' %nt)
 
     fig2=plt.figure()
-    line4 = plt.plot(udiff[itplot,:], color='green', marker='o',label='grid points')    
-    #ax = plt.axes()    
+    line4 = plt.plot(udiff[itplot,:], color='green', marker='o',label='grid points')
+    #ax = plt.axes()
 
-    
+
     fig2.show()
     lyaxis=np.max(udiff[itplot,:])
     plt.ylim(0,lyaxis)
