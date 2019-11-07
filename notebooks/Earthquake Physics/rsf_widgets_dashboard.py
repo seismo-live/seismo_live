@@ -195,7 +195,7 @@ def parse_sequence(seqString):
         steps = np.array(steps)
         steps = steps.astype(int)
 
-        steps = steps.reshape((len(steps)/2,2))
+        steps = steps.reshape((int(len(steps)/2),2))
 
         dt = 0.01
 
@@ -204,13 +204,13 @@ def parse_sequence(seqString):
             time = np.arange(0, np.sum(steps[:,1]/steps[:,0]), dt)
             for step_velocity, step_displacement in steps:
                 step_time = step_displacement/step_velocity
-                velocity = np.hstack((velocity, np.ones(step_time/dt) * step_velocity))
+                velocity = np.hstack((velocity, np.ones(int(step_time/dt)) * step_velocity))
 
         if simType_buttons.value == 'Velocity-Time':
             velocity = np.array([])
             time = np.arange(0, np.sum(steps[:,1]), dt)
             for step_velocity, step_time in steps:
-                velocity = np.hstack((velocity, np.ones(step_time/dt) * step_velocity))
+                velocity = np.hstack((velocity, np.ones(int(step_time/dt)) * step_velocity))
 
         return time, velocity
 
@@ -325,19 +325,19 @@ step_sequence_string = widgets.Text(
 )
 
 # + {"extensions": {"jupyter_dashboards": {"version": 1, "views": {"grid_default": {"hidden": true}, "report_default": {"hidden": false}}}}}
-sv1_label = widgets.Latex(
+sv1_label = widgets.Label(
     value="First State Variable",
 )
 
-sv2_label = widgets.Latex(
+sv2_label = widgets.Label(
     value="Second State Variable",
 )
 
-kc_label = widgets.Latex(
+kc_label = widgets.Label(
     value="k$_c$ [$\mu$m$^{-1}$]: "
 )
 
-kappa_label = widgets.Latex(
+kappa_label = widgets.Label(
     value="k/k$_c$: "
 )
 

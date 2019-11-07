@@ -113,7 +113,7 @@ for _i, event in enumerate(cat):
         kernelwidth=10,
         units="velocity",
         starttime="P-50", endtime="P+50")
-    
+
     this_event = {"event_object": event, "stream": st_syn}
     synthetic_data[event.resource_id] = this_event
     print("  -> Downloaded %i synthetic traces." % len(st_syn))
@@ -147,10 +147,10 @@ print(len(common_stations))
 
 for value in data.values():
     value["observed_stream"] = obspy.Stream(traces=[
-        tr for tr in value["observed_stream"] if 
+        tr for tr in value["observed_stream"] if
         (tr.stats.network, tr.stats.station) in common_stations])
     value["synthetic_stream"] = obspy.Stream(traces=[
-        tr for tr in value["synthetic_stream"] if 
+        tr for tr in value["synthetic_stream"] if
         (tr.stats.network, tr.stats.station) in common_stations])
 
 # + {"deletable": true, "editable": true}
@@ -174,17 +174,17 @@ for network, station in common_stations:
     for event, this_data in good_data.items():
         obs_tr = this_data["observed_stream"].select(network=network, station=station)[0].copy()
         syn_tr = this_data["synthetic_stream"].select(network=network, station=station)[0].copy()
-        
+
         # Artificially shift the data for two stations for the "application" event.
         if event.id == application:
             if station == "BEL":
                 obs_tr.stats.starttime -= 1.0
             if station == "PHL":
                 obs_tr.stats.starttime += 1.0
-              
+
         # p-phase should be centered in the synthetic trace.
         pick = syn_tr.stats.starttime + (syn_tr.stats.endtime - syn_tr.stats.starttime) / 2.0
-        
+
         # Process data.
         obs_tr.detrend("linear")\
             .taper(max_percentage=0.05, type="hann")\
@@ -194,23 +194,23 @@ for network, station in common_stations:
             ._rtrim(30.0)\
             .taper(max_percentage=0.3, type="hann")
         obs_tr.trim(obs_tr.stats.starttime - 50, obs_tr.stats.endtime + 50, pad=True, fill_value=0.0)
-        
+
         # Also filter the synthetics.
         syn_tr.taper(max_percentage=0.05, type="hann")
         syn_tr.filter("bandpass", freqmin=0.08, freqmax=0.2, corners=4, zerophase=True)
         syn_tr.data = np.require(syn_tr, requirements=["C"])
-        
+
         # Interpolate both to the same sample points.
         starttime = max(obs_tr.stats.starttime, syn_tr.stats.starttime)
         endtime = min(obs_tr.stats.endtime, syn_tr.stats.endtime)
-        npts = (endtime - starttime) // (1.0 / 40.0) - 1
+        npts = int((endtime - starttime) // (1.0 / 40.0) - 1)
         obs_tr.interpolate(sampling_rate=40.0, method="lanczos", a=5,
                            starttime=starttime, npts=npts)
         syn_tr.interpolate(sampling_rate=40.0, method="lanczos", a=5,
                            starttime=starttime, npts=npts)
-        
+
         print(event.id, network, station)
-        
+
         # Subsample precision.
         try:
             shift, corr = xcorr_pick_correction(pick, obs_tr, pick, syn_tr, t_before=20,
@@ -219,15 +219,15 @@ for network, station in common_stations:
             shift, corr = None, None
         collected_stats.append({"time_shift": shift, "correlation": corr,
                                 "network": network, "station": station, "event": event.id})
-        
+
         if "processed_observed_stream" not in this_data:
             this_data["processed_observed_stream"] = obspy.Stream()
-            
+
         this_data["processed_observed_stream"] += obs_tr
-        
+
         if "processed_synthetic_stream" not in this_data:
             this_data["processed_synthetic_stream"] = obspy.Stream()
-            
+
         this_data["processed_synthetic_stream"] += syn_tr
 
 
@@ -255,16 +255,16 @@ import matplotlib.pyplot as plt
 def check_event(event, ax=None, ticks=False):
     _ds = cs[cs.event == event]
     mean = _ds.time_shift.mean()
-    
+
     things = []
 
     for _i in _ds.itertuples():
         things.append({"station": _i.station,
                        "time_shift": _i.time_shift - mean,
                        "difference_to_mean": (_i.time_shift - mean) - reference_shifts[_i.station]})
-        
+
     temp = pandas.DataFrame(things).sort_values("station")
-    
+
     if ax is None:
         plt.figure(figsize=(15, 5))
         ax = plt.gca()
@@ -274,7 +274,7 @@ def check_event(event, ax=None, ticks=False):
         plt.xticks(range(len(_ds)), temp.station, rotation="vertical")
     else:
         plt.xticks(range(len(_ds)), [""] * len(_ds), rotation="vertical")
-        
+
     plt.xlim(-1, 23)
 check_event(application)
 
@@ -294,24 +294,24 @@ def plot_data(event, station, show=True, legend=False):
     plt.plot(obs.times(), obs.data * 1E6, color="0.3", linestyle="--", linewidth=5,
              label="Observed Data")
     plt.plot(syn.times(), syn.data * 1E6, color="0.1", linestyle=":", label="Synthetic Data")
-    
+
     ts= original_cs[(original_cs.event == validate) &
                     (original_cs.station == "TIN")].time_shift
-    
+
     plt.plot(syn.times() - float(ts), syn.data * 1E6, color="k", label="Shifted Synthetic Data")
     plt.ylabel("Velocity [$\mu$m/s]")
     plt.xlabel("Relative Time [s]")
     plt.xlim(20, 65)
-    
+
     plt.xticks([30, 40, 50, 60], ["30", "40", "50", "60"])
-    
+
     if legend:
         plt.legend(loc="lower left")
-        
+
     plt.text(0.03, 0.92, "Station: CI.%s" % station, transform=plt.gca().transAxes, va="top")
     if show:
         plt.show()
-    
+
 plot_data(validate, "TIN")
 plot_data(validate, "SCI2")
 plot_data(validate, "MPP")
@@ -373,7 +373,7 @@ m_local = Basemap(projection='aea',
                   area_thresh=1000.0, lat_0=34.9,
                   lon_0=-118,
                   width=deg2m * 8, height=deg2m * 8,
-                  ax=ax2) 
+                  ax=ax2)
 m_local.drawmapboundary()
 m_local.drawrivers(color="0.7")
 m_local.drawcoastlines(color="0.3", linewidth=1.4)
