@@ -578,37 +578,6 @@ var parallelism = (function($) { var _ = {
 						});
 
 				});
-
-                // Modifications not related to the HTML5Up Theme go below this line!
-                var server_url = "http://vm-141-40-254-15.cloud.mwn.de:8000";
-                $("#server_name").text(server_url);
-                $("#tmpnb_link").attr("href", server_url);
-
-                // Initially hide the error message.
-                $("#error_message").hide();
-
-                (function worker() {
-                  $.ajax({
-                    url: server_url + '/api/stats',
-                    success: function(data) {
-                        $("#error_message").hide()
-                        $("#available_containers").text(data["available"]);
-                        $("#container_capacity").text(data["capacity"]);
-                    },
-                    error: function(error_object) {
-                        $("#error_message").text(
-                            "Error connecting to tmpnb server: '" +
-                            error_object.statusText + "' (Status code: " + error_object.status + ")").show();
-                        $("#available_containers").text("??");
-                        $("#container_capacity").text("??");
-                    },
-                    complete: function() {
-                      // Poll all 5 seconds.
-                      setTimeout(worker, 5000);
-                    }
-                  });
-                })();
-
 			}
 
 }; return _; })(jQuery);
