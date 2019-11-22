@@ -97,8 +97,30 @@ def build_website(
     if not output_folder.exists():
         shutil.copytree(src=website_path, dst=output_folder)
 
+    # A bit dirty here but we just copy over the html and notebook directories
+    # to the website directory.
+    new_html_folder = output_folder / "html"
+    new_notebook_folder = output_folder / "notebooks"
+
+    if new_html_folder.exists():
+        shutil.rmtree(new_html_folder)
+    if new_notebook_folder.exists():
+        shutil.rmtree(new_notebook_folder)
+
+    shutil.copytree(html_folder, new_html_folder)
+    shutil.copytree(notebook_folder, new_notebook_folder)
+
+    # Also copy over the shared folder.
+    share_folder = output_folder / "html" / "share"
+    shutil.copytree(src=notebook_folder / "share", dst=share_folder)
+
+    html_folder = new_html_folder
+    notebook_folder = new_notebook_folder
+
     with open(website_path / tree_template_path, "r") as fh:
         template = fh.read()
+
+    tree_output_path = output_folder / tree_template_path
 
     contents = _parse_recursively(
         html_folder,
@@ -121,6 +143,90 @@ def build_website(
     def _r(s):
         return s.replace("root-html", "root")
 
+    def create_iframe_html(target_link):
+        return """
+<html>
+<body>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      html {
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        font-family: "Josefin Sans", sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+      }
+
+      .navbar {
+        min-height: 60px;
+        max-height: 60px;
+        font-size: 18px;
+        background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding-bottom: 10px;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.7);
+        display: inline-block;
+        font-size: 22px;
+        margin-top: 10px;
+        margin-left: 20px;
+      }
+
+      #header_content {
+          color: rgba(255, 255, 255, 0.7);
+        margin-right: 20px;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0;
+        height: 70px;
+        align-items: center;
+      }
+
+      .logo {
+        margin-top: 0;
+      }
+
+
+      .logo:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+
+      #iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <div class="navbar">
+<a href="/" class="logo">Seismo-Live</a>
+    <div id="header_content">
+      This is a static preview.
+    </div>
+  </div>
+  <iframe id="iframe" src="%%TARGET_LINK%%"></iframe>
+  </iframe>
+</body>
+</html>
+        """.replace("%%TARGET_LINK%%", target_link)
+
     def parse_contents(c):
         if c["name"] != "html":
             all_table_rows.append(
@@ -136,13 +242,40 @@ def build_website(
         if c["notebooks"]:
             for k in sorted(c["notebooks"].keys()):
                 v = c["notebooks"][k]
+                buttons = []
+                if "html_file" in v:
+                    # Link to the rendered HTML.
+                    link =  "/" + str(v["html_file"].relative_to(output_folder))
+                    wrapper_file = v["html_file"].parent / (v["html_file"].stem  + "_wrapper.html")
+                    html_content = create_iframe_html(link)
+                    with open(wrapper_file, "w") as fh:
+                        fh.write(html_content)
+
+                    wrapper_link = link =  "/" + str(wrapper_file.relative_to(output_folder))
+
+                    buttons.append(
+                        f'<a class="btn btn-success btn-sm" target="_blank" href="{wrapper_link}">OPEN</a>')
+
+                if "solution_html_file" in v:
+                    link =  "/" + str(v["solution_html_file"].relative_to(output_folder))
+
+                    wrapper_file = v["solution_html_file"].parent / (v["solution_html_file"].stem  + "_wrapper.html")
+                    html_content = create_iframe_html(link)
+                    with open(wrapper_file, "w") as fh:
+                        fh.write(html_content)
+
+                    wrapper_link = link =  "/" + str(wrapper_file.relative_to(output_folder))
+
+                    buttons.append(
+                        f'<a class="btn btn-warning btn-sm" target="_blank" href="{wrapper_link}">SOLUTION</a>')
+
                 all_table_rows.append(
                     tr.format(
                         node_name=f"{c['slug']}-{slugify(k)}",
                         parent_node_name=_r(c["slug"]),
                         title=k,
                         subtitle="",
-                        buttons="BUTTON SHOULD BE HERE",
+                        buttons=" ".join(buttons)
                     )
                 )
 
@@ -153,7 +286,7 @@ def build_website(
 
     parse_contents(contents)
 
-    with open(output_folder / tree_template_path, "w") as fh:
+    with open(tree_output_path, "w") as fh:
         fh.write(template.format(all_table_rows="\n".join(all_table_rows)))
 
 
