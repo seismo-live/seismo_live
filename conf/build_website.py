@@ -33,7 +33,7 @@ def _parse_files(
             "ipynb_file": notebook_folder
             / f.parent.relative_to(html_folder)
             / (name + ".ipynb"),
-            "ipynb_html_file": notebook_folder
+            "ipynb_solution_file": notebook_folder
             / f.parent.relative_to(html_folder)
             / (name + "_solution.ipynb"),
         }
@@ -41,6 +41,8 @@ def _parse_files(
         for k, v in list(possible_files.items()):
             if not v.exists():
                 del possible_files[k]
+        if "ipynb_file" not in possible_files:
+            continue
         c[name] = possible_files
 
     return c
@@ -143,11 +145,12 @@ def build_website(
     def _r(s):
         return s.replace("root-html", "root")
 
-    def create_iframe_html(target_link):
+    def create_iframe_html(target_link, notebook_link):
         return """
 <html>
 <body>
   <head>
+    <link href="/tree/bootstrap.min.css" rel="stylesheet">
     <style>
       * {
         box-sizing: border-box;
@@ -192,6 +195,9 @@ def build_website(
       }
 
       .navbar {
+        border-width: 0px !important;
+        border-radius: 0px !important;
+            margin-bottom: 0px !important;
         display: flex;
         justify-content: space-between;
         padding-bottom: 0;
@@ -218,14 +224,20 @@ def build_website(
   <div class="navbar">
 <a href="/" class="logo">Seismo-Live</a>
     <div id="header_content">
-      This is a static preview.
+        This is a static preview.
+      <a class="btn btn-success btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live/binder_dockerfile">
+        Open Live Notebooks on Binder
+      </a>
+      <a class="btn btn-warning btn-sm" target="_blank" href="%%NOTEBOOK_LINK%%" download>
+        Download Notebook File
+      </a>
     </div>
   </div>
   <iframe id="iframe" src="%%TARGET_LINK%%"></iframe>
   </iframe>
 </body>
 </html>
-        """.replace("%%TARGET_LINK%%", target_link)
+        """.replace("%%TARGET_LINK%%", target_link).replace("%%NOTEBOOK_LINK%%", notebook_link)
 
     def parse_contents(c):
         if c["name"] != "html":
@@ -247,7 +259,8 @@ def build_website(
                     # Link to the rendered HTML.
                     link =  "/" + str(v["html_file"].relative_to(output_folder))
                     wrapper_file = v["html_file"].parent / (v["html_file"].stem  + "_wrapper.html")
-                    html_content = create_iframe_html(link)
+                    notebook_link = "/" + str(v["ipynb_file"].relative_to(output_folder))
+                    html_content = create_iframe_html(link, notebook_link)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
@@ -260,7 +273,8 @@ def build_website(
                     link =  "/" + str(v["solution_html_file"].relative_to(output_folder))
 
                     wrapper_file = v["solution_html_file"].parent / (v["solution_html_file"].stem  + "_wrapper.html")
-                    html_content = create_iframe_html(link)
+                    notebook_link = "/" + str(v["ipynb_solution_file"].relative_to(output_folder))
+                    html_content = create_iframe_html(link, notebook_link)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
