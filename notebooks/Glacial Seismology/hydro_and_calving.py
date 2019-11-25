@@ -44,7 +44,6 @@ plt.rcParams['figure.figsize'] = 10, 5
 # For this exercise, we'll be working with data from the Yahtse Glacier project, run from 2009 - 2011.  This data, like ~every NSF or NASA funded seismic deployment, is archived at the [IRIS Data Management Center (DMC)](http://ds.iris.edu/ds/nodes/dmc/data/).  One of the easiest tools for seismic data discovery is through a Google Map add-on.  You can see the map focused near the Yahtse Glacier network [here](http://ds.iris.edu/gmap/?minlat=60&maxlat=61&minlon=-143&maxlon=-140).  There's a nice guide using the map function [here](http://ds.iris.edu/gmap/help).  The short guidelines are simple: change the terms in the URL, and you can change what the map shows.
 #
 # Using the IRIS [DMC's Google Map function](http://ds.iris.edu/gmap/?minlat=60&maxlat=61&minlon=-143&maxlon=-140), find the Yahtse Glacier network and note the two-character network code that organizes seismic data together.  We'll be working with data from station BOOM.
-# ![Yahtse stations](www.tbartholomaus.org/share/yahtse.png:small "Yahtse Glacier stations")
 
 # + {"deletable": true, "editable": true}
 # ObsPy knows which website to connect to for many data center.
@@ -52,13 +51,13 @@ plt.rcParams['figure.figsize'] = 10, 5
 from obspy.clients.fdsn import Client
 fdsn_client = Client("IRIS")
 
-net_code = "XX" # Fill in the two-character network code you found for Yahtse Glacier here
+net_code = "XF" # Fill in the two-character network code for Yahtse Glacier here
 sta_code = "BOOM"
 
 # + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # If we can't end up accessing data from the FDSN servers, we can access miniseed data [here](https://vandalsuidaho-my.sharepoint.com/personal/tbartholomaus_uidaho_edu/_layouts/15/guestaccess.aspx?folderid=0e2c957be726c4dfebc07165e08b416c0&authkey=ATfKy4Z_U3L_QXhLhh9x908&expiration=2017-06-23T08%3a47%3a30.000Z)
 #
-# these data can be read by typing: st = read('path_or_website_to_address/filename') 
+# these data can be read by typing: st = read('path_or_website_to_address/filename')
 
 # + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## Quickly reviewing data
@@ -69,11 +68,11 @@ starttime = obspy.UTCDateTime(2010, 6, 11, 20, 0, 0)
 endtime = obspy.UTCDateTime(2010, 6, 12, 0, 0, 0)
 
 st = fdsn_client.get_waveforms(network=net_code, station=sta_code, location="", channel="HHZ",
-                     starttime=starttime, endtime=endtime, 
+                     starttime=starttime, endtime=endtime,
                      attach_response=True)
 st = st.remove_response( output="VEL" ) # Magic function that does what Doug was looking for
 
-st.slice(starttime=obspy.UTCDateTime(2010, 6, 11, 20, 0, 0), 
+st.slice(starttime=obspy.UTCDateTime(2010, 6, 11, 20, 0, 0),
     endtime=obspy.UTCDateTime(2010, 6, 12, 0, 0, 0)).filter(
     "bandpass", freqmin=1, freqmax=5).plot(type='dayplot', interval=10)
 
@@ -88,11 +87,11 @@ st.slice(starttime=obspy.UTCDateTime(2010, 6, 11, 20, 0, 0),
 
 # + {"deletable": true, "editable": true}
 
-starttime = obspy.UTCDateTime(YEAR, M, D, h, m, s) # <---- Set these time limits
-endtime = obspy.UTCDateTime(YEAR, M, D, h, m, s)
+starttime = obspy.UTCDateTime(2010, 9, 7, 22, 13, 35) # <---- Set these time limits
+endtime = obspy.UTCDateTime(2010, 9, 7, 22, 14, 30)
 
 st = fdsn_client.get_waveforms(network=net_code, station=sta_code, location="", channel="HH*",
-                     starttime=starttime, endtime=endtime, 
+                     starttime=starttime, endtime=endtime,
                      attach_response=True)
 sps = int(st[0].stats.sampling_rate)
 st = st.remove_response( output="VEL" )
@@ -111,7 +110,7 @@ ax1.plot(t, tr.copy().data, 'k')
 
 tr.spectrogram(wlen=2*sps, per_lap=0.95,
     dbscale=True, log=True, axes=ax2)#, cmap='YlOrRd')
-ax2.set_ylim((XX,XX))  # <---- Set these frequency limits 
+ax2.set_ylim((0.5,50))  # <---- Set these frequency limits
 ax2.set_xlabel('Time (s)')
 
 ax2.collections[0].set_clim(vmin=-160, vmax=-105) # Finds the quadmesh/pcolormesh created by the spectrogram call, and then change its clims
@@ -133,15 +132,15 @@ cb.set_label('Power (dB/Hz)')
 
 # + {"deletable": true, "editable": true}
 
-starttime = obspy.UTCDateTime(2010, x, x, x, x, x) # <----- Modify these times
-endtime = obspy.UTCDateTime(2010, x, x, x, x, x)
+starttime = obspy.UTCDateTime(2010, 9, 7, 22, 0, 0) # <----- Modify these times
+endtime = obspy.UTCDateTime(2010, 9, 7, 23, 0, 0)
 #starttime = obspy.UTCDateTime(2010, 8, 7, 22, 0, 0)
 #endtime = obspy.UTCDateTime(2010, 8, 7, 23, 0, 0)
 #starttime = obspy.UTCDateTime(2011, 1, 7, 22, 0, 0)
 #endtime = obspy.UTCDateTime(2011, 1, 7, 23, 0, 0)
 
 st = fdsn_client.get_waveforms(network="XF", station="BOOM", location="", channel="HHZ",
-                     starttime=starttime, endtime=endtime, 
+                     starttime=starttime, endtime=endtime,
                      attach_response=True)
 sps = int(st[0].stats.sampling_rate)
 st = st.remove_response( output="VEL" )
@@ -156,8 +155,8 @@ ax3 = fig.add_axes([0.83, 0.1, 0.03, 0.6])
 t = np.arange(tr.stats.npts) / tr.stats.sampling_rate
 ax1.plot(t, tr.copy().data, 'k')
 
-tr.spectrogram(wlen=.1*sps, per_lap=0.90, # <--- Try adjusting these window and overlap values
-    dbscale=True, log=True, axes=ax2)#, cmap='YlOrRd') 
+tr.spectrogram(wlen=.1*sps, per_lap=0.90, dbscale=True,
+    log=True, axes=ax2)#, cmap='YlOrRd')
 ax2.set_ylim((0.1,50))
 
 ax2.collections[0].set_clim(vmin=-170, vmax=-105) # Find the quadmesh/pcolormesh created by the spectrogram call, and then change its clims
@@ -175,13 +174,13 @@ cb.set_label('Power (dB/Hz)')
 import get_med_spectra
 from UTCDateTime_funcs import UTCfloor, UTCceil, UTC2dn # custom functions for working with obspy UTCDateTimes
 
-station = 'BOOM'
+station = 'BOOM'#TWLV'
 
 # A set of parameters that define how the script will be run.
     # the coarse durations are the length of the windows from which multiple fine_duration PSDs will be averaged to produce a single median PSD
-pp = {'coarse_duration': 10.0,  # s <---- Change these parameters (lengthen them) to see how they affect the output
+pp = {'coarse_duration': 600.0,  # s <---- Change these parameters to see how they affect the output
       'coarse_overlap' : 0.5,   # s
-      'fine_duration'  : 5.0,   # s <---- Change these parameters (lengthen them) to see how they affect the output
+      'fine_duration'  : 20.0,   # s
       'fine_overlap'   : 0.5}   # s
 
 t = np.arange( 0, tr.stats.npts/tr.stats.sampling_rate, pp['coarse_duration']*pp['coarse_overlap'])
@@ -199,11 +198,11 @@ for i in range(len(t)): # Loop over all the t's, however, the for loop will neve
 
     # the minus small number and False nearest_sample make the tr include the first data point, but stop just shy of the last data point
     tr_trim.trim(tr.stats.starttime+t[i], tr.stats.starttime+t[i] + pp['coarse_duration'] - 0.00001, nearest_sample=False)
-    
+
     # If you're at the end of the day volume, and the duration of tr_trim is not coarse_duration long:
     if tr.stats.starttime+t[i] + pp['coarse_duration'] > tr_trim.stats.endtime + 0.01:
         break
-        
+
     freqs, Pdb, Fs_old = get_med_spectra.med_spec(tr_trim, pp, Fs_old)
     Pdb_array[:,i] = Pdb[:freq_nums] # Save the median spectra into an array
 
@@ -248,9 +247,9 @@ plt.ylabel('Power (dB/Hz)')
 # + {"deletable": true, "editable": true, "cell_type": "markdown"}
 # ## Detection of calving icequakes
 # The simple STA/LTA (ratio of Short-Term-Average to Long-Term-Average) filter and similar filters are a popular, simple way to detect transient seismic events.  You can learn more about these detection tools and their parameters [here](https://docs.obspy.org/tutorial/code_snippets/trigger_tutorial.html).  First, chose the frequency bounds of typical calving icequakes, since we want to limit our assessment of the data to within these frequencies.  When exploring the choice of parameters, start with a short sample of the data (like 10 minutes), and adjust the parameters while re-running detector plots until you are happy with the output.  These parameters include the
-# * short term window length, 
-# * long term window length, 
-# * on threshold, and 
+# * short term window length,
+# * long term window length,
+# * on threshold, and
 # * off thresholds.
 #
 # When you've got a set of parameters that you like, change the time of inspected data broadly to different seasons and times of day.  Reassess your parameter choices.  To make this guess-and-check approach more rigorous, you might manually choose some set of training data and systematically explore the parameter space to identify those parameter values that best reproduce your manually-picked events.  However, in practice, this is often not done.  What _must_ be done is some verification that the results of your analysis are not overly sensitive to "reasonable" variations in parameter choices.
@@ -258,14 +257,14 @@ plt.ylabel('Power (dB/Hz)')
 # + {"deletable": true, "editable": true}
 import obspy.signal.trigger as trg
 
-freq_bounds = np.array([0.01, 50]) # <---- Set these frequency limits
+freq_bounds = np.array([1, 5]) # <---- Set these frequency limits
         # low and high pass bounds for frequency filtering of data for detection analysis
 
 starttime = obspy.UTCDateTime(2011, 6, 1, 23, 50, 0) # <---- Set the time period to examine
 endtime = obspy.UTCDateTime(2011, 6, 2, 0, 0, 0)
 
 st = fdsn_client.get_waveforms(network=net_code, station=sta_code, location="", channel="HHZ",
-                     starttime=starttime, endtime=endtime, 
+                     starttime=starttime, endtime=endtime,
                      attach_response=True)
 st = st.remove_response( output="VEL" )
 
@@ -281,8 +280,8 @@ tr = st[0].filter(
     "bandpass", freqmin=freq_bounds[0], freqmax=freq_bounds[1])
 sps = int(tr.stats.sampling_rate)
 
-onthresh = 3.5 # <---- Change these parameter values and keep rerunning detector to tune to events.
-offthresh = 1.5 # <---- Change these parameter values and keep rerunning detector to tune to events.
+onthresh = 2.0
+offthresh = 0.5
 shortwin = 5 # sec
 longwin = 20 # sec
 cft = trg.classic_sta_lta(tr.data, shortwin * sps, longwin * sps)
@@ -313,12 +312,13 @@ print( int(sum(durs)) )
 time_xlabels = np.array(
                     ['6/10', '7/10', '8/10', '9/10', '10/10', '11/10', '12/10', '1/11', '2/11', '3/11', '4/11', '5/11', '6/11', '7/11', '8/11'])
 # Copy the cumulative durations here:
-cum_durs = np.array([ ,   ,  ,  ,   ,   ,   ,  ,   ,  ,  ,  ])
+# XXX: This should be filled in.
+# cum_durs = np.array([ ,   ,  ,  ,   ,   ,   ,  ,   ,  ,  ,  ])
 
-fig, ax = plt.subplots()
-ax.plot(np.arange(0, len(cum_durs)), cum_durs)
-ax.set_xticks(np.arange(0, len(cum_durs), 2)) # Create ticks at every other value
-ax.set_xticklabels(time_xlabels[::2]) # Label the ticks with every other cum_durs
+# fig, ax = plt.subplots()
+# ax.plot(np.arange(0, len(cum_durs)), cum_durs)
+# ax.set_xticks(np.arange(0, len(cum_durs), 2)) # Create ticks at every other value
+# ax.set_xticklabels(time_xlabels[::2]) # Label the ticks with every other cum_durs
 
 
 # + {"deletable": true, "editable": true, "cell_type": "markdown"}
