@@ -145,14 +145,15 @@ def build_website(
     def _r(s):
         return s.replace("root-html", "root")
 
-    def create_iframe_html(target_link, notebook_link):
+    def create_iframe_html(target_link, notebook_link, path_to_html_root):
         target_link = str(target_link)
         notebook_link = str(notebook_link)
+        path_to_html_root = str(path_to_html_root)
         return """
 <html>
 <body>
   <head>
-    <link href="/tree/bootstrap.min.css" rel="stylesheet">
+    <link href="%%PATH_TO_HTML_ROOT%%/tree/bootstrap.min.css" rel="stylesheet">
     <style>
       * {
         box-sizing: border-box;
@@ -239,7 +240,7 @@ def build_website(
   </iframe>
 </body>
 </html>
-        """.replace("%%TARGET_LINK%%", target_link).replace("%%NOTEBOOK_LINK%%", notebook_link)
+        """.replace("%%TARGET_LINK%%", target_link).replace("%%NOTEBOOK_LINK%%", notebook_link).replace("%%PATH_TO_HTML_ROOT%%", path_to_html_root)
 
     def parse_contents(c):
         if c["name"] != "html":
@@ -260,6 +261,7 @@ def build_website(
                 if "html_file" in v:
                     # The generated wrapper file.
                     wrapper_file = v["html_file"].parent / (v["html_file"].stem  + "_wrapper.html")
+                    path_to_html_root = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1)))
 
                     # Link to the rendered HTML in the wrapper file. Always
                     # lives in the same folder - thus a relative file is okay.
@@ -269,7 +271,7 @@ def build_website(
                     # down.
                     notebook_link = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1))) / v["ipynb_file"].relative_to(output_folder)
 
-                    html_content = create_iframe_html(link, notebook_link)
+                    html_content = create_iframe_html(link, notebook_link, path_to_html_root)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
@@ -282,8 +284,10 @@ def build_website(
                     link = pathlib.Path(".") / v["solution_html_file"].name
 
                     wrapper_file = v["solution_html_file"].parent / (v["solution_html_file"].stem  + "_wrapper.html")
+                    path_to_html_root = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1)))
+
                     notebook_link = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1))) / v["ipynb_solution_file"].relative_to(output_folder)
-                    html_content = create_iframe_html(link, notebook_link)
+                    html_content = create_iframe_html(link, notebook_link, path_to_html_root)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
