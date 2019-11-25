@@ -1,13 +1,25 @@
 ## Live Jupyter Notebooks for Seismology
 
-### Solution/No-Solution files
+### Building the Website
 
-During the build process the scripts will create copies of all files that end
-with `_solution`. For these copies it will empty all cells that have a tag
-named `solution` and thus create a version without solution, e.g. an
-exercise.
+It is currently a two step procedure:
 
-The rendered versions of these exercises also will not contain any output.
+First build all notebooks. This takes the jupytext files, creates an exercise
+and solution version of each if necessary, converts both to ipynb, runs them,
+and renders to the outputs to HTML.
+
+All the output will be store in in `built_notebooks`.
+
+```bash
+$ python conf/convert_to_ipynb.py notebooks built_notebooks
+```
+
+The second step takes these outputs and create the final website which is
+stored in `final_website`:
+
+```bash
+$ python conf/build_website.py built_notebooks final_website
+```
 
 ### Contributing
 
