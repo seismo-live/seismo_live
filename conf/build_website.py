@@ -146,6 +146,8 @@ def build_website(
         return s.replace("root-html", "root")
 
     def create_iframe_html(target_link, notebook_link):
+        target_link = str(target_link)
+        notebook_link = str(notebook_link)
         return """
 <html>
 <body>
@@ -256,29 +258,36 @@ def build_website(
                 v = c["notebooks"][k]
                 buttons = []
                 if "html_file" in v:
-                    # Link to the rendered HTML.
-                    link =  "/" + str(v["html_file"].relative_to(output_folder))
+                    # The generated wrapper file.
                     wrapper_file = v["html_file"].parent / (v["html_file"].stem  + "_wrapper.html")
-                    notebook_link = "/" + str(v["ipynb_file"].relative_to(output_folder))
+
+                    # Link to the rendered HTML in the wrapper file. Always
+                    # lives in the same folder - thus a relative file is okay.
+                    link = pathlib.Path(".") / v["html_file"].name
+                    # Link to the notebook. Also must be a relative path. In
+                    # this case we have to count how many levels we have to go
+                    # down.
+                    notebook_link = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1))) / v["ipynb_file"].relative_to(output_folder)
+
                     html_content = create_iframe_html(link, notebook_link)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
-                    wrapper_link = link =  "/" + str(wrapper_file.relative_to(output_folder))
+                    wrapper_link = pathlib.Path("..") / wrapper_file.relative_to(output_folder)
 
                     buttons.append(
                         f'<a class="btn btn-success btn-sm" target="_blank" href="{wrapper_link}">OPEN</a>')
 
                 if "solution_html_file" in v:
-                    link =  "/" + str(v["solution_html_file"].relative_to(output_folder))
+                    link = pathlib.Path(".") / v["solution_html_file"].name
 
                     wrapper_file = v["solution_html_file"].parent / (v["solution_html_file"].stem  + "_wrapper.html")
-                    notebook_link = "/" + str(v["ipynb_solution_file"].relative_to(output_folder))
+                    notebook_link = pathlib.Path("/".join([".."] * (len(wrapper_file.parent.parts) - 1))) / v["ipynb_solution_file"].relative_to(output_folder)
                     html_content = create_iframe_html(link, notebook_link)
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
 
-                    wrapper_link = link =  "/" + str(wrapper_file.relative_to(output_folder))
+                    wrapper_link = pathlib.Path("..") / wrapper_file.relative_to(output_folder)
 
                     buttons.append(
                         f'<a class="btn btn-warning btn-sm" target="_blank" href="{wrapper_link}">SOLUTION</a>')
