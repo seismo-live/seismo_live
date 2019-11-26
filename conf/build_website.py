@@ -1,6 +1,7 @@
 import argparse
 import pathlib
 import shutil
+import urllib
 
 website_path = pathlib.Path(__file__).parent.parent / "website"
 assert website_path.exists()
@@ -145,10 +146,13 @@ def build_website(
     def _r(s):
         return s.replace("root-html", "root")
 
-    def create_iframe_html(target_link, notebook_link, path_to_html_root):
+    def create_iframe_html(
+        target_link, notebook_link, path_to_html_root, notebook_path
+    ):
         target_link = str(target_link)
         notebook_link = str(notebook_link)
         path_to_html_root = str(path_to_html_root)
+        notebook_path = urllib.parse.quote(str(notebook_path))
         return (
             """
 <html>
@@ -229,11 +233,14 @@ def build_website(
 <a href="/" class="logo">Seismo-Live</a>
     <div id="header_content">
         This is a static preview.
-      <a class="btn btn-success btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live/binder_dockerfile">
-        Open Live Notebooks on Binder
+      <a class="btn btn-info btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master?notebooks">
+        Open All on Binder
+      </a>
+      <a class="btn btn-success btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master?%%NOTEBOOK_PATH%%">
+        Open Live on Binder
       </a>
       <a class="btn btn-warning btn-sm" target="_blank" href="%%NOTEBOOK_LINK%%" download>
-        Download Notebook File
+        Download Notebook
       </a>
     </div>
   </div>
@@ -246,6 +253,7 @@ def build_website(
             )
             .replace("%%NOTEBOOK_LINK%%", notebook_link)
             .replace("%%PATH_TO_HTML_ROOT%%", path_to_html_root)
+            .replace("%%NOTEBOOK_PATH%%", notebook_path)
         )
 
     def parse_contents(c):
@@ -284,7 +292,10 @@ def build_website(
                     ) / v["ipynb_file"].relative_to(output_folder)
 
                     html_content = create_iframe_html(
-                        link, notebook_link, path_to_html_root
+                        link,
+                        notebook_link,
+                        path_to_html_root,
+                        v["ipynb_file"].relative_to(output_folder),
                     )
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
@@ -311,7 +322,10 @@ def build_website(
                         "/".join([".."] * (len(wrapper_file.parent.parts) - 1))
                     ) / v["ipynb_solution_file"].relative_to(output_folder)
                     html_content = create_iframe_html(
-                        link, notebook_link, path_to_html_root
+                        link,
+                        notebook_link,
+                        path_to_html_root,
+                        v["ipynb_solution_file"].relative_to(output_folder),
                     )
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
