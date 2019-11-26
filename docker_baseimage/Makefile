@@ -4,6 +4,7 @@ COMMITHASH = $(shell git rev-parse --short=14 HEAD)
 IMAGE = $(DOCKERREPO):$(COMMITHASH)
 
 all: build push run
+	@echo done working on image $(IMAGE)
 
 # remove stopped containers, untagged images and all local content in our
 # target docker repo, to ensure a clean run
