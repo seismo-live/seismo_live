@@ -19,7 +19,24 @@ Binder discourages this practice (for obvious reasons) as they state the the
 docker setup on binder may change. This seems as the lesser evil at the moment,
 though.
 
-## Building the Docker Base Image
+## TL;DR
+
+ - make adjustements in `Dockerfile.seismo-live-base` if needed, e.g. adjust
+   what notebook states are checked out, the state of notebooks used in
+   seismo-live will be a static state that is created in this step
+ - `$ make build` to build a new docker base image
+ - `$ make login` to login with docker-hub credentials that allow pushing to
+   obspy repository on docker-hub (only needed once)
+ - `$ make push` to upload newly built docker base image, needs
+ - adjust the base image in the root directory `Dockerfile` to the exact hash
+   of the previously built image, e.g. `FROM obspy/seismo-live:537764766ff096`
+ - the mybinder startup link used on the `seismo-live.org` website needs to
+   point to the appropriate branch/tag/commit, currently this is in branch
+   `binder_dockerfile` but should soon be merged to `master`
+
+## Detailed Description of All Steps
+
+### Building the Docker Base Image
 
 The base image is based on a minimal Jupyter docker image from official jupyter
 on docker hub. With docker locally installed, one can build a new base image by
@@ -389,7 +406,7 @@ base image as well, i.e. update the `FROM` command at the start of
 `Dockerfile.seismo-live-base` (see
 [here](https://hub.docker.com/r/jupyter/minimal-notebook/tags)).
 
-## Pushing the Docker Base Image to Docker Hub
+### Pushing the Docker Base Image to Docker Hub
 
 The docker base image is currently pushed to the
 [`obspy` account on docker hub](https://hub.docker.com/u/obspy).
@@ -420,7 +437,7 @@ To push the built base image to docker hub, run `$ make push`.
     ba9de9d8475e: Layer already exists 
     latest: digest: sha256:df147737512cc356328bd6b40d21adb15072c8caa32f3f0ea46878e52d1ffc54 size: 7025
 
-## Using the Base Image on Binder
+### Using the Base Image on Binder
 
 To use the pre-built docker base image on [Binder](https://mybinder.org/)
 follow the examples shown
@@ -440,7 +457,7 @@ A certain repository and branch can be directly targeted via a URL based API:
     # https://mybinder.org/v2/gh/<github account>/<repository>/<branch etc.>
     https://mybinder.org/v2/gh/krischer/seismo_live/binder_dockerfile
 
-## Pitfalls
+### Pitfalls
 
 #### Cached intermediate images when building new base image
 
@@ -449,7 +466,7 @@ building new base images. This can lead to files with outdated contents ending
 up in the base image (e.g. docker `COPY ...` commands). If in doubt, delete all
 locally stored docker images in `obspy/seismo-live` repository.
 
-## Final setup steps in docker
+### Final setup steps in docker
 
 The setup currently relies on pre-built docker images to ensure reproducibility
 and to ensure nothing breaks once a working setup is finalized. Therefore, the
