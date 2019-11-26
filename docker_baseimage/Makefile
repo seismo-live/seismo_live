@@ -1,7 +1,9 @@
 DOCKERREPO = obspy/seismo-live
 CLEANWARN = This will delete stopped docker containers, untagged images and all local images in target docker repository
+COMMITHASH = $(shell git rev-parse --short=14 HEAD)
+IMAGE = $(DOCKERREPO):$(COMMITHASH)
 
-all: build push
+all: build push run
 
 # remove stopped containers, untagged images and all local content in our
 # target docker repo, to ensure a clean run
@@ -17,7 +19,8 @@ check_clean:
 
 # build docker base image for seismo-live
 build: clean
-	docker build --tag $(DOCKERREPO):`git rev-parse --short=14 HEAD` - < Dockerfile.seismo-live-base 2>&1 | tee build_`git rev-parse --short=14 HEAD`.log
+	@echo building image $(IMAGE)
+	docker build --tag $(IMAGE) - < Dockerfile.seismo-live-base 2>&1 | tee build_$(COMMITHASH).log
 
 # login to docker registry (only needs to be done once)
 login:
@@ -25,4 +28,12 @@ login:
 
 # push created image to docker hub
 push:
-	docker push $(DOCKERREPO)
+	@echo pushing image $(IMAGE)
+	docker push $(IMAGE)
+
+# run Jupyter in docker image locally
+run:
+	@echo running image $(IMAGE)
+	@# only run the image if its available locally
+	if [ `docker images -q $(IMAGE) | wc -l` -eq 0 ]; then echo "image $(IMAGE) not found locally"; exit 1; fi
+	docker run --rm -p 8888:8888 $(IMAGE)

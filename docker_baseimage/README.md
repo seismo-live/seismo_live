@@ -33,6 +33,10 @@ though.
  - the mybinder startup link used on the `seismo-live.org` website needs to
    point to the appropriate branch/tag/commit, currently this is in branch
    `binder_dockerfile` but should soon be merged to `master`
+ - the docker based Jupyter notebook can be run locally for testing, e.g.
+   `$ docker run --rm -p 8888:8888 obspy/seismo-live:77dcb265860f6e` or simply
+   with `$ make run` if the image to run is associated with the corrent git
+   commit hash.
 
 ## Detailed Description of All Steps
 

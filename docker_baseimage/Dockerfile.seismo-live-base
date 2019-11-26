@@ -45,7 +45,8 @@ RUN conda install --yes -c conda-forge jupyter_contrib_nbextensions && \
 # checked out here
 # XXX RUN git clone https://github.com/krischer/seismo_live.git /home/jovyan/seismo_live
 RUN git clone https://github.com/krischer/seismo_live_build.git /home/jovyan/seismo_live
-RUN rm -rf /home/jovyan/work; mv /home/jovyan/seismo_live/notebooks /home/jovyan/; rm -rf /home/jovyan/seismo_live
+# cleanup the home directory tree so that only the notebook directories are left in it
+RUN rm -rf /home/jovyan/work; mv /home/jovyan/seismo_live/notebooks/* /home/jovyan/; rm -rf /home/jovyan/seismo_live
 
 # A bit ugly but unfortunately necessary: https://github.com/docker/docker/issues/6119
 USER root
@@ -70,7 +71,9 @@ RUN python -c "from matplotlib.font_manager import FontManager; FontManager()"
 ENV PROJ_LIB=/opt/conda/share/proj/
 
 # Test and report, for now continue even if errors are reported
-RUN obspy-runtests --all --no-flake8 -r -n seismo-live-baseimage || true
+# XXX RUN obspy-runtests --all --no-flake8 -r -n seismo-live-baseimage || true
+# XXX for now don't run network tests, because it takes quite a while
+RUN obspy-runtests --no-flake8 -r -n seismo-live-baseimage || true
 
 # Ignore all Python warnings because they look ugly in the docs.
 ENV PYTHONWARNINGS ignore
