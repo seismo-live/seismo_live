@@ -41,7 +41,11 @@ RUN conda install --yes -c conda-forge jupyter_contrib_nbextensions && \
   jupyter nbextension enable codefolding/main
 
 # Clone seismo-live git repo (will be updated in the Dockerfile run by binder)
-RUN git clone https://github.com/krischer/seismo_live.git /home/jovyan/seismo_live
+# n.b. currently it will *not* be updated, but used as is in the state that is
+# checked out here
+# XXX RUN git clone https://github.com/krischer/seismo_live.git /home/jovyan/seismo_live
+RUN git clone https://github.com/krischer/seismo_live_build.git /home/jovyan/seismo_live
+RUN rm -rf /home/jovyan/work; mv /home/jovyan/seismo_live/notebooks /home/jovyan/; rm -rf /home/jovyan/seismo_live
 
 # A bit ugly but unfortunately necessary: https://github.com/docker/docker/issues/6119
 USER root
