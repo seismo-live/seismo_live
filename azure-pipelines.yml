@@ -1,0 +1,22 @@
+# https://aka.ms/yaml
+
+trigger:
+  - master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.7"
+
+  - script: |
+      pip --version
+      pip install numpy
+      pip install scipy matplotlib jupyter jupytext nbconvert obspy
+    displayName: "Install dependencies"
+
+  - script: |
+      python conf/convert_to_ipynb.py notebooks built_notebooks
+    displayName: "Test and convert notebooks"

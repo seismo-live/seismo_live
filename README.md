@@ -1,12 +1,31 @@
 ## Live Jupyter Notebooks for Seismology
 
+### Building the Website
+
+It is currently a two step procedure:
+
+First build all notebooks. This takes the jupytext files, creates an exercise
+and solution version of each if necessary, converts both to ipynb, runs them,
+and renders to the outputs to HTML.
+
+All the output will be store in in `built_notebooks`.
+
+```bash
+$ python conf/convert_to_ipynb.py notebooks built_notebooks
+```
+
+The second step takes these outputs and create the final website which is
+stored in `final_website`:
+
+```bash
+$ python conf/build_website.py built_notebooks final_website
+```
 
 ### Contributing
 
 We intend seismo-live to be a place to collect all kinds of tutorial and notebooks related to seismology so contributions are gladly accepted and actually crucial for the success of the whole project. To contribute make sure you have the same installation, especially **Python version 3.5**, as documented below. If you require additional packages please mention it in your pull request. Once your environment is setup, create your new notebooks and send us a pull request. Tutorials on how to do that can be found [here](https://yangsu.github.io/pull-request-tutorial/) and [here](https://www.thinkful.com/learn/github-pull-request-tutorial/) and lots of other places online. If you need help, don't hesitate to contact us.
 
 **New contributors, please sign this:** https://www.clahub.com/agreements/krischer/seismo_live
-
 
 ### Server Installation
 
@@ -19,7 +38,6 @@ Based on: https://github.com/jupyter/tmpnb
 Install Docker for you platform: http://docs.docker.com/installation
 
 Don't use the repository version as that might be very old.
-
 
 ```bash
 # Add the current user to the docker group
@@ -59,18 +77,17 @@ make nuke
 make help
 ```
 
-
 ### Local Installation
 
 You might be interested in running the notebooks locally on your own computer. A big advantage is that any changes you make will no longer be deleted. You can also contribute changes you made (or entirely new notebooks) back to the seismo-live project!
 
 The notebooks as of now require:
 
-* Python 3.5
-* The scientific Python stack (NumPy, SciPy, matplotlib)
-* The Jupyter notebooks
-* ObsPy >= 1.0.1
-* Instaseis
+- Python 3.5
+- The scientific Python stack (NumPy, SciPy, matplotlib)
+- The Jupyter notebooks
+- ObsPy >= 1.0.1
+- Instaseis
 
 We recommend to install ObsPy via Anaconda as written [in its installation instructions](https://github.com/obspy/obspy/wiki/Installation-via-Anaconda). Then install Instaseis (does not work on Windows) according to [its documentation](http://instaseis.net/#installation). Finally install the Jupyter project with
 

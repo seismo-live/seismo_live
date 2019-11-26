@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Lion Krischer" />
+
+    <!-- stopped working somehow <base target="_blank"> -->
+
+    <title>Seismo-Live</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet" />
+    <link href="./custom.css" rel="stylesheet" />
+    <link href="./bootstrap-glyphicons.css" rel="stylesheet" />
+    <link href="./jquery.treegrid.css" rel="stylesheet" />
+    <link href="./bootstrap-treeview.min.css" rel="stylesheet" />
+
+    <script src="./jquery-3.1.1.min.js"></script>
+    <script src="./jquery.treegrid.min.js"></script>
+    <script src="./jquery.treegrid.bootstrap3.js"></script>
+
+    <script src="./custom.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div id="header-row" class="row">
+        <div id="header" class="col-md-12">
+          <div class="col-md-12 col-lg-10 col-lg-offset-1">
+            <h1>Seismo-Live</h1>
+            <h2>Live Jupyter Notebooks for Seismology</h2>
+          </div>
+        </div>
+      </div>
+      <div id="list-of-notebooks" class="row">
+          <div class="col-md-12 col-lg-10 col-lg-offset-1">
+              <table class="tree table table-hover">
+                  <tr class="treegrid-root">
+                      <td><strong>All Notebooks<strong></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  {all_table_rows}
+              </table>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

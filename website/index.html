@@ -23,9 +23,6 @@
     </head>
 
     <body>
-        <!--Potential error messages will go here!-->
-        <div id="error_message">
-        </div>
         <div id="wrapper">
             <div id="main">
                 <div id="reel">
@@ -48,17 +45,19 @@
                     </a>
 
                     <!-- Launch notebooks item -->
-                    <a data-toggle="modal" data-target=".launch-modal">
-                        <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
-                            <h2>Launch</h2>
+                    <a href="./tree/index.html">
+                    <article class="item thumb" id="launch_article" data-width="230" style="background-color:#437414;">
+                        <h2>View Notebooks</h2>
                             <div id="status" style="color:white !important">
-                                <span id="available_containers">??</span> of
-                                <span id="container_capacity">??</span> </br>
-                                containers are currently available
-                                <div style="font-size: x-small; line-height: 2.2ex; font-style:italic; padding-top: 10px">Not persistent. Will be deleted after being idle for 30 minutes.</div>
+                                View Jupyter Notebooks
+                                <div style="font-size: x-small; line-height: 2.2ex; font-style:italic; padding-top: 10px">
+                                    Click here to view the Jupyter notebooks.
+                                    You can view pre-rendered ones, download
+                                    them to run locally or run them online.
+                                </div>
                             </div>
-                        </article>
-                    <a/>
+                    </article>
+                    </a>
 
                     <!-- More information item -->
                     <a href="#" data-toggle="modal" data-target=".info-modal">
@@ -90,9 +89,6 @@
             </div>
 
             <div id="footer">
-                <div class="left">
-                    <p>tmpnb server: <span id="server_name">Enable JavaScript Tobi!!!</span></p>
-                </div>
                 <div class="right">
                     <ul class="contact">
                         <li>
@@ -103,7 +99,7 @@
                         <li>
                             Except where otherwise noted, content on this site is licensed under a
                             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> License.
-                            &copy; 2015-2016 Lion Krischer.
+                            &copy; 2015-2019 Lion Krischer.
                         </li>
                         <li>
                             Design based on a template from <a href="http://html5up.net">HTML5 UP</a>
@@ -177,18 +173,6 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h2 class="modal-title">Launch</h2>
-                    </div>
-                    <div class="modal-content">
-                        <div class="row" style="text-align:center">
-                            Press the following button to launch a Jupyter Notebook in a new tab.
-                            <a id="tmpnb_link" href="#" target="_blank"type="button" class="btn btn-success btn-lg"
-                               style="color: white; margin-top: 50px">Launch a new Notebook</a>
-                        </div>
-                        <div class="row">
-                            <div class="alert alert-success" style="margin-top: 50px">
-                                These notebooks are not persistent. Any changes will be discarded after being idle for 30 minutes.
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
