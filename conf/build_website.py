@@ -152,7 +152,7 @@ def build_website(
         target_link = str(target_link)
         notebook_link = str(notebook_link)
         path_to_html_root = str(path_to_html_root)
-        notebook_path = urllib.parse.quote(str(notebook_path))
+        notebook_path = urllib.parse.quote(str(notebook_path), safe="")
         return (
             """
 <html>
@@ -230,13 +230,13 @@ def build_website(
     </style>
   </head>
   <div class="navbar">
-<a href="/" class="logo">Seismo-Live</a>
+<a href="http://seismo-live.org" class="logo">Seismo-Live</a>
     <div id="header_content">
         This is a static preview.
-      <a class="btn btn-info btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master?notebooks">
+      <a class="btn btn-info btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master">
         Open All on Binder
       </a>
-      <a class="btn btn-success btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master?%%NOTEBOOK_PATH%%">
+      <a class="btn btn-success btn-sm" target="_blank" href="https://mybinder.org/v2/gh/krischer/seismo_live_build/master?filepath=%%NOTEBOOK_PATH%%">
         Open Live on Binder
       </a>
       <a class="btn btn-warning btn-sm" target="_blank" href="%%NOTEBOOK_LINK%%" download>
@@ -295,7 +295,7 @@ def build_website(
                         link,
                         notebook_link,
                         path_to_html_root,
-                        v["ipynb_file"].relative_to(output_folder),
+                        v["ipynb_file"].relative_to(output_folder / "notebooks"),
                     )
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
@@ -325,7 +325,7 @@ def build_website(
                         link,
                         notebook_link,
                         path_to_html_root,
-                        v["ipynb_solution_file"].relative_to(output_folder),
+                        v["ipynb_solution_file"].relative_to(output_folder / "notebooks"),
                     )
                     with open(wrapper_file, "w") as fh:
                         fh.write(html_content)
