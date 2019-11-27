@@ -27,7 +27,8 @@ though.
  - `$ make build` to build a new docker base image
  - `$ make login` to login with docker-hub credentials that allow pushing to
    obspy repository on docker-hub (only needed once)
- - `$ make push` to upload newly built docker base image, needs
+ - `$ make push` to upload newly built docker base image, needs to be an
+   account with push rights to obspy repo on docker-hub
  - adjust the base image in the root directory `Dockerfile` to the exact hash
    of the previously built image, e.g. `FROM obspy/seismo-live:537764766ff096`
  - the mybinder startup link used on the `seismo-live.org` website needs to
