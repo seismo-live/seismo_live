@@ -205,6 +205,8 @@ T = [0]                                  # later append every time steps to this
 # + {"code_folding": [0]}
 # Computation and plotting
 
+# Please launch binder to see animation.
+
 # Initialize animated plot for velocity and stress
 fig1 = plt.figure(figsize=(10,10))
 ax1 = fig1.add_subplot(4,1,1)
@@ -308,7 +310,6 @@ for t in utils.drange (0.0, tend+dt,dt):
         plt.gcf().canvas.draw()
        
 plt.ioff()
-plt.show()
 
 # Simulation end time
 stop = timeit.default_timer()
