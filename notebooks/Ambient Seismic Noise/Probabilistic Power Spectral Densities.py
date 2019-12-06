@@ -32,8 +32,10 @@
 
 # %matplotlib inline
 import matplotlib.pyplot as plt
+import warnings
 plt.style.use("bmh")
 plt.rcParams['figure.figsize'] = 10, 6
+warnings.filterwarnings("ignore")
 
 #  * read waveform data from file `data/GR.FUR..BHN.D.2015.361` (station `FUR`, [LMU geophysical observatory in Fürstenfeldbruck](https://www.geophysik.uni-muenchen.de/observatory/seismology))
 #  * read corresponding station metadata from file `data/station_FUR.stationxml`
