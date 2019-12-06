@@ -208,7 +208,9 @@ plt.switch_backend("nbagg")           # plots within this notebook
 
 # + {"code_folding": [0]}
 # Plotting the simulation
-# This is a static preview. Please launch binder to see animation.
+
+# Please launch binder to see animation.
+
 # Initialize animated plot 
 fig1 = plt.figure(figsize=(10,10))
 ax1 = fig1.add_subplot(2,1,1)
