@@ -213,13 +213,13 @@ Lx = 50.0     # length of the domain (x-axis)
 Ly = 50.0     # width of the domain (y-axis)
 Tend = 25.0   # final time [s]
 
-Nx = 100       # grid points in x (orgiginally set to 200)
-Ny = 100       # grid points in y (orgiginally set to 200)
+Nx = 100       # grid points in x (originally set to 200)
+Ny = 100       # grid points in y (originally set to 200)
 
 dx = Lx/Nx    # spatial step in x
 dy = Ly/Ny    # spatial step in y
 
-isnap = 5     # snapshot frequency (orgiginally set to 10)
+isnap = 10     # snapshot frequency (originally set to 10)
 nf = 3        # number of fields
 
 # cp = 1.418    # compresional wave speed [m/s]
@@ -376,7 +376,7 @@ for ir in range(len(seisvy)):
 
 plt.show()
 
-
+# Launch binder to see animations.
 
 # -
 
