@@ -322,10 +322,9 @@ dt = 0.5/np.sqrt(cp**2 + cs**2)*dx    # Time step
 
 order = 4        # spatial order of accuracy
 
-# Model type, available are "homogeneous", "fault_zone",
-# "surface_low_velocity_zone", "random", "topography",
-# "slab"
-model_type = "random"
+# Model type, available are "homogeneous", "random"
+
+model_type = "homogeneous"
 
 # Initialize velocity model
 Mat = np.zeros((nx, ny, 3))
@@ -451,4 +450,5 @@ for ir in range(len(seisvy)):
 plt.show()
 # -
 
+# Please launch binder to see animations.
 
