@@ -208,6 +208,7 @@ plt.switch_backend("nbagg")           # plots within this notebook
 
 # + {"code_folding": [0]}
 # Plotting the simulation
+# This is a static preview. Please launch binder to see animation.
 # Initialize animated plot 
 fig1 = plt.figure(figsize=(10,10))
 ax1 = fig1.add_subplot(2,1,1)
@@ -223,6 +224,7 @@ line2 = ax2.plot(T, EV, 'r', lw=1.5)
 plt.title('relative error', size=16)
 plt.xlabel('time [s]', size=16)
 ax2.set_ylim([10**-5, 1])
+fig1.tight_layout()
 plt.ylabel('error', size=16)
 
 plt.ion()         # set interective mode
