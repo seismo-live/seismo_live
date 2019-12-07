@@ -408,3 +408,4 @@ for it in range(nt):
         line2 = ax2.plot(xg, Qv, 'r', lw=1.5)
         plt.gcf().canvas.draw()
 
+        # Please launch binder to see animations.
