@@ -241,7 +241,7 @@ src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) **
 # Plot position configuration
 # ---------------------------
 plt.ion()
-fig1 = plt.figure(figsize=(12, 6))
+fig1 = plt.figure(figsize=(10, 5))
 gs1  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
 # Plot source time function
@@ -307,7 +307,7 @@ lim  = Gc.max() # get limit value from the maximum amplitude
 # Plot position configuration
 # ---------------------------
 plt.ion()
-fig2  = plt.figure(figsize=(12, 6))
+fig2  = plt.figure(figsize=(10, 5))
 gs2   = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
 # Plot 1D wave propagation
