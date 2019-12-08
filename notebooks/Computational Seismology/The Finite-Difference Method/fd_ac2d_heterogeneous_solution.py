@@ -414,7 +414,7 @@ for it in range(nt):
 # Plot the source time function and the seismograms 
 
 plt.ioff()
-plt.figure(figsize=(12, 12))
+plt.figure(figsize=(10, 10))
 
 plt.subplot(221)
 time = np.arange(nt) * dt
