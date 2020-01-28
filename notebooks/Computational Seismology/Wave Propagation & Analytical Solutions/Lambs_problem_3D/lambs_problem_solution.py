@@ -168,7 +168,6 @@ fig = plt.figure(figsize=(12,8), dpi=80)
 fig.suptitle("Green's Function for Lamb's problem", fontsize=16)
 
 plt.ion() # set interective mode
-plt.show()
 
 for i in range(5):              
     st = seis[i]
