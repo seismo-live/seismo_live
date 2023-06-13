@@ -98,13 +98,14 @@ $ conda install jupyter
 Now just clone the project from Github, cd to the correct folder and launch the notebook server.
 
 ```bash
-$ git clone --depth=1 https://github.com/krischer/seismo_live.git
-$ cd seismo_live/notebooks
+$ git clone --depth=1 https://github.com/seismo-live/seismo_live_build.git
+$ cd seismo_live_build/notebooks
 $ jupyter-notebook
 ```
 
-Please note that the Instaseis notebooks require a local database symlinked to `seismo_live/notebooks/Instaseis/data/database`. You could get one for example with:
+Please note that the Instaseis notebooks require a local database symlinked to `seismo_live/notebooks/Instaseis/data/database`. 
 
-```bash
-$ wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C 20s_PREM_ANI_INSTASEIS_DB
-```
+[//]: You could get one for example with:
+[//]: ```bash
+[//]: $ wget -qO- "http://www.geophysik.uni-muenchen.de/~krischer/instaseis/20s_PREM_ANI_FORCES.tar.gz" | tar xvz -C 20s_PREM_ANI_INSTASEIS_DB
+[//]: ```
