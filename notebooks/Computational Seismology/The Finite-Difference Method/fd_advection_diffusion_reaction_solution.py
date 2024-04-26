@@ -157,7 +157,6 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 lines = ax.plot(xc,yc,c, 'r-', label = 'concentration')
 plt.legend(loc='best')
-plt.ion()
 plt.show()
 title = "Concentration in"
 
@@ -195,7 +194,6 @@ for i in range(1,nt):
         plt.title(title + " time: %.2g years" % (i * dt), loc = 'left')
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
     
-plt.ioff()
 plt.show() 
 
 # -

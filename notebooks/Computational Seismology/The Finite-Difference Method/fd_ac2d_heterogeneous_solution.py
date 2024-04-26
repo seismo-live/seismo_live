@@ -219,7 +219,6 @@ plt.xlabel('ix')
 plt.ylabel('iz')
 
 
-plt.ion()
 plt.show()
 
 
@@ -359,7 +358,6 @@ plt.xlabel('ix')
 plt.ylabel('iz')
 
 
-plt.ion()
 plt.show(block=False)
 
 
@@ -414,7 +412,6 @@ for it in range(nt):
 # + {"code_folding": [0]}
 # Plot the source time function and the seismograms 
 
-plt.ioff()
 plt.figure(figsize=(12, 12))
 
 plt.subplot(221)

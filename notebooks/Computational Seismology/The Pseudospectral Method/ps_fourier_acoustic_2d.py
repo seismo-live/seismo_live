@@ -196,7 +196,6 @@ line2 = ax2.imshow(ap_sec, interpolation="bicubic", cmap=plt.cm.RdBu)
 ax1.set_title('Fourier Method', size=14)
 ax2.set_title('Finite-Difference Method', size=14)
 
-plt.ion()   # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

@@ -167,7 +167,6 @@ plt.ylabel('Amplitude')
 plt.xlabel('x')
 plt.title('Scalar Advection - %s method'%method, size=16)
 
-plt.ion()    # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 
 %matplotlib widget
 from IPython.display import display, clear_output
-plt.ion()
 
 # Show the plots in the Notebook.
 # plt.switch_backend("nbagg")
@@ -137,7 +136,6 @@ v_2 = np.zeros(len(u_2))
 
 #f.subplots_adjust(wspace=0)
 
-#plt.ion()
 #plt.show()
 
 
@@ -152,7 +150,6 @@ ax2 = fig.add_subplot(2,1,2)
 line2 = ax2.plot(y_1, v_1, 'r', y_1, v_1, 'k--')
 plt.xlabel('x[km]')
 plt.ylabel('stress[MPa]')
-plt.ion()
 plt.show()
     
 #ax1.set_xlim([ax_1, bx_1])
@@ -260,7 +257,6 @@ for t in utils.drange (dt,Tend+dt,dt):
         plt.legend(iter(line2), ('Numerical'))
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
-plt.ioff()
 plt.show()
 
 
@@ -287,5 +283,4 @@ plt.show()
 #    plt.legend(iter(line2), ('Numerical', 'Analytic'))
 #    plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-#plt.ioff()
 #plt.show() 

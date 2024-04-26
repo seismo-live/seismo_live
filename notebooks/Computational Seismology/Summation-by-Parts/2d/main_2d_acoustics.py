@@ -13,7 +13,6 @@ import RK4_2D
 
 %matplotlib widget
 from IPython.display import display, clear_output
-plt.ion()
 
 
 # ---------------------------------------------------------
@@ -147,7 +146,6 @@ for it in range(nt):
     # Save seismograms
     seis[ir, it] = p[irz[ir], irx[ir]]
     
-plt.ioff()
 plt.figure(figsize=(12, 12))
 
 plt.subplot(211)

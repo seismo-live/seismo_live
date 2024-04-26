@@ -217,7 +217,6 @@ plt.title('Chebyshev Method - 1D Elastic wave', size=16)
 plt.xlabel(' x(m)', size=14)
 plt.ylabel(' Amplitude ', size=14)
 
-plt.ion() # set interective mode
 plt.show()
 # ---------------------------------------------------------------
 # Time extrapolation

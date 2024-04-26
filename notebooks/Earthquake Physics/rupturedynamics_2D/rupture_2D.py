@@ -564,7 +564,6 @@ for it in range(nt):
         seisvy_r[ir_r, it] = F_r[irx_r[ir_r], iry_r[ir_r], 0]    
 
 # Plot seismogram    
-plt.ioff()
 plt.figure(figsize=(10, 10))
 
 plt.subplot(2,1,1)
@@ -610,7 +609,6 @@ plt.xlabel('Depth [km]')
 plt.ylabel('stress [MPa]')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 y_fault = Y_l[-1,:]
@@ -638,7 +636,6 @@ for it in range(nt):
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
                    
     
-plt.ioff()
 plt.show()
     
 

@@ -442,7 +442,6 @@ plt.title('Finite elements 1D Animation', fontsize=16)
 plt.ylabel('Amplitude', fontsize=12)
 plt.xlabel('x (m)', fontsize=12)
 
-plt.ion()   # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

@@ -319,7 +319,6 @@ plt.title('SEM 1D Animation', size=16)
 plt.xlabel(' x (m)')
 plt.ylabel(' Amplitude ')
 
-plt.ion() # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

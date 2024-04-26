@@ -431,7 +431,6 @@ for it in range(nt):
     seisvx[ir, it] = F[irx[ir], iry[ir], 0]
     seisvy[ir, it] = F[irx[ir], iry[ir], 1]
     
-plt.ioff()
 plt.figure(figsize=(7, 7))
 
 plt.subplot(211)

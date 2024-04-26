@@ -184,7 +184,6 @@ line2 = ax2.plot(x, s, color = "blue", lw = 1.5)
 ax1.set_ylabel('velocity (m/s)')
 ax2.set_xlabel('x (m)')
 ax2.set_ylabel('stress (Pa)')
-plt.ion()
 plt.show()
 
 # Begin extrapolation and update the plot
@@ -222,7 +221,6 @@ for it in range (nt):
         ax1.set_title(title + ", time step: %i" % (it))  
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
-plt.ioff()
 plt.show()
 
 # -

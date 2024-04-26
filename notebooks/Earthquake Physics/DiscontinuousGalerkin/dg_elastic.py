@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 %matplotlib widget
 from IPython.display import display, clear_output
 #plt.switch_backend("nbagg")
-plt.ion()
 
 
 # tic
@@ -109,7 +108,6 @@ ax2 = fig.add_subplot(2,1,2)
 line2 = ax2.plot(y, v, 'r', y, V, 'k--') 
 plt.xlabel('x[km]')
 plt.ylabel('stress[MPa]')
-plt.ion()
 plt.show()
 
 # Material parameters
@@ -156,5 +154,4 @@ for t in utils.drange (0.0, Tend+dt,dt):
         plt.legend(iter(line2), ('Numerical', 'Analytic'))
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-plt.ioff()
 plt.show() 

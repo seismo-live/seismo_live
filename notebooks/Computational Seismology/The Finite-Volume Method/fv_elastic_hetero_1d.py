@@ -270,7 +270,6 @@ plt.suptitle('Heterogeneous F. volume - Lax-Wendroff method', size=16)
 ax1.text(0.1*xmax, 0.8*max(sx), '$\mu$ = $\mu_{o}$')
 ax1.text(0.8*xmax, 0.8*max(sx), '$\mu$ = $4\mu_{o}$')
 
-plt.ion()    # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

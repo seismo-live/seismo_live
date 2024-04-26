@@ -209,7 +209,6 @@ cols = ['b','r','k','g','c','m']
 fig = plt.figure(figsize=(12,8), dpi=80)
 
 fig.suptitle("Seismic Wavefield of a Double-Couple Point Source", fontsize=16)
-plt.ion() # set interective mode
 plt.show()
 
 for i in range(6):              

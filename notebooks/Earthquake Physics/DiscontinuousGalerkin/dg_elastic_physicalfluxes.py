@@ -289,7 +289,6 @@ ax4.set_ylim([10**-5, 1])
 plt.title('relative error in stress')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 A = (np.linalg.norm(1/np.sqrt(2.0*np.pi*delta**2)*0.5*Zs*(np.exp(-(y+cs*(t+1*0.5)-x0)**2/(2.0*delta**2))\
@@ -354,7 +353,6 @@ for t in utils.drange (0.0, Tend+dt,dt):
         ax4.set_yscale("log")#, nonposx='clip')
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-plt.ioff()
 plt.show()
 
 # Simulation end time

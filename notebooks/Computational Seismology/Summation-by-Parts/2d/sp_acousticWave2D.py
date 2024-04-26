@@ -356,7 +356,6 @@ for it in range(nt):
     seisvx[ir, it] = F[(irx[ir]), (iry[ir]), 1]
     seisvy[ir, it] = F[(irx[ir]), (iry[ir]), 2]
     
-plt.ioff()
 plt.show()
 
 plt.figure(figsize=(10, 10))

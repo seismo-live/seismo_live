@@ -236,7 +236,6 @@ ax4.set_ylim([10**-5, 1])
 plt.title('relative error in stress')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 
@@ -308,7 +307,6 @@ for t in utils.drange (0.0, tend+dt,dt):
         ax4.set_yscale("log")#, nonposx='clip')
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-plt.ioff()
 plt.show()
 
 # Simulation end time

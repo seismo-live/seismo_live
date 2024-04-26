@@ -168,7 +168,6 @@ plt.axis([0, nt*dt, -1, 1])
 plt.xlabel("Time (s)")
 plt.ylabel("Displacement")
 plt.legend(loc="upper right")
-plt.ion()
 plt.show()
 
 # Begin extrapolation and update the plot
@@ -193,7 +192,6 @@ for i in range(nt):
         plt.title("F0 = 1Hz, SRC = %.2f Hz, h = %.2f " % (fu0, h))
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
-plt.ioff()
 plt.show()
 
 # + {"tags": ["solution"], "cell_type": "markdown"}

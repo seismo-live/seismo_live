@@ -156,7 +156,6 @@ plt.ylim(0,nz)
 plt.xlabel('x')
 plt.ylabel('z')
 
-plt.ion()
 plt.show()
 
 # Time Stepping
@@ -224,7 +223,6 @@ plt.ylim(0,nz)
 plt.xlabel('x')
 plt.ylabel('z')
 
-plt.ion()
 plt.show()
 
 # Time stepping

@@ -173,7 +173,6 @@ plt.xlabel('Position, $x$', size=16)
 plt.legend(loc=4)
 plt.grid(True)
 
-plt.ion()   # set interective mode
 plt.show()
 # ---------------------------------------------------------------
 for it in range(nt):

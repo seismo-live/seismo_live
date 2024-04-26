@@ -233,7 +233,6 @@ f1.imshow(pdf.transpose(),aspect='auto',interpolation='none', animated=True)
 f1.set_xlim(0,99)
 f1.set_ylim(99,0)
 f1.set_title('Simulated annealing steps')
-plt.ion() #set interactive mode
 plt.show()
 
 Pa = np.zeros(ns+1)

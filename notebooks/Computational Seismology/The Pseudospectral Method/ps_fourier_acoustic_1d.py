@@ -169,7 +169,6 @@ ax1.legend(loc=4)
 ax2.legend(loc=4) 
 ax3.legend(loc=4)
 
-plt.ion()   # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

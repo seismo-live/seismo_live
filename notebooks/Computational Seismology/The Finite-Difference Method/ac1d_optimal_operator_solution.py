@@ -297,7 +297,6 @@ sap  = np.zeros(nt)
 
 # Plot Position Configuration
 # ---------------------------
-plt.ion()
 fig2 = plt.figure(figsize=(12, 6))
 gs2  = gridspec.GridSpec(1, 1, hspace=0.3, wspace=0.3)
 

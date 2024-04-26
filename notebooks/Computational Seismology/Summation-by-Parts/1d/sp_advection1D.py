@@ -227,7 +227,6 @@ plt.xlabel('time [s]', size=16)
 ax2.set_ylim([10**-5, 1])
 plt.ylabel('error', size=16)
 
-plt.ion()         # set interective mode
 plt.show()
 
 
@@ -281,7 +280,6 @@ for t in utils.drange (0.0, tend,dt):
         #ax3.set_yscale("log", nonposx='clip')
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)     
        
-plt.ioff()
 plt.show()
 
 # Simulation end time

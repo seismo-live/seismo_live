@@ -347,7 +347,6 @@ ax2.set_ylabel('Velocity')
 ax2.set_xlabel(' x ')
 plt.suptitle('Heterogeneous Disc. Galerkin - %s method'%imethod, size=16)
 
-plt.ion() # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------

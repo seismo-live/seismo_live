@@ -193,7 +193,6 @@ else:
 plt.grid() 
 plt.ylim(u.min(), u.max() * 1.1)
 plt.legend()
-plt.ion()
 plt.show()
 
 # Here we start the actual time extrapolation 
@@ -228,7 +227,6 @@ for i in range(nt):
         
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)        
-plt.ioff()
 # -
 
 # #### Predictor-Corrector Method
@@ -286,7 +284,6 @@ title = "Upwind finite-difference scheme - Predictor corrector method"
 plt.grid() 
 #plt.ylim(u.min(), u.max() * 1.1)
 plt.legend()
-plt.ion()
 plt.show()
 # # Here we start the actual time extrapolation, the task for you is to calculate 
 # the space derivative of u(x) and write it into du(x) 
@@ -332,7 +329,6 @@ for i in range(nt):
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)    
 
     
-plt.ioff()
 # -
 
 # #### McCormack Scheme
@@ -375,7 +371,6 @@ title = "McCormack scheme"
 plt.grid() 
 #plt.ylim(u.min()*(-1.1), u.max() * 1.1)
 plt.legend()
-plt.ion()
 plt.show()
 # # Here we start the actual time extrapolation, the task for you is to calculate 
 # the space derivative of u(x) and write it into du(x) 
@@ -417,7 +412,6 @@ for i in range(nt):
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)    
 
     
-plt.ioff()
 # -
 
 # #### Lax Wendroff Scheme
@@ -453,7 +447,6 @@ title = "Lax Wendroff scheme"
 plt.grid() 
 #plt.ylim(u.min(), u.max() * 1.1)
 plt.legend()
-plt.ion()
 plt.show()
 # Lax Wendroff  scheme
 for i in range(1,nt):
@@ -482,4 +475,3 @@ for i in range(1,nt):
         lines = plt.plot(x, unew, color="black", lw=1.5)   
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
         plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)        
-plt.ioff()
