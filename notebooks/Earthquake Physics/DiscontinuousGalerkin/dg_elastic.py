@@ -8,7 +8,8 @@ import specdiff
 import utils
 import matplotlib.pyplot as plt
 
-plt.switch_backend("TkAgg")
+%matplotlib widget
+from IPython.display import display, clear_output
 #plt.switch_backend("nbagg")
 plt.ion()
 
@@ -153,7 +154,7 @@ for t in utils.drange (0.0, Tend+dt,dt):
         line1 = ax1.plot(y, U-u, 'r', y, U-u, 'k--')
         line2 = ax2.plot(y, V-v, 'r', y, V-v, 'k--')
         plt.legend(iter(line2), ('Numerical', 'Analytic'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
 plt.ioff()
 plt.show() 

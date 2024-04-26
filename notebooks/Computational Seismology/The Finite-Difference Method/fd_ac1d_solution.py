@@ -192,7 +192,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -391,7 +392,7 @@ for it in range(nt):
         up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
 # #### Solution:
@@ -443,4 +444,4 @@ for it in range(nt):
         up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

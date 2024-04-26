@@ -119,7 +119,8 @@
 
 # + {"code_folding": [0]}
 # This is a configuration step for the exercise. Please run it before the simulation code! 
-# %matplotlib notebook
+%matplotlib widget
+from IPython.display import display, clear_output
 import numpy as np
 import matplotlib.pyplot as plt
 # -
@@ -256,7 +257,7 @@ for it in range(nt):
         
         plt.title("Max P: %.2f" % p.max())
         image.set_data(pnew)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
     pold, p = p, pnew
 
@@ -400,7 +401,7 @@ for it in range(nt):
         
         plt.title("Max P: %.2f" % p.max())
         image.set_data(pnew)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
     pold, p = p, pnew
 

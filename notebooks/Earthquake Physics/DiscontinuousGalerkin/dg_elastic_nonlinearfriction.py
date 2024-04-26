@@ -171,7 +171,8 @@ import utils
 import matplotlib.pyplot as plt
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0, 21, 29, 53, 58, 64, 68, 110, 114, 122, 130, 179, 191]}
 # Initialization and computation
@@ -403,7 +404,7 @@ for t in utils.drange (dt,Tend+dt,dt):
         line2 = ax2.plot(y_2, u_2, 'r')
         line3 = ax3.plot(y_1, Tau_0+v_1, 'r')
         line4 = ax4.plot(y_2, Tau_0+v_2, 'r')
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 plt.ioff()
 plt.show()

@@ -185,7 +185,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -441,7 +442,7 @@ for it in range(nt):
         ax6.set_title('Seismogram - Time Step (nt) = %d' % it)
         up61.set_ydata(seis)
         up62.set_data(time[it], seis[it])
-        fig2.canvas.draw()
+        fig2.canvas.draw(); display(fig2); clear_output(wait=True)
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
 # #### Solutions:
@@ -503,7 +504,7 @@ for it in range(nt):
         ax6.set_title('Seismogram - Time Step (nt) = %d' % it)
         up61.set_ydata(seis)
         up62.set_data(time[it], seis[it])
-        fig2.canvas.draw()
+        fig2.canvas.draw(); display(fig2); clear_output(wait=True)
 # -
 
 

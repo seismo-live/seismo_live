@@ -77,7 +77,8 @@ from numpy import sin, cos, arccos, arctan,  pi, sign, sqrt
 from numpy import vectorize, linspace, asarray, outer, diff, savetxt
 
 # Show the plots in the Notebook.
-plt.switch_backend("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 
 
 # -

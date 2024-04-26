@@ -103,7 +103,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 from gll import gll
@@ -343,4 +344,4 @@ for it in range(nt):
         # -------------------------------------- 
         # Display lines            
         lines = plt.plot(xg, u, color="black", lw = 1.5)
-        plt.gcf().canvas.draw()       
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)       

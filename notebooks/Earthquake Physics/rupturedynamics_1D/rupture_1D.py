@@ -148,7 +148,8 @@ import rate
 import utils
 import timeit
 
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0]}
 # Parameter cell
@@ -391,7 +392,7 @@ for t in utils.drange (0.0, tend+dt,dt):
         ax4.legend(iter(line4),('slip rate'))
         line5 = ax5.plot(time_vector,traction_vector,'g')
         ax5.legend(iter(line5),('traction'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 
 plt.ioff()

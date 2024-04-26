@@ -277,7 +277,8 @@ import matplotlib.pyplot as plt
 import RK4_2D
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 # -
 
 # In order to show in a faster way the solutions of the equations this notebook has less spatial and temporal resolution. In the case you want to increase its resolution you can modify the grid points in x and y (maintaining their proportions), the snapshot frequency, the type of model or the spatial order of accuracy. 
@@ -422,7 +423,7 @@ for it in range(nt):
     if it % isnap == 0:                    # you can change the speed of the plot by increasing the plotting interval
         plt.title("time: %.2f" % t)
         image.set_data(p.transpose())
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
         #plt.show()
         #print(it)
     

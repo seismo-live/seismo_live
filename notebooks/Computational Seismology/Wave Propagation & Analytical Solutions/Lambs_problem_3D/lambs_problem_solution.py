@@ -100,7 +100,8 @@ import os
 from ricker import ricker
 
 # Show the plots in the Notebook.
-plt.switch_backend("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 
 # + {"code_folding": [0]}
 # Compile the source code (needs gfortran!)

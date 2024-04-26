@@ -108,7 +108,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.facecolor'] = 'w'          # remove grey background
 
@@ -219,7 +220,7 @@ for it in range (nt):
         line2 = ax2.plot(x, s, color = "blue", lw = 1.5)
     
         ax1.set_title(title + ", time step: %i" % (it))  
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 plt.ioff()
 plt.show()

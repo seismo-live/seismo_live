@@ -80,7 +80,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 from ricker import ricker 
 
@@ -249,4 +250,4 @@ for it in range(nt):
         # -------------------------------------- 
         # Display lines
         line = plt.plot(x, p, 'k.', lw=1.5)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

@@ -97,7 +97,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -319,5 +320,5 @@ for i in range(nt):
         line1 = ax1.plot(x, Q[0,:], 'k', x, Qa[0,:], 'r--', lw=1.5)
         line2 = ax2.plot(x, Q[1,:], 'k', x, Qa[1,:], 'r--', lw=1.5)
         plt.legend(iter(line2), ('F. Volume', 'Analytic'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 

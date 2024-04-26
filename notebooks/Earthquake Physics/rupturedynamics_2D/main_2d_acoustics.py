@@ -11,7 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import RK4_2D
 
-plt.switch_backend("TkAgg")
+%matplotlib widget
+from IPython.display import display, clear_output
 plt.ion()
 
 
@@ -139,7 +140,7 @@ for it in range(nt):
     if it % isnap == 0:                    # you can change the speed of the plot by increasing the plotting interval
         plt.title("time: %.2f" % t)
         image.set_data(p)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
         plt.show()
         print(it)
     

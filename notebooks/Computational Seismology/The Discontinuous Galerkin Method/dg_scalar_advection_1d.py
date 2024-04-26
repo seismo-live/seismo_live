@@ -117,7 +117,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # import of DG modules from same directory as the notebook
@@ -424,7 +425,7 @@ for it in range(1, nt+1):
 
             ax1.set_title('Time step : %g ' %it)
             ax1.set_ylim([0.,0.7])
-            fig.canvas.draw()
+            fig.canvas.draw(); display(fig); clear_output(wait=True)
 
             lyaxis = np.max(np.abs(error)) #length of y-axis
             ax2.set_ylim([0,lyaxis])
@@ -442,7 +443,7 @@ for it in range(1, nt+1):
             uplot = np.reshape(u,((N+1)*ne,))
             line.set_ydata(uplot)
             plt.title('Time step : %g ' %it)
-            fig.canvas.draw()
+            fig.canvas.draw(); display(fig); clear_output(wait=True)
 
 ### end of time loop
 ####################
@@ -465,7 +466,7 @@ if exercise==4:
 
     plt.title('Difference at the boundaries at iteration step %g' %itplot)
     plt.legend(loc=2)
-    fig2.canvas.draw()
+    fig2.canvas.draw(); display(fig2); clear_output(wait=True)
 
 # -
 

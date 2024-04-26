@@ -109,7 +109,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.facecolor'] = 'w'         # remove grey background
 from mpl_toolkits.mplot3d import Axes3D               # for 3D plot
@@ -192,7 +193,7 @@ for i in range(1,nt):
     if i % isnap == 0:
         lines[0].set_data(xc,yc)
         plt.title(title + " time: %.2g years" % (i * dt), loc = 'left')
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
     
 plt.ioff()
 plt.show() 

@@ -93,7 +93,8 @@
 # + {"code_folding": [0]}
 # Import Libraries (PLEASE RUN THIS CODE FIRST!) 
 # ----------------------------------------------
-# %matplotlib nbagg
+%matplotlib widget
+from IPython.display import display, clear_output
 import math
 import numpy as np
 import matplotlib.pylab as plt
@@ -226,7 +227,7 @@ for i in range(nt):
         lines = plt.plot(x, unew, color="black", lw=1.5) 
         
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
-        plt.gcf().canvas.draw()        
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)        
 plt.ioff()
 # -
 
@@ -328,7 +329,7 @@ for i in range(nt):
         lines = plt.plot(x, unew, color="black", lw=1.5)
 
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
-        plt.gcf().canvas.draw()    
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)    
 
     
 plt.ioff()
@@ -413,7 +414,7 @@ for i in range(nt):
       
         
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
-        plt.gcf().canvas.draw()    
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)    
 
     
 plt.ioff()
@@ -480,5 +481,5 @@ for i in range(1,nt):
         line2 = plt.plot(x, ana, color="red", lw=1.7)        
         lines = plt.plot(x, unew, color="black", lw=1.5)   
         plt.title(title + ", time step: %i, time: %.2g s" % (i, i * dt))
-        plt.gcf().canvas.draw()        
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)        
 plt.ioff()

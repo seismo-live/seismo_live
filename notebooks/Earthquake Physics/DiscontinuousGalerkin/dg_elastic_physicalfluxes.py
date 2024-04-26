@@ -153,7 +153,8 @@ import matplotlib.pyplot as plt
 import timeit                         # to check the simulation time
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0, 16, 24, 42, 47]}
 # Simulation start time
@@ -351,7 +352,7 @@ for t in utils.drange (0.0, Tend+dt,dt):
         ax3.set_yscale("log")#, nonposx='clip')
         line4 = ax4.plot(T, EV, 'k--')
         ax4.set_yscale("log")#, nonposx='clip')
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
 plt.ioff()
 plt.show()

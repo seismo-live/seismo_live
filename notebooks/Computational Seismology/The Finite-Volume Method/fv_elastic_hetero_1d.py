@@ -103,7 +103,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -313,5 +314,5 @@ for j in range(nt):
         line1 = ax1.plot(x, Q[0,:], 'k', x, s, 'r--')
         line2 = ax2.plot(x, Q[1,:], 'k', x, v, 'r--')
         plt.legend(iter(line2), ('F. Volume', 'f. Diff'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 

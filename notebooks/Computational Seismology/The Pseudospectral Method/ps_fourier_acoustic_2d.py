@@ -68,7 +68,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 from ricker import ricker
 
@@ -242,5 +243,5 @@ for it in range(nt):
         # -------------------------------------- 
         line1 = ax1.imshow(sp_sec, interpolation="bicubic", cmap=plt.cm.RdBu) 
         line2 = ax2.imshow(ap_sec, interpolation="bicubic", cmap=plt.cm.RdBu)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
      

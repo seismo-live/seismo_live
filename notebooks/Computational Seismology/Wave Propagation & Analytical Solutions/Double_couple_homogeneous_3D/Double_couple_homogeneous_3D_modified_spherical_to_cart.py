@@ -92,7 +92,8 @@ from numpy import vectorize, linspace, asarray, outer, diff, savetxt
 import numpy as np
 
 # Show the plots in the Notebook.
-plt.switch_backend("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 
 
 # -

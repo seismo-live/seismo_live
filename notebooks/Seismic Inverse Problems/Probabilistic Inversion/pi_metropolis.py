@@ -172,7 +172,7 @@ while iis <= ns:
         # display move graphically   
         f1.plot([xa[iis-1, 0], xa[iis,0]], [xa[iis-1, 1], xa[iis,1]],'k-')
         f1.plot([xa[iis-1, 0], xa[iis,0]], [xa[iis-1, 1], xa[iis,1]],'k+')
-        plt.gcf().canvas.draw() #show the update
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True) #show the update
         iis = iis + 1
     
     if Pnew < Pcur: 
@@ -189,9 +189,9 @@ while iis <= ns:
 
             f1.plot([xa[iis-1, 0], xa[iis,0]], [xa[iis-1, 1], xa[iis,1]],'k-')
             f1.plot([xa[iis-1, 0], xa[iis,0]], [xa[iis-1, 1], xa[iis,1]],'k+')
-            plt.gcf().canvas.draw()  #show the update
+            plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)  #show the update
             iis = iis + 1
-plt.gcf().canvas.draw()
+plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 # + {"code_folding": [0]}
 # Final sampling

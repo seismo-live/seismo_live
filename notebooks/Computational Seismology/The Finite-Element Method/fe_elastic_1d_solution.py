@@ -115,7 +115,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -470,7 +471,7 @@ for it in range(nt):
         line1 = plt.plot(x, u, 'k', lw=1.5, label='FEM')
         line2 = plt.plot(x, p, 'r', lw=1.5, label='FDM')
         plt.legend()
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 # -
 
 
