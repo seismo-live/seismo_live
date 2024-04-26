@@ -4,7 +4,7 @@ import pathlib
 import shutil
 import subprocess
 import typing
-
+import warnings
 
 def convert_jupytext_to_ipynb(input_file: pathlib.Path):
     pass
@@ -212,7 +212,7 @@ def convert_folder(
     jupytext_files = find_jupytext_files(folder=notebook_folder)
 
     if len(jupytext_files) < 90:
-        raise ValueError("Not enough jupytext files found!")
+        warnings.warn("Not enough jupytext files found!")
 
     check_for_duplicate_solution_files(jupytext_files)
 

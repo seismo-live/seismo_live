@@ -187,19 +187,10 @@ for i in range(nt):
 
 # Updating the plots
     if not i % isnap:
-        for l in lines1:
-            l.remove()
-            del l
-        for k in lines2:
-            k.remove()
-            del k
-
-        lines1  = plt.plot(np.dot((np.arange (1, i+1)), dt), x_vector[0:i] /
-                          np.max(np.abs (x[0:nt])),color = "red",lw = 1.5, label="Seismometer response")
-        lines2 = plt.plot(np.dot((np.arange (1, i+1)), dt), src[0:i] /
-                          np.max(src[0:nt]), color = 'blue',lw = 1.5, label="Ground Acceleration")
-    plt.title("F0 = 1Hz, SRC = %.2f Hz, h = %.2f " % (fu0, h))
-    plt.gcf().canvas.draw()
+        lines1[0].set_data(np.dot((np.arange (1, i+1)), dt), x_vector[0:i] /np.max(np.abs (x[0:nt])))
+        lines2[0].set_data(np.dot((np.arange (1, i+1)), dt), src[0:i] /np.max(src[0:nt]))
+        plt.title("F0 = 1Hz, SRC = %.2f Hz, h = %.2f " % (fu0, h))
+        plt.gcf().canvas.draw()
 
 plt.ioff()
 plt.show()

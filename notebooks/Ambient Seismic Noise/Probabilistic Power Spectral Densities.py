@@ -72,7 +72,7 @@ ppsd.plot()
 # +
 from obspy.signal import PPSD
 
-ppsd = PPSD.load_npz("data/PPSD_FUR_HHN.npz")
+ppsd = PPSD.load_npz("data/PPSD_FUR_HHN.npz", allow_pickle=True)
 # -
 
 ppsd.plot(max_percentage=10)

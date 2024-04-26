@@ -222,7 +222,7 @@ dy = Ly/Ny    # spatial step in y
 isnap = 5     # snapshot frequency (orgiginally set to 10)
 nf = 3        # number of fields
 
-# cp = 1.418    # compresional wave speed [m/s]
+cp = 1.418    # compresional wave speed [m/s]
 rho = 1.0     # density [g/cm^3]
 
 # source parameters

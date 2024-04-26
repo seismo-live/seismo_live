@@ -53,14 +53,16 @@
 
 # Import the read module from ObsPy
 from obspy import read
+from obspy.core import UTCDateTime
 
 # The URL that points to the dataselect service
 # The label that identifies the service
 SERVICE_DOMAIN = "http://www.orfeus-eu.org"
 LABEL = "fdsnws/dataselect/1/query"
 
-# The 10-minute time window tuple
-starttime, endtime = ("2016-01-01T00:00:00", "2016-01-01T00:10:00")
+# The 10-minute time window
+starttime, endtime = [UTCDateTime(val) for val in ["2016-01-01T00:00:00", "2016-01-01T00:10:00"]]
+
 
 # Get the SEED codes, we will use wildcards for location, channel
 network, station, location, channel = "NL", "HGN", "*", "*"

@@ -298,7 +298,7 @@ isnap = 1     # snapshot frequency
 
 nf = 5        # number of fields
 cs = 3.464    # shear wave speed
-# cp = 6.0      # compresional wave speed
+cp = 6.0      # compresional wave speed
 rho = 2.6702  # density
 
 # source parameters

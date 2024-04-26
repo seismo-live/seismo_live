@@ -356,8 +356,8 @@ u = uold
 
 #initialization for different plots, depending on the exercise
 if exercise==2:
-    uplot = np.reshape(u,((N+1)*ne),1) #u is reshaped to a vector in order to plot it against xg=vector with all the gll points
-    uaplot = np.reshape(ua,((N+1)*ne),1)
+    uplot = np.reshape(u,((N+1)*ne,)) #u is reshaped to a vector in order to plot it against xg=vector with all the gll points
+    uaplot = np.reshape(ua,((N+1)*ne,))
 
     fig = plt.figure()
     ax1 = fig.add_subplot(2,1,1)
@@ -375,7 +375,7 @@ if exercise==2:
 
 
 elif exercise==1 or exercise==3:
-    uplot = np.reshape(u,((N+1)*ne),1)
+    uplot = np.reshape(u,((N+1)*ne,)) 
     fig = plt.figure()
     line, = plt.plot(xg,uplot,color="blue",lw=1.5)
     plt.ylim(0,0.7)
@@ -411,10 +411,10 @@ for it in range(1, nt+1):
 
     if not it % iplot:
         if exercise==2: #plot that compares the analytical and numerical solution, calculates the error
-            uplot = np.reshape(u,((N+1) * ne),1)
+            uplot = np.reshape(u,((N+1)*ne,))
 
             ua = 0.5*np.exp(-0.4*(x - (x0 + it * dt * mu)) ** 2)#analytical solution of the advection equation
-            uaplot = np.reshape(ua,((N+1) * ne),1)
+            uaplot = np.reshape(ua,((N+1)*ne,))
 
             line.set_ydata(uplot)
             line2.set_ydata(uaplot)
@@ -439,7 +439,7 @@ for it in range(1, nt+1):
 
 
         else: #plots only the solution u, for exercises 1,3
-            uplot=np.reshape(u,((N+1)*ne),1)
+            uplot = np.reshape(u,((N+1)*ne,))
             line.set_ydata(uplot)
             plt.title('Time step : %g ' %it)
             fig.canvas.draw()

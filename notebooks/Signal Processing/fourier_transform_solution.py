@@ -289,7 +289,7 @@ sig_ = sig * taper
 Fsig = np.fft.rfft(sig_, n=samp)
 
 # prepare plotting
-xf = np.linspace(0.0, 1.0/(2.0*T), (samp/2)+1)
+xf = np.linspace(0.0, 1.0/(2.0*T), int((samp/2)+1))
 rcParams["figure.subplot.hspace"] = (0.8)
 rcParams["figure.figsize"] = (15, 9)
 rcParams["axes.labelsize"] = (15)

@@ -43,6 +43,7 @@
 #you can use these libraries by refering to their appreviation plt., np. or pd.
 #basic plotting library
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
 #scientifc computing library
 import numpy as np
@@ -245,7 +246,10 @@ ax3.legend()
 plt.subplots_adjust(hspace=0)
 
 #reduce number of ticks
-plt.locator_params(axis='both', numtick=8)
+for ax in [ax1, ax2, ax3]:
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(8))
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(8))
+
 
 #focus on the time where the signal is
 plt.xlim((10.0,40.0))
@@ -288,7 +292,9 @@ ax3.legend()
 
 
 #reduce number of ticks
-plt.locator_params(axis='both',numtick=8)
+for ax in [ax1, ax2, ax3]:
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(8))
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(8))
 
 #focus on the time where the signal is
 plt.xlim((10.0,40.0))
@@ -325,7 +331,9 @@ ax3.legend()
 
 
 #reduce number of ticks
-plt.locator_params(axis='both',numtick=8)
+for ax in [ax1, ax2, ax3]:
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(8))
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(8))
 
 #focus on the time where the signal is
 plt.xlim((10.0,40.0))
@@ -550,7 +558,7 @@ sns.set()
 
 # Load the example flights dataset and conver to long-form
 flights_long = sns.load_dataset("flights")
-flights = flights_long.pivot("month", "year", "passengers")
+flights = flights_long.pivot(index="month", columns="year", values="passengers")
 
 # Draw a heatmap with the numeric values in each cell
 f, ax = plt.subplots(figsize=(9, 6))
