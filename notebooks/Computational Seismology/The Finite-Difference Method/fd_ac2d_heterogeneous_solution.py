@@ -132,6 +132,7 @@ import matplotlib.pyplot as plt
 # Acoustic wave equation  p_tt = c^2 p_xx + src
 # 2-D regular grid
 
+plt.close('all')
 nx = 200      # grid points in x
 nz = 200      # grid points in z
 nt = 750      # number of time steps
@@ -185,7 +186,7 @@ elif model_type == "topography":
     c[0 : 10, 105 : 115] = 0                       
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
-    c[0 : 15, 50 : 105] *= 0.8    
+    c[0 : 15, 50 : 105] = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
@@ -197,12 +198,12 @@ else:
 cmax = c.max()
 
 # Source time function Gaussian, nt + 1 as we loose the last one by diff
-src = np.empty(nt + 1)
+src = np.empty(nt)
 for it in range(nt):
     src[it] = np.exp(-1.0 / T ** 2 * ((it - ist) * dt) ** 2)
 # Take the first derivative
-src = np.diff(src) / dt
-src[nt - 1] = 0
+src = np.gradient(src) / dt
+src[-1] = 0
 
 v = max([np.abs(src.min()), np.abs(src.max())])
 # Initialize animated plot
@@ -271,6 +272,7 @@ for it in range(nt):
 # Acoustic wave equation  p_tt = c^2 p_xx + src
 # 2-D regular grid
 
+plt.close('all')
 nx = 200      # grid points in x
 nz = 200      # grid points in z
 nt = 750      # number of time steps
@@ -324,7 +326,7 @@ elif model_type == "topography":
     c[0 : 10, 105 : 115] = 0                       
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
-    c[0 : 15, 50 : 105] *= 0.8    
+    c[0 : 15, 50 : 105]  = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
@@ -336,12 +338,12 @@ else:
 cmax = c.max()
 
 # Source time function Gaussian, nt + 1 as we loose the last one by diff
-src = np.empty(nt + 1)
+src = np.empty(nt)
 for it in range(nt):
     src[it] = np.exp(-1.0 / T ** 2 * ((it - ist) * dt) ** 2)
 # Take the first derivative
-src = np.diff(src) / dt
-src[nt - 1] = 0
+src = np.gradient(src) / dt
+src[-1] = 0
 
 v = max([np.abs(src.min()), np.abs(src.max())])
 # Initialize animated plot
@@ -438,6 +440,10 @@ for ir in range(len(seis)):
 plt.subplot(224)
 # The velocity model is influenced by the Earth model above
 plt.title('Velocity Model')
+# Plot the receivers and the source
+for x, z in zip(irx, irz):
+    plt.text(x, z, '+')
+plt.text(isx, isz, 'o')
 plt.imshow(c)
 plt.xlabel('ix')
 plt.ylabel('iz')
@@ -445,5 +451,3 @@ plt.colorbar()
 
 plt.show()
 # -
-
-
