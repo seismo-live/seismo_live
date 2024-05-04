@@ -149,7 +149,7 @@ nop = 3       # length of operator
 
 # Model type, available are "homogeneous", "fault_zone",
 # "surface_low_velocity_zone", "random", "topography",
-# "slab"
+#  "topography_gauss", "slab"
 model_type = "homogeneous"
 
 # Receiver locations
@@ -187,6 +187,14 @@ elif model_type == "topography":
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
     c[0 : 15, 50 : 105] = 0
+elif model_type == "topography_gauss":
+    c += c0
+    xi = np.arange(nx)
+    zi = np.arange(nz)
+    sigma_topo=20
+    ztopo = 5* (1-np.exp(-(xi-nx//2)**2/(2*sigma_topo**2)))
+    for i in range(nx):
+        c[zi < ztopo[i],i] = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
@@ -289,7 +297,7 @@ nop = 3       # length of operator
 
 # Model type, available are "homogeneous", "fault_zone",
 # "surface_low_velocity_zone", "random", "topography",
-# "slab"
+#  "topography_gauss", "slab"
 model_type = "slab"
 
 # Receiver locations
@@ -327,6 +335,14 @@ elif model_type == "topography":
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
     c[0 : 15, 50 : 105]  = 0
+elif model_type == "topography_gauss":
+    c += c0
+    xi = np.arange(nx)
+    zi = np.arange(nz)
+    sigma_topo=20
+    ztopo = 5* (1-np.exp(-(xi-nx//2)**2/(2*sigma_topo**2)))
+    for i in range(nx):
+        c[zi < ztopo[i],i] = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
