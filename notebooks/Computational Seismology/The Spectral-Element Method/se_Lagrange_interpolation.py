@@ -85,7 +85,7 @@ x = np.linspace(-1, 1, 1000)
 xi, _ = gll(N)
 
 plt.figure(figsize=(8, 3))
-for _i in range(N):
+for _i in range(-1, N):
     plt.plot(x, lagrange2(N, _i, x, xi))
 plt.ylim(-0.3, 1.1)
 plt.title("Lagrange Polynomials of order %i" % N)
