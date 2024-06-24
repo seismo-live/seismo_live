@@ -106,7 +106,7 @@ plt.show()
 # In the first exercise we used the GLL-points that are not equidistant.
 # Now use equidistant collacation points for the interpolation of your function $f$. Compare the two results.
 #
-# Change the code for the Runge-function on the interval $[-5,5]$
+# Change the code for the Runge-function on the interval $[-1,1]$
 #
 # $$ f(x)=\frac{1}{(1+x^2)} $$
 #
@@ -124,14 +124,19 @@ if exercise == 1:
 
     # CHANGE FUNCTION HERE. Currently a simple sine function.
     f = np.sin(np.pi * x)
-
+    # Below is an example of a more complicated function:
+    # s = .15 
+    # sb = 0.3
+    # f = np.exp(-((x+0.6)/s)**2) + np.exp(-((x-0.2)/sb)**2)
+    
+    
 # Exercise 2
 elif exercise == 2:
-    # Initialize space in the interval [-5, 5]
+    # Initialize space in the interval [-1, 1]
     nx = 1000
-    x = np.linspace(-5, 5, nx)
+    x = np.linspace(-1, 1, nx)
     # CHANGE FUNCTION HERE. Currently the Runge function.
-    f = 1/(1 + x ** 2)
+    f = 1/(1 + (5*x) ** 2)
 
 # Get order of Lagrange polynomial
 # Uncomment for interactive use.
@@ -144,7 +149,7 @@ if exercise == 1:
     [xi, w] = gll(N)
     fi = np.interp(xi, x, f)
 elif exercise == 2:
-    xi = np.linspace(-5, 5, N+1)
+    xi = np.linspace(-1, 1, N+1)
     fi = np.interp(xi, x, f)
 
 
@@ -173,9 +178,9 @@ plt.xlabel('x')
 plt.ylabel('f(x)')
 
 if exercise == 1:
-    plt.legend(loc="upper center")
+    plt.legend(loc="best")
 elif exercise == 2:
-    plt.xlim(-5, 5)
+    plt.xlim(-1, 1)
     plt.legend(loc=2)
 
 plt.show()
