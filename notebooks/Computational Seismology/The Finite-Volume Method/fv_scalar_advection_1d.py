@@ -92,7 +92,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -166,7 +167,6 @@ plt.ylabel('Amplitude')
 plt.xlabel('x')
 plt.title('Scalar Advection - %s method'%method, size=16)
 
-plt.ion()    # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -209,5 +209,5 @@ for i in range(nt):
         # Display lines
         line = plt.plot(x, Q, 'k', x, Qa, 'r--', lw=1.5)
         plt.legend(iter(line), ('F. Volume', 'Analytic'))
-        plt.gcf().canvas.draw()      
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)      
         

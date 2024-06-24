@@ -103,7 +103,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -269,7 +270,6 @@ plt.suptitle('Heterogeneous F. volume - Lax-Wendroff method', size=16)
 ax1.text(0.1*xmax, 0.8*max(sx), '$\mu$ = $\mu_{o}$')
 ax1.text(0.8*xmax, 0.8*max(sx), '$\mu$ = $4\mu_{o}$')
 
-plt.ion()    # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -313,5 +313,5 @@ for j in range(nt):
         line1 = ax1.plot(x, Q[0,:], 'k', x, s, 'r--')
         line2 = ax2.plot(x, Q[1,:], 'k', x, v, 'r--')
         plt.legend(iter(line2), ('F. Volume', 'f. Diff'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 

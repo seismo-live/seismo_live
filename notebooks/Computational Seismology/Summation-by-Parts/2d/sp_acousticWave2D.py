@@ -202,7 +202,8 @@ import matplotlib.pyplot as plt
 import RK4_2D
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 # -
 
 # In order to show a less time consuming solution the spatial and temporal resolution has been decreased. In the case you would like to increase it, you can modify the grid points in x and y (mantaining their proportions), the snapshot frequency and the model type. 
@@ -222,7 +223,7 @@ dy = Ly/Ny    # spatial step in y
 isnap = 5     # snapshot frequency (orgiginally set to 10)
 nf = 3        # number of fields
 
-# cp = 1.418    # compresional wave speed [m/s]
+cp = 1.418    # compresional wave speed [m/s]
 rho = 1.0     # density [g/cm^3]
 
 # source parameters
@@ -347,7 +348,7 @@ for it in range(nt):
     if it % isnap == 0:                    # you can change the speed of the plot by increasing the plotting interval
         plt.title("time: %.2f" % t)
         image.set_data(p.transpose())
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
         #plt.show()
         #print(it)
     
@@ -355,7 +356,6 @@ for it in range(nt):
     seisvx[ir, it] = F[(irx[ir]), (iry[ir]), 1]
     seisvy[ir, it] = F[(irx[ir]), (iry[ir]), 2]
     
-plt.ioff()
 plt.show()
 
 plt.figure(figsize=(10, 10))

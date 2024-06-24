@@ -185,7 +185,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -243,7 +244,6 @@ src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) **
 
 # Plot Source Time Function
 # -------------------------
-plt.ion()
 fig1  = plt.figure(figsize=(12, 6))
 gs1   = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
@@ -316,7 +316,6 @@ lim  = Gc.max() # get limit value from maximum amplitude of analytical solution
 
 # Plot Position Configuration
 # ---------------------------
-plt.ion()
 fig2 = plt.figure(figsize=(12, 12))
 gs2  = gridspec.GridSpec(2,2,width_ratios=[1,1],height_ratios=[1,1],hspace=0.15, wspace=0.3)
 
@@ -441,7 +440,7 @@ for it in range(nt):
         ax6.set_title('Seismogram - Time Step (nt) = %d' % it)
         up61.set_ydata(seis)
         up62.set_data(time[it], seis[it])
-        fig2.canvas.draw()
+        fig2.canvas.draw(); display(fig2); clear_output(wait=True)
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
 # #### Solutions:
@@ -503,7 +502,7 @@ for it in range(nt):
         ax6.set_title('Seismogram - Time Step (nt) = %d' % it)
         up61.set_ydata(seis)
         up62.set_data(time[it], seis[it])
-        fig2.canvas.draw()
+        fig2.canvas.draw(); display(fig2); clear_output(wait=True)
 # -
 
 

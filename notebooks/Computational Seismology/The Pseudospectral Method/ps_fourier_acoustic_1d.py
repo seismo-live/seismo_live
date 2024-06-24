@@ -58,7 +58,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 from ricker import ricker 
 
@@ -168,7 +169,6 @@ ax1.legend(loc=4)
 ax2.legend(loc=4) 
 ax3.legend(loc=4)
 
-plt.ion()   # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -223,4 +223,4 @@ for it in range(nt):
         line1 = ax1.plot(x[isx:], p[isx:], 'k', lw=1.5)
         line2 = ax2.plot(x[isx:], ap[isx:], 'r', lw=1.5)
         line3 = ax3.plot(x[isx:], sp[isx:], 'b', lw=1.5)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

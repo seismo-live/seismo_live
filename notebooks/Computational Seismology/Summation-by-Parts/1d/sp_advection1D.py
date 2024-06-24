@@ -147,7 +147,8 @@ import utils
 import timeit
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0]}
 # Initializations
@@ -203,7 +204,8 @@ import utils
 import timeit
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 
 # + {"code_folding": [0]}
@@ -225,7 +227,6 @@ plt.xlabel('time [s]', size=16)
 ax2.set_ylim([10**-5, 1])
 plt.ylabel('error', size=16)
 
-plt.ion()         # set interective mode
 plt.show()
 
 
@@ -277,9 +278,8 @@ for t in utils.drange (0.0, tend,dt):
         #plt.legend(iter(line), ('Analytic', 'FD'))
         #line3 = ax3.plot(T, EU, 'k--')
         #ax3.set_yscale("log", nonposx='clip')
-        plt.gcf().canvas.draw()     
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)     
        
-plt.ioff()
 plt.show()
 
 # Simulation end time

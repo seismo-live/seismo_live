@@ -92,7 +92,8 @@ from numpy import vectorize, linspace, asarray, outer, diff, savetxt
 import numpy as np
 
 # Show the plots in the Notebook.
-plt.switch_backend("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 
 
 # -
@@ -320,7 +321,6 @@ cols = ['b','r','k','g','c','m']
 # Initialize animated plot
 fig = plt.figure(figsize=(10,5), dpi=100)
 fig.suptitle("Seismic displacement wavefield of a Double-Couple Point Source", fontsize=16)
-# plt.ion() # set interective mode
 # plt.show()
 
 for i in range(6):              
@@ -562,7 +562,6 @@ ax16.legend(loc=2,prop={"size":9})
 
 
 plt.suptitle("Seismic wavefield of a Double-Couple Point Source", fontsize=16)
-plt.ion() # set interective mode
 
 
 # plt.savefig('DC.png')

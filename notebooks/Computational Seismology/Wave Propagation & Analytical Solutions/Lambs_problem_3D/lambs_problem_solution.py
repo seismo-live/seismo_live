@@ -100,7 +100,8 @@ import os
 from ricker import ricker
 
 # Show the plots in the Notebook.
-plt.switch_backend("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 
 # + {"code_folding": [0]}
 # Compile the source code (needs gfortran!)
@@ -167,7 +168,6 @@ fig = plt.figure(figsize=(12,8), dpi=80)
 
 fig.suptitle("Green's Function for Lamb's problem", fontsize=16)
 
-plt.ion() # set interective mode
 plt.show()
 
 for i in range(5):              

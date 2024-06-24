@@ -154,7 +154,7 @@ timestep = 1/df                       # time step
 fNy = df / 2.0                        # Nyquist frequency
 dur_sec = npts/df                     # Duration of the seismogram in second
 dur_day = dur_sec/(24*60*60)          # Duration of the seismogram in day
-time = np.linspace(0,nsec,(nsec*df))  # time axis for plotting
+time = np.linspace(0,nsec,int(nsec*df))  # time axis for plotting
 
 print ("1. The duration of the seismogram is", dur_sec, "seconds or", dur_day, "days")
 print ("2. The time step is", timestep, "s")

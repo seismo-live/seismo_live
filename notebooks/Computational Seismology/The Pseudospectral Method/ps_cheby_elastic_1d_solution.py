@@ -80,7 +80,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 from ricker import ricker 
 
@@ -216,7 +217,6 @@ plt.title('Chebyshev Method - 1D Elastic wave', size=16)
 plt.xlabel(' x(m)', size=14)
 plt.ylabel(' Amplitude ', size=14)
 
-plt.ion() # set interective mode
 plt.show()
 # ---------------------------------------------------------------
 # Time extrapolation
@@ -249,4 +249,4 @@ for it in range(nt):
         # -------------------------------------- 
         # Display lines
         line = plt.plot(x, p, 'k.', lw=1.5)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

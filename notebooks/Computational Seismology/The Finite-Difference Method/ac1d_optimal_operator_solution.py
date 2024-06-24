@@ -174,7 +174,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -296,7 +297,6 @@ sap  = np.zeros(nt)
 
 # Plot Position Configuration
 # ---------------------------
-plt.ion()
 fig2 = plt.figure(figsize=(12, 6))
 gs2  = gridspec.GridSpec(1, 1, hspace=0.3, wspace=0.3)
 
@@ -403,7 +403,7 @@ for it in range(nt):
         up32.set_ydata(mp)
         up33.set_ydata(op)
         
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 # + {"code_folding": [], "tags": ["solution"]}
 # 1D Wave Simulation (RUN THIS CODE TO BEGIN SIMULATION!) 
@@ -502,4 +502,4 @@ for it in range(nt):
          'optimal FD: %g %%' % error3,\
          'analytical'), loc='lower right', fontsize=10, numpoints=1)
         
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

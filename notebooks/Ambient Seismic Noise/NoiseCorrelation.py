@@ -296,7 +296,7 @@ def whiten(tr, freqmin, freqmax):
         * np.exp(1j * np.angle(FFTs[JJ[0]+nsmo+1:JJ[-1]-nsmo]))
 
         # Apodization to the right with cos^2 (to smooth the discontinuities)
-        smo2 = (np.cos(np.linspace(0., np.pi/2., nsmo+1.))**2.)
+        smo2 = (np.cos(np.linspace(0., np.pi/2., nsmo+1))**2.)
         espo = np.exp(1j * np.angle(FFTs[JJ[-1]-nsmo:JJ[-1]+1]))
         FFTsW[JJ[-1]-nsmo:JJ[-1]+1] = smo2 * espo
 

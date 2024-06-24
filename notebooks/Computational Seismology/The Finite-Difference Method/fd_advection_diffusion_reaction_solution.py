@@ -109,7 +109,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.facecolor'] = 'w'         # remove grey background
 from mpl_toolkits.mplot3d import Axes3D               # for 3D plot
@@ -153,10 +154,9 @@ p[int((nx-1)/2)] = p0                                 # injecting source (produc
 # Initialization of plot
 
 fig = plt.figure()
-ax = fig.gca(projection='3d')
+ax = fig.add_subplot(111, projection='3d')
 lines = ax.plot(xc,yc,c, 'r-', label = 'concentration')
 plt.legend(loc='best')
-plt.ion()
 plt.show()
 title = "Concentration in"
 
@@ -190,14 +190,10 @@ for i in range(1,nt):
 
     # Updating the plots
     if i % isnap == 0:
-        for l in lines:
-            l.remove()
-            del l
-        lines = ax.plot(xc,yc,c, 'r-')
+        lines[0].set_data(xc,yc)
         plt.title(title + " time: %.2g years" % (i * dt), loc = 'left')
-    plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
     
-plt.ioff()
 plt.show() 
 
 # -

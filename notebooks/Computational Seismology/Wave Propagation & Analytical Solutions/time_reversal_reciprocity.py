@@ -64,7 +64,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.facecolor'] = 'w'          # remove grey background
 
@@ -155,7 +156,6 @@ plt.ylim(0,nz)
 plt.xlabel('x')
 plt.ylabel('z')
 
-plt.ion()
 plt.show()
 
 # Time Stepping
@@ -185,7 +185,7 @@ for it in range(0,nt):                                 # 5 point operator FD sch
         image1 = plt.imshow(pnew, interpolation ='nearest', animated= True,
                             vmin = -v, vmax = +v, cmap=plt.cm.Greys)
         
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
         
     # Remap Time Levels
     pold, p = p, pnew
@@ -223,7 +223,6 @@ plt.ylim(0,nz)
 plt.xlabel('x')
 plt.ylabel('z')
 
-plt.ion()
 plt.show()
 
 # Time stepping
@@ -255,7 +254,7 @@ for it in range (0,nt):                                # 5 point operator FD sch
         image2 = plt.imshow(pnew, interpolation='nearest', animated=True,
                             vmin = -v1, vmax = +v1, cmap=plt.cm.Greys)
         
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
         
     # Remap time levels
     pold, p = p, pnew

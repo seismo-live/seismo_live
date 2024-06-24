@@ -103,7 +103,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 from gll import gll
@@ -374,7 +375,6 @@ plt.title('SEM 1D Animation   $v_{min} = %s v_{max}$' %percent, size=16)
 plt.xlabel(' x (m)')
 plt.ylabel(' Displacement ')
 
-plt.ion() # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -404,7 +404,7 @@ for it in range(nt):
         # Display lines            
         lines = plt.plot(xg, u, color="black", lw = 1.5)
         plt.xlim((0,xmax))
-        plt.gcf().canvas.draw()       
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)       
 # -
 
 # ### 6. Displaying the wave-field 

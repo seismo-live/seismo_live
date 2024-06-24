@@ -233,7 +233,6 @@ f1.imshow(pdf.transpose(),aspect='auto',interpolation='none', animated=True)
 f1.set_xlim(0,99)
 f1.set_ylim(99,0)
 f1.set_title('Simulated annealing steps')
-plt.ion() #set interactive mode
 plt.show()
 
 Pa = np.zeros(ns+1)
@@ -254,7 +253,7 @@ while iis < ns:
        # print ' Made the %i-th move to [%i,%i] ' %(iis+1, xcur[0], xcur[1])
         # display move graphically   
         f1.plot(xnew[0],xnew[1],'w+') #plot the steps with black +
-        plt.gcf().canvas.draw() #show the update
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True) #show the update
         iis = iis + 1
     
     if Pnew < Pcur: 
@@ -266,13 +265,13 @@ while iis < ns:
             #print ' Made the %i-th move to [%i,%i] P= %g ' %(iis+1,xcur[0],xcur[1],P)
             # display move graphically
             f1.plot(xnew[0],xnew[1],'w+') # plot the steps with black +
-            plt.gcf().canvas.draw()  #show the update
+            plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)  #show the update
             iis = iis + 1
    
     xa = np.vstack((xa, np.array([xcur[0],xcur[1]])))
     Pa.append(Pnew)
     
-plt.gcf().canvas.draw()
+plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 npp = npp + 1
 Pa = np.array(Pa)
 # -

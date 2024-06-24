@@ -91,7 +91,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 from gll import gll
@@ -346,7 +347,6 @@ ax2.set_ylabel('Velocity')
 ax2.set_xlabel(' x ')
 plt.suptitle('Heterogeneous Disc. Galerkin - %s method'%imethod, size=16)
 
-plt.ion() # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -406,5 +406,5 @@ for it in range(nt):
         # Display lines
         line1 = ax1.plot(xg, Qs, 'k', lw=1.5)
         line2 = ax2.plot(xg, Qv, 'r', lw=1.5)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 

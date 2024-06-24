@@ -185,7 +185,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -239,7 +240,6 @@ src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) **
 
 # Plot Position Configuration
 # ---------------------------
-plt.ion()
 fig1 = plt.figure(figsize=(12, 6))
 gs1  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
@@ -309,7 +309,6 @@ lim  = Gc.max() # get limit value from maximum amplitude of analytical solution
 
 # Plot Position Configuration
 # ---------------------------
-plt.ion()
 fig2 = plt.figure(figsize=(12, 6))
 gs2  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
@@ -399,7 +398,7 @@ for it in range(nt):
         ax3.imshow(p,vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
 # #### Solutions:
@@ -455,7 +454,7 @@ for it in range(nt):
         ax3.imshow(p,vmin=-lim, vmax=+lim, interpolation="nearest", cmap=plt.cm.RdBu)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 # -
 
 

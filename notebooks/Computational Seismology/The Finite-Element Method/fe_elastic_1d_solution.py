@@ -115,7 +115,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -259,29 +260,36 @@ plt.show()
 # ---------------------------------------------------------------
 # Mass matrix M_ij (Eq 6.56)
 # ---------------------------------------------------------------
-M = np.zeros((nx,nx), dtype=float)
-for i in range(1, nx-1):
-    for j in range (1, nx-1):
-        if j==i:
-            M[i,j] = (ro[i-1]*h[i-1] + ro[i]*h[i])/3
-        elif j==i+1:
-            M[i,j] = ro[i]*h[i]/6
-        elif j==i-1:
-            M[i,j] = ro[i-1]*h[i-1]/6
-        else:
-            M[i,j] = 0
-            
-# Corner elements
-M[0,0] = ro[0]*h[0]/3
-M[nx-1,nx-1] = ro[nx-1]*h[nx-2]/3
-# Invert M
-Minv = np.linalg.inv(M)
+def compute_Minv(ro,h, nx):
+    M = np.zeros((nx,nx), dtype=float)
+    for i in range(1, nx-1):
+        for j in range (1, nx-1):
+            if j==i:
+                M[i,j] = (ro[i-1]*h[i-1] + ro[i]*h[i])/3
+            elif j==i+1:
+                M[i,j] = ro[i]*h[i]/6
+            elif j==i-1:
+                M[i,j] = ro[i-1]*h[i-1]/6
+            else:
+                M[i,j] = 0           
+    # Corner elements
+    M[0,0] = ro[0]*h[0]/3
+    M[nx-1,nx-1] = ro[nx-1]*h[nx-2]/3
+    # Invert M
+    return np.linalg.pinv(M)
+
+Minv = compute_Minv(ro,h, nx)
+
 
 # ---------------------------------------------------------------
 # Display inverse mass matrix inv(M)
 # ---------------------------------------------------------------
-plt.imshow(Minv)
-plt.title('Mass Matrix $\mathbf{M}$')
+
+Minv_small = compute_Minv(ro,h, 40)
+plt.figure()
+plt.imshow(Minv_small, cmap='viridis_r')
+cbar = plt.colorbar()
+plt.title('inverse Mass Matrix $\mathbf{M_{inv}}$')
 plt.axis("off")
 plt.tight_layout()
 plt.show()
@@ -329,30 +337,38 @@ plt.show()
 # ---------------------------------------------------------------
 # Stiffness matrix Kij (Eq 6.60)
 # ---------------------------------------------------------------
-K = np.zeros((nx,nx), dtype=float)
-for i in range(1, nx-1):
-    for j in range(1, nx-1):
-        if i==j:
-            K[i,j] = mu[i-1]/h[i-1] + mu[i]/h[i]
-        elif i==j+1:
-            K[i,j] = -mu[i-1]/h[i-1]
-        elif i+1==j:
-            K[i,j] = -mu[i]/h[i]
-        else:
-            K[i,j] = 0
+def compute_K(mu, h, nx):
+    K = np.zeros((nx,nx), dtype=float)
+    for i in range(1, nx-1):
+        for j in range(1, nx-1):
+            if i==j:
+                K[i,j] = mu[i-1]/h[i-1] + mu[i]/h[i]
+            elif i==j+1:
+                K[i,j] = -mu[i-1]/h[i-1]
+            elif i+1==j:
+                K[i,j] = -mu[i]/h[i]
+            else:
+                K[i,j] = 0
+    
+    K[0,0] = mu[0]/h[0]
+    K[nx-1,nx-1] = mu[nx-1]/h[nx-2]
+    return K
 
-K[0,0] = mu[0]/h[0]
-K[nx-1,nx-1] = mu[nx-1]/h[nx-2]
-
+K = compute_K(mu, h, nx)
+Ksmall = compute_K(mu, h, 40)
 # ---------------------------------------------------------------
 # Display stiffness matrix K
 # ---------------------------------------------------------------
-plt.imshow(K)
+plt.figure()
+img = plt.imshow(Ksmall, cmap='coolwarm')
+img.set_clim(-Ksmall.max(), Ksmall.max())
+cbar = plt.colorbar()
 plt.title('Stiffness Matrix $\mathbf{K}$')
 plt.axis("off")
 
 plt.tight_layout()
 plt.show()
+
 
 # + {"solution2": "hidden", "solution2_first": true, "cell_type": "markdown"}
 # ### 5. Finite differences matrices
@@ -392,30 +408,38 @@ plt.show()
 # + {"solution2": "hidden", "tags": ["solution"]}
 # Initialize finite differences matrices (Eq 6.61)
 # ---------------------------------------------------------------
-Mf = np.zeros((nx,nx), dtype=float)
-D  = np.zeros((nx,nx), dtype=float)
-dx = h[1]
+def compute_M_D_fd(ro, vs, dx , nx):
+    Mf = np.zeros((nx,nx), dtype=float)
+    D  = np.zeros((nx,nx), dtype=float)
+    dx = h[1]
+    
+    for i in range(nx):
+        Mf[i,i] = 1./ro[i]
+        if i>0:
+            if i<nx-1:
+                D[i+1,i] =1
+                D[i-1,i] =1
+                D[i,i] = -2
+                
+    D = ro0 * vs**2 * D/dx**2
+    return Mf,D
 
-for i in range(nx):
-    Mf[i,i] = 1./ro[i]
-    if i>0:
-        if i<nx-1:
-            D[i+1,i] =1
-            D[i-1,i] =1
-            D[i,i] = -2
-            
-D = ro0 * vs**2 * D/dx**2
+Mf,D = compute_M_D_fd(ro, vs, dx , nx)
 
+M_fd_small,D_fd_small = compute_M_D_fd(ro, vs, dx , 40)
 # ---------------------------------------------------------------
 # Display differences matrices
 # ---------------------------------------------------------------
 fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.imshow(D)
+img = ax1.imshow(D_fd_small, cmap='coolwarm')
+img.set_clim(-D_fd_small.max(), D_fd_small.max())
+cbar = fig.colorbar(img, ax=ax1, shrink=0.4)
 ax1.set_title('Stiffness Differential Matrix $\mathbf{D}$')
 ax1.axis("off")
 
-ax2.imshow(Mf)
-ax2.set_title('Stiffness Differential Matrix $\mathbf{M_f}$')
+img2 = ax2.imshow(M_fd_small,cmap='viridis_r')
+cbar2 = fig.colorbar(img2, ax=ax2, shrink=0.4)
+ax2.set_title('Differential Inverse Mass Matrix $\mathbf{M_f}$')
 ax2.axis("off")
 
 plt.tight_layout()
@@ -441,7 +465,6 @@ plt.title('Finite elements 1D Animation', fontsize=16)
 plt.ylabel('Amplitude', fontsize=12)
 plt.xlabel('x (m)', fontsize=12)
 
-plt.ion()   # set interective mode
 plt.show()
 
 # ---------------------------------------------------------------
@@ -470,7 +493,7 @@ for it in range(nt):
         line1 = plt.plot(x, u, 'k', lw=1.5, label='FEM')
         line2 = plt.plot(x, p, 'r', lw=1.5, label='FDM')
         plt.legend()
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 # -
 
 

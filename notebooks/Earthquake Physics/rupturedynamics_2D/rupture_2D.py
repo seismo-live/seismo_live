@@ -159,7 +159,8 @@ import matplotlib.pyplot as plt
 import RK4_2D
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 # -
 
 # In order to show a less time consuming solution the spatial and temporal resolution has been decreased. In the case you would like to increase it, you can modify the grid points in x and y (mantaining their proportions), the snapshot frequency and the fracture mode. 
@@ -550,7 +551,7 @@ for it in range(nt):
         plt.title("time: %.2f" % t)
         plt.axvline(x=0.0)
         image_r.set_data(p_b)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
     
     # Save seismograms
@@ -563,7 +564,6 @@ for it in range(nt):
         seisvy_r[ir_r, it] = F_r[irx_r[ir_r], iry_r[ir_r], 0]    
 
 # Plot seismogram    
-plt.ioff()
 plt.figure(figsize=(10, 10))
 
 plt.subplot(2,1,1)
@@ -609,7 +609,6 @@ plt.xlabel('Depth [km]')
 plt.ylabel('stress [MPa]')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 y_fault = Y_l[-1,:]
@@ -634,10 +633,9 @@ for it in range(nt):
         line3 = ax3.plot(y_fault,slip_,'g')
         line4 = ax4.plot(y_fault,sliprate_,'g')
         line5 = ax5.plot(y_fault,traction_,'g')
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
                    
     
-plt.ioff()
 plt.show()
     
 

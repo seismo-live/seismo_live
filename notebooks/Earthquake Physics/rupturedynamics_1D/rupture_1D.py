@@ -148,7 +148,8 @@ import rate
 import utils
 import timeit
 
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0]}
 # Parameter cell
@@ -346,7 +347,6 @@ plt.xlabel('Time [s]')
 plt.ylabel('stress [MPa]')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 # Loop through time and evolve the wave-fields using ADER time-stepping scheme of N+1 order of accuracy
@@ -391,10 +391,9 @@ for t in utils.drange (0.0, tend+dt,dt):
         ax4.legend(iter(line4),('slip rate'))
         line5 = ax5.plot(time_vector,traction_vector,'g')
         ax5.legend(iter(line5),('traction'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 
-plt.ioff()
 plt.show()
 # Simulation end time
 stop = timeit.default_timer()

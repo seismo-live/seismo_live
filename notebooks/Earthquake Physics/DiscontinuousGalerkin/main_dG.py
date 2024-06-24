@@ -7,8 +7,8 @@ import specdiff
 import utils
 import matplotlib.pyplot as plt
 
-plt.switch_backend("TkAgg")
-plt.ion()
+%matplotlib widget
+from IPython.display import display, clear_output
 
 # Show the plots in the Notebook.
 # plt.switch_backend("nbagg")
@@ -136,7 +136,6 @@ v_2 = np.zeros(len(u_2))
 
 #f.subplots_adjust(wspace=0)
 
-#plt.ion()
 #plt.show()
 
 
@@ -151,7 +150,6 @@ ax2 = fig.add_subplot(2,1,2)
 line2 = ax2.plot(y_1, v_1, 'r', y_1, v_1, 'k--')
 plt.xlabel('x[km]')
 plt.ylabel('stress[MPa]')
-plt.ion()
 plt.show()
     
 #ax1.set_xlim([ax_1, bx_1])
@@ -257,9 +255,8 @@ for t in utils.drange (dt,Tend+dt,dt):
         line1 = ax1.plot(T, Vd, 'k-*')
         line2 = ax2.plot(T, Sd, 'k-*')
         plt.legend(iter(line2), ('Numerical'))
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
-plt.ioff()
 plt.show()
 
 
@@ -284,7 +281,6 @@ plt.show()
 #        line3 = ax3.plot(y_1, 0*Tau_0+v_1, 'r')#,y_1,V_1,'k--')
 #        line4 = ax4.plot(y_2, 0*Tau_0+v_2, 'r')#,y_2,V_2,'k--')
 #    plt.legend(iter(line2), ('Numerical', 'Analytic'))
-#    plt.gcf().canvas.draw()
+#    plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-#plt.ioff()
 #plt.show() 

@@ -221,7 +221,7 @@ inv.select(channel="BHZ").write("temp.xml", format="stationxml")
 # Datacenters on the hand offer **QuakeML** files, which are surprisingly complex in structure but can store detailed relations between pieces of data.
 
 # Read QuakeML files with the read_events() function.
-# cat = obspy.read_events("data/GCMT_2014_08_24__Mw_6_1.xml")
+cat = obspy.read_events("data/GCMT_2014_08_24__Mw_6_1.xml")
 print(cat)
 
 print(cat[0])

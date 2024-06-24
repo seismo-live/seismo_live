@@ -77,8 +77,6 @@
 # This is a configuration step for the exercise. Please run it before the simulation code!
 import numpy as np
 import matplotlib
-# Show Plot in The Notebook
-matplotlib.use("nbagg")
 import matplotlib.pyplot as plt
 
 from gll import gll
@@ -93,11 +91,18 @@ plt.style.use('ggplot')
 n = 1000
 x = np.linspace(-1, 1, n)
 
-# MODIFY f and intf to test different functions!
-f = np.sin(x * np.pi)
+def func(y):
+    return np.sin(y * np.pi)
+    #return np.sin(2.1* y * np.pi) + np.exp(y/2) + 1/(2+y)
+
+f = func(x)
 
 # Analytical value of the DEFINITE integral from -1 to 1
-intf = 1.0 / np.pi * (-np.cos(1.0 * np.pi) + np.cos(-1.0 * np.pi))
+def integral_func(y):
+    return -np.cos(y * np.pi)
+    #return (-np.cos(2.1* y * np.pi)/(2.1* np.pi) + 2 *  np.exp(y/2)) + np.log(2+y)
+
+intf = integral_func(1) - integral_func(-1)
 
 # Choose order
 N = 4
@@ -128,6 +133,7 @@ print('Solution of the analytical integral: %g' % intf)
 print('Solution of the numerical integral: %g' % intfn)
 
 # Plot results.
+plt.close('all')
 plt.figure(figsize=(10, 5))
 plt.plot(x, f, 'k-', label='Analytical Function')
 

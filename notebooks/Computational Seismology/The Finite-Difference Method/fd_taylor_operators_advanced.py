@@ -243,33 +243,35 @@ plt.show()
 # Define a simple function, e.g. sine, cosine, gaussian, some polynomial, ..., differentiate it using the stencils returned from the above function and compare the result to the analytically calculated derivative.
 
 # +
-sine_curve = np.sin(np.linspace(0, 10 * np.pi, 10000))
-dx = 10 * np.pi / 10000
+x = np.linspace(0, 3 * np.pi, 100)
+k = 5
+f = np.sin(k*x)
+df_analytical = k*np.cos(k*x)
+dx = x[1]
 
 plt.figure(figsize=(12, 6))
 plt.subplot(211)
-plt.plot(sine_curve)
+plt.plot(f)
 
-stencil = central_difference_coefficients(5, 1)
+nop = 5 # Length of operator
+n_half_stencil = (nop - 1) // 2
+stencil = central_difference_coefficients(nop, 1)
 
 # Dummy application.
-cosine_curve = np.zeros(len(sine_curve))
-for _i in range(2, len(sine_curve) - 2):
-    cosine_curve[_i] = stencil[0] * sine_curve[_i - 2] + stencil[1] * sine_curve[_i - 1] + \
-        stencil[2] * sine_curve[_i] + stencil[3] * sine_curve[_i + 1] + \
-        stencil[4] * sine_curve[_i + 2]
+df = np.zeros(len(f))
+for _i in range(n_half_stencil, len(f) - n_half_stencil):
+    for j in range(0, nop):  
+       df[_i] = df[_i] + stencil[j] * f[_i - n_half_stencil + j]
+
 # Scale by dt.
-cosine_curve /= dx
+df /= dx
 
 plt.subplot(212)
-plt.plot(cosine_curve[10:-10], label="Numerical derivative", lw=2)
-plt.plot(np.cos(np.linspace(0, 10 * np.pi, 10000))[10:-10], ls="--",
+plt.plot(df[n_half_stencil:-n_half_stencil], label="Numerical derivative", lw=2)
+plt.plot(df_analytical[n_half_stencil:-n_half_stencil], ls="--",
          label="Analytic derivative")
-plt.ylim(-1.1, 1.1)
-plt.xlim(0, 9980)
 plt.legend()
 plt.show()
-
 
 # -
 
@@ -313,18 +315,33 @@ def diff_helper(x, data, analytical_diff, stencil_length, diff_order):
 
 x = np.linspace(-2, 2, 150)
 p = np.poly1d([1, 0, -2, 1, 0])
-p_diff = np.poly1d([4, 0, -4, 1])
+print(p)
+p_diff = np.polyder(p)
 diff_helper(x, p(x), p_diff(x), 3, 1)
 
 
-# ## Bonus: Theoretical Accuray
+# ## Bonus: Theoretical Accuracy
+# The Fourier Transform of the derivative $f'(x)$ is given by:
+# $$
+# F'(ω) = iωF(ω)
+# $$
+# 
+# We can also take the Fourier Transform of a finite difference operator, for example, the centered difference scheme for the first-order derivative :
+# $$
+# f'(x) ≈ \frac{f(x + h) - f(x - h)}{2h}
+# $$
+# Noting that in the spectral domain, a time shift corresponds to multiplication by a complex exponential function, we get:
+# $$
+# F'(ω) ≈ \frac{e^{iωh} - e^{-iωh}}{2h}F(ω)
+# $$
+# Below, we apply this idea and plot the theoretical accuracy of finite difference operator of increasing length. 
 
 # +
 def H(N, omega):
     coeffs = central_difference_coefficients(N, 1)
-    HH = np.zeros_like(omega)
+    HH = np.zeros_like(omega, dtype='complex')
     for _i, c in enumerate(coeffs):
-        HH += c * np.sin((-(N // 2) + _i) * omega)
+        HH += c * np.exp((-(N // 2) + _i) * omega *1j)
     return HH
 
 
@@ -334,7 +351,7 @@ f = omega / (2 * np.pi)
 
 plt.plot(f * 200, omega, color='0.2', ls="--")
 for _i in range(3, 17, 2):
-    plt.plot(f * 200, H(_i, omega), label="%i points" % _i)
+    plt.plot(f * 200, np.abs(H(_i, omega)), label="%i points" % _i)
 plt.legend(loc="upper left")
 plt.xlabel("% Nyquist")
 plt.ylabel("$|H(\omega)|$")

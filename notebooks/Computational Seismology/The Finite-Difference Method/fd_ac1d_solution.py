@@ -192,7 +192,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # Sub-plot Configuration
@@ -240,7 +241,6 @@ src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) **
 
 # Plot position configuration
 # ---------------------------
-plt.ion()
 fig1 = plt.figure(figsize=(12, 6))
 gs1  = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
@@ -306,7 +306,6 @@ lim  = Gc.max() # get limit value from the maximum amplitude
 
 # Plot position configuration
 # ---------------------------
-plt.ion()
 fig2  = plt.figure(figsize=(12, 6))
 gs2   = gridspec.GridSpec(1, 2, width_ratios=[1, 1], hspace=0.3, wspace=0.3)
 
@@ -391,7 +390,7 @@ for it in range(nt):
         up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
 # + {"tags": ["solution"], "cell_type": "markdown"}
 # #### Solution:
@@ -443,4 +442,4 @@ for it in range(nt):
         up31.set_ydata(p)
         up41.set_ydata(seis)
         up42.set_data(time[it], seis[it])
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)

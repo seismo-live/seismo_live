@@ -78,7 +78,8 @@
 import numpy as np
 import matplotlib
 # Show Plot in The Notebook
-matplotlib.use("nbagg")
+%matplotlib widget
+from IPython.display import display, clear_output
 import matplotlib.pyplot as plt
 
 # -
@@ -172,7 +173,6 @@ plt.xlabel('Position, $x$', size=16)
 plt.legend(loc=4)
 plt.grid(True)
 
-plt.ion()   # set interective mode
 plt.show()
 # ---------------------------------------------------------------
 for it in range(nt):
@@ -192,7 +192,7 @@ for it in range(nt):
             del l        
         line1 = plt.plot(x, xfe, color='r', lw=2)
         line2 = plt.plot(xfd, fd, color='k', ls='-.')
-        plt.gcf().canvas.draw()    
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)    
 # -
 
 

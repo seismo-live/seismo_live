@@ -153,7 +153,8 @@ import matplotlib.pyplot as plt
 import timeit                         # to check the simulation time
 
 #plt.switch_backend("TkAgg")          # plots in external window
-plt.switch_backend("nbagg")           # plots within this notebook
+%matplotlib widget
+from IPython.display import display, clear_output           # plots within this notebook
 
 # + {"code_folding": [0, 16, 24, 42, 47]}
 # Simulation start time
@@ -288,7 +289,6 @@ ax4.set_ylim([10**-5, 1])
 plt.title('relative error in stress')
 
 plt.tight_layout()
-plt.ion()
 plt.show()
 
 A = (np.linalg.norm(1/np.sqrt(2.0*np.pi*delta**2)*0.5*Zs*(np.exp(-(y+cs*(t+1*0.5)-x0)**2/(2.0*delta**2))\
@@ -351,9 +351,8 @@ for t in utils.drange (0.0, Tend+dt,dt):
         ax3.set_yscale("log")#, nonposx='clip')
         line4 = ax4.plot(T, EV, 'k--')
         ax4.set_yscale("log")#, nonposx='clip')
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
        
-plt.ioff()
 plt.show()
 
 # Simulation end time

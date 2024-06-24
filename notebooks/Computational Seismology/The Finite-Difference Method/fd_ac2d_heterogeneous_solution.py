@@ -119,7 +119,8 @@
 
 # + {"code_folding": [0]}
 # This is a configuration step for the exercise. Please run it before the simulation code! 
-# %matplotlib notebook
+%matplotlib widget
+from IPython.display import display, clear_output
 import numpy as np
 import matplotlib.pyplot as plt
 # -
@@ -131,6 +132,7 @@ import matplotlib.pyplot as plt
 # Acoustic wave equation  p_tt = c^2 p_xx + src
 # 2-D regular grid
 
+plt.close('all')
 nx = 200      # grid points in x
 nz = 200      # grid points in z
 nt = 750      # number of time steps
@@ -147,7 +149,7 @@ nop = 3       # length of operator
 
 # Model type, available are "homogeneous", "fault_zone",
 # "surface_low_velocity_zone", "random", "topography",
-# "slab"
+#  "topography_gauss", "slab"
 model_type = "homogeneous"
 
 # Receiver locations
@@ -184,7 +186,15 @@ elif model_type == "topography":
     c[0 : 10, 105 : 115] = 0                       
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
-    c[0 : 15, 50 : 105] *= 0.8    
+    c[0 : 15, 50 : 105] = 0
+elif model_type == "topography_gauss":
+    c += c0
+    xi = np.arange(nx)
+    zi = np.arange(nz)
+    sigma_topo=20
+    ztopo = 5* (1-np.exp(-(xi-nx//2)**2/(2*sigma_topo**2)))
+    for i in range(nx):
+        c[zi < ztopo[i],i] = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
@@ -196,12 +206,12 @@ else:
 cmax = c.max()
 
 # Source time function Gaussian, nt + 1 as we loose the last one by diff
-src = np.empty(nt + 1)
+src = np.empty(nt)
 for it in range(nt):
     src[it] = np.exp(-1.0 / T ** 2 * ((it - ist) * dt) ** 2)
 # Take the first derivative
-src = np.diff(src) / dt
-src[nt - 1] = 0
+src = np.gradient(src) / dt
+src[-1] = 0
 
 v = max([np.abs(src.min()), np.abs(src.max())])
 # Initialize animated plot
@@ -218,7 +228,6 @@ plt.xlabel('ix')
 plt.ylabel('iz')
 
 
-plt.ion()
 plt.show()
 
 
@@ -256,7 +265,7 @@ for it in range(nt):
         
         plt.title("Max P: %.2f" % p.max())
         image.set_data(pnew)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
     pold, p = p, pnew
 
@@ -271,6 +280,7 @@ for it in range(nt):
 # Acoustic wave equation  p_tt = c^2 p_xx + src
 # 2-D regular grid
 
+plt.close('all')
 nx = 200      # grid points in x
 nz = 200      # grid points in z
 nt = 750      # number of time steps
@@ -287,7 +297,7 @@ nop = 3       # length of operator
 
 # Model type, available are "homogeneous", "fault_zone",
 # "surface_low_velocity_zone", "random", "topography",
-# "slab"
+#  "topography_gauss", "slab"
 model_type = "slab"
 
 # Receiver locations
@@ -324,7 +334,15 @@ elif model_type == "topography":
     c[0 : 10, 105 : 115] = 0                       
     c[0 : 30, 145 : 170] = 0
     c[10 : 40, 20 : 40]  = 0
-    c[0 : 15, 50 : 105] *= 0.8    
+    c[0 : 15, 50 : 105]  = 0
+elif model_type == "topography_gauss":
+    c += c0
+    xi = np.arange(nx)
+    zi = np.arange(nz)
+    sigma_topo=20
+    ztopo = 5* (1-np.exp(-(xi-nx//2)**2/(2*sigma_topo**2)))
+    for i in range(nx):
+        c[zi < ztopo[i],i] = 0
 elif model_type == "slab":
     c += c0
     c[110 : 125, 0 : 125] = 1.4 * c0
@@ -336,12 +354,12 @@ else:
 cmax = c.max()
 
 # Source time function Gaussian, nt + 1 as we loose the last one by diff
-src = np.empty(nt + 1)
+src = np.empty(nt)
 for it in range(nt):
     src[it] = np.exp(-1.0 / T ** 2 * ((it - ist) * dt) ** 2)
 # Take the first derivative
-src = np.diff(src) / dt
-src[nt - 1] = 0
+src = np.gradient(src) / dt
+src[-1] = 0
 
 v = max([np.abs(src.min()), np.abs(src.max())])
 # Initialize animated plot
@@ -358,7 +376,6 @@ plt.xlabel('ix')
 plt.ylabel('iz')
 
 
-plt.ion()
 plt.show(block=False)
 
 
@@ -400,7 +417,7 @@ for it in range(nt):
         
         plt.title("Max P: %.2f" % p.max())
         image.set_data(pnew)
-        plt.gcf().canvas.draw()
+        plt.gcf().canvas.draw(); display(plt.gcf()); clear_output(wait=True)
 
     pold, p = p, pnew
 
@@ -413,7 +430,6 @@ for it in range(nt):
 # + {"code_folding": [0]}
 # Plot the source time function and the seismograms 
 
-plt.ioff()
 plt.figure(figsize=(12, 12))
 
 plt.subplot(221)
@@ -440,6 +456,10 @@ for ir in range(len(seis)):
 plt.subplot(224)
 # The velocity model is influenced by the Earth model above
 plt.title('Velocity Model')
+# Plot the receivers and the source
+for x, z in zip(irx, irz):
+    plt.text(x, z, '+')
+plt.text(isx, isz, 'o')
 plt.imshow(c)
 plt.xlabel('ix')
 plt.ylabel('iz')
@@ -447,5 +467,3 @@ plt.colorbar()
 
 plt.show()
 # -
-
-
